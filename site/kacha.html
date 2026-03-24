@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="カチャ — 開いた、ウェルカム。スマートホームと民泊物件をまとめて管理するアプリ。">
+<meta name="theme-color" content="#0A0A12">
+<meta property="og:title" content="カチャ — スマートホーム管理">
+<meta property="og:description" content="鍵・照明・民泊をまとめて管理。E2E暗号化で安全にシェア。">
+<title>カチャ — スマートホーム管理アプリ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A12;--surface:#0e0e1a;--card:#141428;--border:rgba(255,255,255,.06);--primary:#E8A838;--accent:#3B9FE8;--success:#10B981;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+.container{max-width:900px;margin:0 auto;padding:0 24px}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px;text-align:center}
+.hero h1{font-size:clamp(36px,8vw,64px);font-weight:900;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.hero p{color:var(--dim);font-size:18px;max-width:600px;margin:0 auto 32px}
+.hero .tagline{font-size:14px;color:var(--primary);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.cta{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:var(--primary);color:#000;font-weight:700;border-radius:12px;text-decoration:none;font-size:16px;transition:.2s}
+.cta:hover{opacity:.9;transform:translateY(-2px)}
+
+.features{padding:80px 24px}
+.features h2{text-align:center;font-size:28px;margin-bottom:48px;color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+.card h3{font-size:16px;margin-bottom:8px;color:var(--primary)}
+.card p{font-size:14px;color:var(--dim)}
+.card .icon{font-size:28px;margin-bottom:12px}
+
+.security{padding:60px 24px;text-align:center}
+.security h2{font-size:24px;margin-bottom:16px}
+.security p{color:var(--dim);max-width:500px;margin:0 auto 24px}
+.badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.badge{padding:8px 16px;border-radius:30px;font-size:12px;font-weight:600;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);color:var(--success)}
+
+footer{padding:40px 24px;text-align:center;color:var(--dim);font-size:13px}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+
+<section class="hero">
+<div>
+<div class="tagline">Smart Home Management</div>
+<h1>カチャ</h1>
+<p>開いた、ウェルカム。<br>スマートホームデバイスと民泊物件をまとめて管理。<br>E2E暗号化で安全にゲストとシェア。</p>
+<a class="cta" href="https://apps.apple.com/app/id6760736346">App Storeで開く</a>
+</div>
+</section>
+
+<section class="features">
+<div class="container">
+<h2>できること</h2>
+<div class="grid">
+<div class="card"><div class="icon">🔐</div><h3>スマートロック</h3><p>SwitchBot、Sesame、Nuki対応。施錠/解錠をワンタップで。オートロック遠隔解除も。</p></div>
+<div class="card"><div class="icon">💡</div><h3>照明制御</h3><p>Philips Hue対応。おかえり/おでかけ/おやすみシーンをワンタップ。</p></div>
+<div class="card"><div class="icon">🔒</div><h3>E2E暗号化シェア</h3><p>AES-256-GCMで端末上で暗号化。サーバーに平文は保存されない。期間指定+取り消し可能。</p></div>
+<div class="card"><div class="icon">📅</div><h3>Beds24連携</h3><p>予約を自動同期。物件を自動検出。Airbnb/Booking.com/じゃらん対応。</p></div>
+<div class="card"><div class="icon">👥</div><h3>チーム管理</h3><p>ゲスト/清掃/マネージャー/オーナー代理の4段階権限。それぞれに必要な情報だけ共有。</p></div>
+<div class="card"><div class="icon">📊</div><h3>収支レポート</h3><p>月別売上グラフ、プラットフォーム別内訳、光熱費トラッキング。</p></div>
+<div class="card"><div class="icon">🏠</div><h3>複数物件</h3><p>スワイプで物件切り替え。ダッシュボードで全物件の予約を一覧。</p></div>
+<div class="card"><div class="icon">📱</div><h3>ゲストカード</h3><p>WiFi QRコード、ドアコード、近隣施設情報を4言語で表示。</p></div>
+<div class="card"><div class="icon">📋</div><h3>ハウスマニュアル</h3><p>14テンプレートから選んでタップで作成。WiFi/ドアコード自動入力。</p></div>
+</div>
+</div>
+</section>
+
+<section class="security">
+<h2>セキュリティ</h2>
+<p>データはすべてiPhoneのローカルに保存。広告なし、トラッキングなし。</p>
+<div class="badges">
+<div class="badge">AES-256-GCM E2E暗号化</div>
+<div class="badge">広告なし</div>
+<div class="badge">トラッキングなし</div>
+<div class="badge">Keychainバックアップ</div>
+</div>
+</section>
+
+<footer>
+<p>&copy; 2026 カチャ by <a href="https://enablerdao.com">Enabler</a> &mdash; <a href="/privacy">プライバシーポリシー</a> &middot; <a href="/support">サポート</a></p>
+<p style="margin-top:8px"><a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a></p>
+</footer>
+
+</body>
+</html>
