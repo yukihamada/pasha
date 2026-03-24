@@ -1,0 +1,185 @@
+default_platform(:ios)
+
+XCODEPROJ = "Pasha.xcodeproj"
+SCHEME    = "Pasha"
+BUNDLE_ID = "com.enablerdao.pasha"
+TEAM_ID   = "5BV85JW8US"
+PROFILE   = "com.enablerdao.pasha AppStore"
+OUTPUT_DIR = "build"
+
+platform :ios do
+  # ──────────────────────────────────────────────
+  # Shared: App Store Connect API key
+  # ──────────────────────────────────────────────
+  desc "Return an App Store Connect API key object"
+  private_lane :api_key do
+    app_store_connect_api_key(
+      key_id: "5KT46G9Y29",
+      issuer_id: "e0d22675-afb3-45f0-a821-06b477f44da0",
+      key_filepath: File.expand_path("~/.appstoreconnect/private_keys/AuthKey_5KT46G9Y29.p8"),
+      in_house: false
+    )
+  end
+
+  # ──────────────────────────────────────────────
+  # Shared: XcodeGen + build number
+  # ──────────────────────────────────────────────
+  desc "Generate Xcode project from project.yml"
+  private_lane :generate_project do
+    Dir.chdir("..") do
+      sh("xcodegen", "generate")
+    end
+  end
+
+  desc "Set build number to latest TestFlight + 1"
+  private_lane :bump_build_number do |options|
+    key = options[:api_key]
+    latest = latest_testflight_build_number(
+      api_key: key,
+      app_identifier: BUNDLE_ID,
+      initial_build_number: 0
+    )
+    new_build = latest + 1
+    UI.message("Build number: #{latest} -> #{new_build}")
+    increment_build_number(
+      build_number: new_build,
+      xcodeproj: XCODEPROJ
+    )
+    new_build
+  end
+
+  # ──────────────────────────────────────────────
+  # beta: TestFlight upload
+  # ──────────────────────────────────────────────
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    key = api_key
+
+    generate_project
+    bump_build_number(api_key: key)
+
+    build_app(
+      project: XCODEPROJ,
+      scheme: SCHEME,
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: OUTPUT_DIR,
+      output_name: "Pasha.ipa",
+      destination: "generic/platform=iOS",
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: {
+          BUNDLE_ID => PROFILE
+        }
+      },
+      codesigning_identity: "Apple Distribution",
+      export_team_id: TEAM_ID,
+      xcargs: "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=#{TEAM_ID} PROVISIONING_PROFILE_SPECIFIER='#{PROFILE}'"
+    )
+
+    upload_to_testflight(
+      api_key: key,
+      skip_waiting_for_build_processing: true,
+      skip_submission: true
+    )
+
+    UI.success("Successfully uploaded to TestFlight!")
+  end
+
+  # ──────────────────────────────────────────────
+  # release: App Store submission
+  # ──────────────────────────────────────────────
+  desc "Build and submit to App Store review"
+  lane :release do
+    key = api_key
+
+    generate_project
+    bump_build_number(api_key: key)
+
+    build_app(
+      project: XCODEPROJ,
+      scheme: SCHEME,
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: OUTPUT_DIR,
+      output_name: "Pasha.ipa",
+      destination: "generic/platform=iOS",
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: {
+          BUNDLE_ID => PROFILE
+        }
+      },
+      codesigning_identity: "Apple Distribution",
+      export_team_id: TEAM_ID,
+      xcargs: "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=#{TEAM_ID} PROVISIONING_PROFILE_SPECIFIER='#{PROFILE}'"
+    )
+
+    upload_to_app_store(
+      api_key: key,
+      skip_metadata: true,
+      skip_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      submit_for_review: true,
+      automatic_release: false,
+      force: true,
+      submission_information: {
+        add_id_info_uses_idfa: false
+      }
+    )
+
+    UI.success("Successfully submitted to App Store review!")
+  end
+
+  # ──────────────────────────────────────────────
+  # test: Run unit tests
+  # ──────────────────────────────────────────────
+  desc "Run tests"
+  lane :test do
+    generate_project
+
+    run_tests(
+      project: XCODEPROJ,
+      scheme: SCHEME,
+      devices: ["iPhone 16 Pro"],
+      clean: true,
+      code_coverage: true
+    )
+  end
+
+  # ──────────────────────────────────────────────
+  # build: Build only (no upload)
+  # ──────────────────────────────────────────────
+  desc "Build without uploading (validation)"
+  lane :build do
+    generate_project
+
+    build_app(
+      project: XCODEPROJ,
+      scheme: SCHEME,
+      configuration: "Release",
+      export_method: "app-store",
+      output_directory: OUTPUT_DIR,
+      output_name: "Pasha.ipa",
+      destination: "generic/platform=iOS",
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: {
+          BUNDLE_ID => PROFILE
+        }
+      },
+      codesigning_identity: "Apple Distribution",
+      export_team_id: TEAM_ID,
+      xcargs: "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=#{TEAM_ID} PROVISIONING_PROFILE_SPECIFIER='#{PROFILE}'"
+    )
+
+    UI.success("Build succeeded: #{OUTPUT_DIR}/Pasha.ipa")
+  end
+
+  # ──────────────────────────────────────────────
+  # Error handler
+  # ──────────────────────────────────────────────
+  error do |lane, exception|
+    UI.error("Lane '#{lane}' failed: #{exception.message}")
+  end
+end

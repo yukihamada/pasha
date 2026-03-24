@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ポン — 決まった、ポン。フリーランスのための契約管理アプリ。NDA・受託開発・保守契約をスマホで管理。">
+<meta name="theme-color" content="#08080f">
+<meta property="og:title" content="ポン — 決まった、ポン。">
+<meta property="og:description" content="契約管理アプリ。NDA・受託開発・保守をスマホで。ステータス追跡、PDF生成、共有。">
+<title>ポン — 決まった、ポン。契約管理アプリ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#08080f;--surface:#0e0e1a;--card:#141428;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--primary:#4cc9f0;--accent:#7b2fbe;--success:#06d6a0;--warn:#ffd60a;--danger:#ef233c;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(8,8,15,.75);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--dim);font-size:13px;text-decoration:none;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:8px 20px;border-radius:10px;background:var(--accent);color:#fff!important;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
+.nav-cta:hover{opacity:.9}
+@media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(123,47,190,.07),transparent 60%);top:-350px;left:-200px;pointer-events:none}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:30px;font-size:12px;font-weight:600;background:rgba(123,47,190,.1);border:1px solid rgba(123,47,190,.2);color:var(--accent);margin-bottom:20px}
+.suite-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(76,201,240,.08);border:1px solid rgba(76,201,240,.15);color:var(--primary);text-decoration:none;margin-bottom:12px;transition:.2s}
+.suite-badge:hover{background:rgba(76,201,240,.15)}
+.hero h1{font-size:clamp(34px,5.5vw,56px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:20px}
+.hero h1 span{background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:18px;color:var(--dim);max-width:580px;margin:0 auto 36px}
+.hero-sub strong{color:var(--text)}
+.btn{padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(123,47,190,.3)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:rgba(255,255,255,.15)}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.cta-sub{font-size:12px;color:var(--dim);margin-bottom:24px}
+
+section{padding:100px 0}
+.section-surface{background:var(--surface)}
+h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--dim);text-align:center;max-width:600px;margin:0 auto 48px}
+
+/* Trust bar */
+.trust-bar{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:48px 24px 0}
+.trust-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px 32px;text-align:center;min-width:160px;transition:.3s}
+.trust-card:hover{border-color:rgba(123,47,190,.15);transform:translateY(-2px)}
+.trust-num{font-size:clamp(28px,4vw,36px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.trust-label{font-size:12px;color:var(--dim);margin-top:4px;font-weight:500}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.feature{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:28px;transition:.3s}
+.feature:hover{transform:translateY(-4px);border-color:rgba(123,47,190,.15)}
+.feature-emoji{font-size:32px;margin-bottom:12px}
+.feature h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.feature p{font-size:13px;color:var(--dim)}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.step{padding:32px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.3s}
+.step:hover{border-color:rgba(123,47,190,.15);transform:translateY(-4px)}
+.step-num{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:16px;background:rgba(123,47,190,.1);color:var(--accent)}
+.step h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.step p{font-size:14px;color:var(--dim);line-height:1.6}
+@media(max-width:768px){.steps{grid-template-columns:1fr}}
+
+/* Status flow */
+.status-flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;max-width:800px;margin:0 auto}
+.status-pill{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;border:1px solid var(--border)}
+.status-arrow{color:var(--dim);font-size:18px}
+@media(max-width:640px){.status-arrow{display:none}.status-flow{gap:6px}.status-pill{padding:8px 14px;font-size:11px}}
+
+/* Contract types */
+.types{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:800px;margin:0 auto}
+@media(max-width:640px){.types{grid-template-columns:repeat(2,1fr)}}
+.type-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:.3s}
+.type-card:hover{transform:translateY(-4px)}
+.type-icon{font-size:36px;margin-bottom:10px}
+.type-name{font-size:15px;font-weight:700}
+.type-desc{font-size:11px;color:var(--dim);margin-top:4px}
+
+/* Testimonials */
+.voice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.voice{padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);transition:.3s}
+.voice:hover{border-color:rgba(123,47,190,.12)}
+.voice-quote{font-size:15px;line-height:1.8;margin-bottom:16px;color:var(--text)}
+.voice-quote::before{content:'\201C';font-size:32px;color:var(--accent);opacity:.4;line-height:1;display:block;margin-bottom:4px}
+.voice-author{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--dim)}
+.voice-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(123,47,190,.15),rgba(76,201,240,.15));display:flex;align-items:center;justify-content:center;font-size:16px}
+
+/* FAQ */
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text);transition:.2s}
+.faq-q:hover{color:var(--accent)}
+.faq-q::after{content:'+';font-size:20px;color:var(--dim);transition:.3s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:var(--dim);line-height:1.8}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding-top:12px}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+
+.sister-row{display:flex;gap:12px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+.sister-link{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border);color:var(--dim);transition:.2s}
+.sister-link:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+
+/* Floating cross-promo */
+.float-banner{position:fixed;bottom:0;left:0;right:0;z-index:99;padding:12px 24px;background:rgba(8,8,15,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .4s ease}
+.float-banner.show{transform:translateY(0)}
+.float-banner-text{font-size:13px;color:var(--dim);font-weight:500}
+.float-banner a{color:var(--primary);text-decoration:none;font-weight:700;font-size:13px}
+.float-banner-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;padding:4px 8px}
+
+footer{text-align:center;padding:40px 24px 80px;border-top:1px solid var(--border);color:var(--dim);font-size:12px}
+footer a{color:var(--primary);text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="/pon" class="nav-logo">ポン</a>
+    <div class="nav-links">
+        <a href="/suite">5点セット</a>
+        <a href="/">パシャ</a>
+        <a href="/charin">チャリン</a>
+        <a href="/poi">ポイッ</a>
+        <a href="/sakutsu">サクッ</a>
+        <a href="https://pon-sign.fly.dev" class="nav-cta">Web版を試す</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <a href="/suite" class="suite-badge">&#x2728; 5点セットで確定申告を完結 &rarr;</a>
+        <div class="badge">&#x270B; パシャ・チャリンの姉妹アプリ</div>
+        <h1>契約書、<br><span>CloudSignの20分の1</span>で。</h1>
+        <p class="hero-sub">
+            NDA、受託開発、保守、コンサル。<br>
+            <strong>23種類のテンプレート</strong>から選んで<strong>Web署名</strong>で完結。月&#165;480。
+        </p>
+        <div class="cta-row" id="download">
+            <a href="https://pon-sign.fly.dev" class="btn btn-primary">Web版を試す</a>
+            <a href="/suite" class="btn btn-outline">5点セットを見る</a>
+        </div>
+        <p class="cta-sub">早期登録で Pro 1ヶ月無料</p>
+        <div style="margin-top:40px;">
+            <img src="/img/pon_hero.png" alt="ポン 電子署名" style="max-width:600px;width:100%;border-radius:20px;box-shadow:0 40px 80px rgba(0,0,0,.5);">
+        </div>
+    </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar reveal">
+    <div class="trust-card">
+        <div class="trust-num">23種類</div>
+        <div class="trust-label">契約テンプレート</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">5段階</div>
+        <div class="trust-label">ステータス管理</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">PDF出力</div>
+        <div class="trust-label">契約書を即共有</div>
+    </div>
+</div>
+
+<!-- How it Works -->
+<section>
+    <div class="container">
+        <h2 class="reveal">カンタン3ステップ</h2>
+        <p class="section-sub reveal">契約の作成から管理まで、たったの3ステップ。</p>
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step-num">1</div>
+                <h3>契約を作成</h3>
+                <p>タイトル・相手方・種別・金額・期間を入力するだけ。契約番号は自動採番。</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">2</div>
+                <h3>相手に送付</h3>
+                <p>メール・AirDrop・LINEでワンタップ送付。PDFで即共有できる。</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">3</div>
+                <h3>ステータス管理</h3>
+                <p>下書き、送付済、署名済、有効、期限切れ。ワンタップでステータスを進行。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contract Types -->
+<section class="section-surface">
+    <div class="container">
+        <h2 class="reveal">4つの契約テンプレート</h2>
+        <p class="section-sub reveal">よく使う契約をワンタップで作成。</p>
+        <div class="types">
+            <div class="type-card reveal" style="border-color:rgba(255,214,10,.1)">
+                <div class="type-icon">&#x1F512;</div>
+                <div class="type-name" style="color:var(--warn)">NDA</div>
+                <div class="type-desc">秘密保持契約</div>
+            </div>
+            <div class="type-card reveal" style="border-color:rgba(123,47,190,.1)">
+                <div class="type-icon">&#x1F4BB;</div>
+                <div class="type-name" style="color:var(--accent)">受託開発</div>
+                <div class="type-desc">開発業務委託</div>
+            </div>
+            <div class="type-card reveal" style="border-color:rgba(76,201,240,.1)">
+                <div class="type-icon">&#x1F527;</div>
+                <div class="type-name" style="color:var(--primary)">保守契約</div>
+                <div class="type-desc">月額メンテナンス</div>
+            </div>
+            <div class="type-card reveal" style="border-color:rgba(247,37,133,.1)">
+                <div class="type-icon">&#x1F4AC;</div>
+                <div class="type-name" style="color:#f72585">コンサル</div>
+                <div class="type-desc">コンサルティング</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Status Flow -->
+<section>
+    <div class="container">
+        <h2 class="reveal">契約のライフサイクルを管理</h2>
+        <p class="section-sub reveal">ワンタップでステータスを進行。全契約の状態が一目でわかる。</p>
+        <div class="status-flow reveal">
+            <div class="status-pill" style="background:rgba(255,255,255,.05);color:var(--dim)">下書き</div>
+            <div class="status-arrow">&rarr;</div>
+            <div class="status-pill" style="background:rgba(76,201,240,.08);color:var(--primary)">送付済</div>
+            <div class="status-arrow">&rarr;</div>
+            <div class="status-pill" style="background:rgba(6,214,160,.08);color:var(--success)">署名済</div>
+            <div class="status-arrow">&rarr;</div>
+            <div class="status-pill" style="background:rgba(123,47,190,.1);color:var(--accent);border-color:rgba(123,47,190,.2)">有効</div>
+            <div class="status-arrow">&rarr;</div>
+            <div class="status-pill" style="background:rgba(255,214,10,.06);color:var(--warn)">期限切れ</div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="section-surface">
+    <div class="container">
+        <h2 class="reveal">ポンでできること</h2>
+        <p class="section-sub reveal">フリーランスの契約まわりを、これ1つで。</p>
+        <div class="features">
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4DD;</div>
+                <h3>かんたん契約作成</h3>
+                <p>タイトル、相手方、種別、金額、期間を入力するだけ。契約番号は自動採番。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4CA;</div>
+                <h3>レポート & 分析</h3>
+                <p>月別契約数、種別割合、ステータス内訳をSwift Chartsで可視化。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4E4;</div>
+                <h3>共有 & エクスポート</h3>
+                <p>契約内容をテキストで即共有。メール、LINE、Slackどこでも。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4B0;</div>
+                <h3>金額トラッキング</h3>
+                <p>アクティブ契約の総額を常に把握。JPY・USD対応。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F50D;</div>
+                <h3>検索 & フィルター</h3>
+                <p>タイトル、相手方、契約番号で検索。ステータスでフィルター。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F517;</div>
+                <h3>パシャ・チャリン連携</h3>
+                <p>ポンで契約、チャリンで請求、パシャで経費。フリーランス完全フロー。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Table -->
+<section>
+    <div class="container">
+        <h2 class="reveal">他社との比較</h2>
+        <p class="section-sub reveal">CloudSignの20分の1の価格で、フリーランスに必要な機能を。</p>
+        <div style="max-width:700px;margin:0 auto;overflow-x:auto" class="reveal">
+            <table style="width:100%;border-collapse:collapse;font-size:14px">
+                <thead>
+                    <tr style="border-bottom:2px solid var(--border)">
+                        <th style="padding:14px 16px;text-align:left;color:var(--dim);font-weight:600"></th>
+                        <th style="padding:14px 16px;text-align:center;color:var(--accent);font-weight:800">ポン</th>
+                        <th style="padding:14px 16px;text-align:center;color:var(--dim);font-weight:600">CloudSign</th>
+                        <th style="padding:14px 16px;text-align:center;color:var(--dim);font-weight:600">DocuSign</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:12px 16px;font-weight:600">月額</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--accent);font-weight:700">&#165;480</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#165;10,000~</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#165;3,000~</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:12px 16px;font-weight:600">日本語テンプレート</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success);font-weight:700">23種類</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&times;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&times;</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:12px 16px;font-weight:600">Web署名</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:12px 16px;font-weight:600">フリーランス向け</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--accent);font-weight:700">&#9678;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#9651;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#9651;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Developer Story -->
+<section class="section-surface">
+    <div class="container">
+        <h2 class="reveal">開発者より</h2>
+        <div style="max-width:700px;margin:0 auto;display:flex;gap:20px;align-items:flex-start;padding:28px;border-radius:16px;background:var(--glass);border:1px solid var(--border)" class="reveal">
+            <div style="font-size:40px;flex-shrink:0">&#x1F468;&#x200D;&#x1F4BB;</div>
+            <div>
+                <div style="font-size:16px;font-weight:700;margin-bottom:8px">開発者より</div>
+                <p style="font-size:15px;color:var(--dim);line-height:1.9;margin-bottom:12px">フリーランスエンジニアとして、自分が毎日使いたいツールを作りました。freeeは機能が多すぎ、CloudSignは高すぎ。もっとシンプルに、もっと安く。</p>
+                <p style="color:var(--accent);font-size:14px;font-weight:600">&mdash; Yuki Hamada, フリーランスエンジニア</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section>
+    <div class="container">
+        <h2 class="reveal">シンプルな料金</h2>
+        <p class="section-sub reveal">CloudSignの20分の1。まずは無料で。</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;margin:0 auto" class="reveal">
+            <div style="padding:32px;border-radius:16px;background:var(--glass);border:1px solid var(--border);text-align:center">
+                <div style="font-size:14px;color:var(--dim);font-weight:600;margin-bottom:8px">FREE</div>
+                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;0</div>
+                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">ずっと無料</div>
+                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
+                    <li style="padding:6px 0">3契約まで管理</li>
+                    <li style="padding:6px 0">基本テンプレート</li>
+                    <li style="padding:6px 0">ステータス管理</li>
+                </ul>
+            </div>
+            <div style="padding:32px;border-radius:16px;background:linear-gradient(135deg,rgba(123,47,190,.04),rgba(76,201,240,.04));border:1px solid rgba(123,47,190,.2);text-align:center">
+                <div style="font-size:14px;color:var(--accent);font-weight:700;margin-bottom:8px">PRO</div>
+                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;480<span style="font-size:16px;font-weight:400;color:var(--dim)">/月</span></div>
+                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">年額&#165;4,800（2ヶ月分お得）</div>
+                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
+                    <li style="padding:6px 0;color:var(--text)">無制限の契約管理</li>
+                    <li style="padding:6px 0;color:var(--text)">23種類のテンプレート</li>
+                    <li style="padding:6px 0;color:var(--text)">Web署名・PDF出力</li>
+                    <li style="padding:6px 0;color:var(--text)">レポート・分析</li>
+                </ul>
+                <p style="font-size:11px;color:var(--accent);margin-top:8px;font-weight:600">早期登録で Pro 1ヶ月無料</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-surface">
+    <div class="container reveal">
+        <h2 style="margin-bottom:40px">よくある質問</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-q">法的に有効な契約書として使えますか？</div>
+                <div class="faq-a"><div class="faq-a-inner">ポンは契約内容の管理ツールです。テンプレートを参考に契約書を作成できますが、法的な有効性は内容次第です。重要な契約は弁護士にご相談ください。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">無料プランで何件まで契約を管理できますか？</div>
+                <div class="faq-a"><div class="faq-a-inner">無料プランでは3契約まで管理できます。Proにアップグレードすると無制限になります。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">電子署名に対応していますか？</div>
+                <div class="faq-a"><div class="faq-a-inner">現在は契約内容の管理とステータス追跡に特化しています。電子署名機能は今後のアップデートで対応予定です。</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section style="text-align:center;padding:80px 24px">
+    <h2 class="reveal">契約を、もっとシンプルに。</h2>
+    <p style="color:var(--dim);margin-bottom:32px" class="reveal">CloudSignの20分の1で、契約管理を始めよう。</p>
+    <div class="cta-row reveal">
+        <a href="https://pon-sign.fly.dev" class="btn btn-primary">Web版を試す</a>
+    </div>
+    <p class="cta-sub reveal">リリース記念: 年額プランが最初の100名限定で40%OFF</p>
+    <div class="sister-row reveal">
+        <a href="/charin" class="sister-link">&#x1F4B0; チャリン &mdash; 収入管理</a>
+        <a href="/" class="sister-link">&#x1F4F8; パシャ &mdash; 支出管理</a>
+        <a href="/poi" class="sister-link">&#x267B;&#xFE0F; ポイッ &mdash; 不用品売却</a>
+        <a href="/sakutsu" class="sister-link">&#x1F4CB; サクッ &mdash; 確定申告</a>
+        <a href="/suite" class="sister-link">&#x2728; 5点セット</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Enabler DAO &mdash; <a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/poi">ポイッ</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a> &middot; <a href="/privacy">プライバシー</a></p>
+</footer>
+
+<!-- Floating cross-promo banner -->
+<div class="float-banner" id="floatBanner">
+    <span class="float-banner-text">5つ揃うと最強 &mdash;</span>
+    <a href="/suite">5点セットを見る &rarr;</a>
+    <button class="float-banner-close" onclick="document.getElementById('floatBanner').classList.remove('show')">&times;</button>
+</div>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+        const item=q.parentElement;
+        const wasOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+        if(!wasOpen)item.classList.add('open');
+    });
+});
+
+let bannerShown=false;
+window.addEventListener('scroll',()=>{
+    if(!bannerShown&&window.scrollY>600){
+        document.getElementById('floatBanner').classList.add('show');
+        bannerShown=true;
+    }
+});
+</script>
+</body>
+</html>

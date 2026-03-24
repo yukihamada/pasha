@@ -1,0 +1,22 @@
+{
+  "name": "パシャ — レシート経費管理",
+  "short_name": "パシャ",
+  "description": "撮って、終わり。電子帳簿保存法対応レシート管理アプリ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f1a",
+  "theme_color": "#1a1a2e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

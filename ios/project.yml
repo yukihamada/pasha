@@ -1,0 +1,70 @@
+name: Pasha
+options:
+  bundleIdPrefix: com.enablerdao
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.2"
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: 5BV85JW8US
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.9"
+    CURRENT_PROJECT_VERSION: 7
+    MARKETING_VERSION: "1.0.0"
+
+targets:
+  Pasha:
+    type: application
+    platform: iOS
+    sources:
+      - path: Pasha/Sources
+      - path: Pasha/Resources
+    info:
+      path: Pasha/Info.plist
+      properties:
+        CFBundleDisplayName: パシャ
+        CFBundleDevelopmentRegion: ja
+        LSRequiresIPhoneOS: true
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: レシートを撮影して経費を記録するためにカメラを使用します
+        NSPhotoLibraryUsageDescription: レシート画像を保存・読み込みするために写真ライブラリを使用します
+        NSLocationWhenInUseUsageDescription: レシート撮影時の位置情報を記録して証拠力を向上させます
+        ITSAppUsesNonExemptEncryption: false
+        CFBundleIconName: AppIcon
+        CFBundleURLTypes:
+          - CFBundleURLSchemes:
+              - pasha
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.enablerdao.pasha
+        PRODUCT_NAME: Pasha
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: 1
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false
+    entitlements:
+      path: Pasha/Pasha.entitlements
+
+  PashaWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: PashaWidget/
+    info:
+      path: PashaWidget/Info.plist
+      properties:
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.enablerdao.pasha.widget
+        TARGETED_DEVICE_FAMILY: 1
+        DEVELOPMENT_TEAM: 5BV85JW8US
+        CODE_SIGN_STYLE: Automatic
+    entitlements:
+      path: PashaWidget/PashaWidget.entitlements
+    dependencies:
+      - target: Pasha

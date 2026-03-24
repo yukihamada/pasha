@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="パシャ — レシート撮るだけ、確定申告がラクになる。フリーランスのための経費管理アプリ。">
+<meta name="theme-color" content="#0a0a14">
+<meta property="og:title" content="パシャ — レシート撮るだけ。確定申告、もう怖くない。">
+<meta property="og:description" content="フリーランスのための経費管理アプリ。撮って、終わり。">
+<meta property="og:type" content="website">
+<title>パシャ — レシート撮るだけ。確定申告、もう怖くない。</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#08080f;--surface:#0e0e1a;--card:#141428;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--primary:#4cc9f0;--accent:#f77f00;--success:#06d6a0;--warn:#ffd60a;--text:#eaeaf2;--dim:#7a7a95;--radius:16px;--warm:rgba(247,127,0,.08)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* Utility */
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:.5px}
+.text-gradient{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.text-center{text-align:center}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(8,8,15,.75);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:20px;font-weight:800;letter-spacing:-.5px}
+.nav-logo span{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{color:var(--dim);font-size:13px;text-decoration:none;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:8px 20px;border-radius:10px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px)}
+@media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(247,127,0,.05),transparent 60%);top:-300px;right:-300px;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1120px;margin:0 auto}
+.hero-text{max-width:540px}
+.hero-text .badge{background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.15);color:var(--success);margin-bottom:20px}
+.hero h1{font-size:clamp(34px,5.5vw,52px);font-weight:900;letter-spacing:-2px;line-height:1.12;margin-bottom:20px}
+.hero-sub{font-size:18px;color:var(--dim);line-height:1.7;margin-bottom:32px}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.btn{padding:13px 28px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 2px 16px rgba(247,127,0,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(247,127,0,.35)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.03)}
+
+/* Trust badges */
+.trust-row{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--dim)}
+.trust-dot{width:6px;height:6px;border-radius:50%}
+
+/* Phone mockup */
+.hero-visual{display:flex;justify-content:center}
+.phone{width:280px;background:var(--card);border-radius:40px;padding:14px;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);position:relative}
+.phone-inner{border-radius:28px;overflow:hidden;background:var(--surface);aspect-ratio:9/19.5;display:flex;flex-direction:column}
+.phone-bar{height:48px;display:flex;align-items:center;justify-content:center}
+.phone-pill{width:90px;height:22px;background:#000;border-radius:11px}
+.phone-body{flex:1;padding:14px;display:flex;flex-direction:column;gap:8px}
+.m-stats{display:flex;gap:4px}
+.m-stat{flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,.03);text-align:center}
+.m-val{font-size:14px;font-weight:700}
+.m-label{font-size:8px;color:var(--dim)}
+.m-row{display:flex;align-items:center;gap:8px;padding:8px;border-radius:10px;background:rgba(255,255,255,.03)}
+.m-thumb{width:32px;height:32px;border-radius:7px;background:linear-gradient(135deg,rgba(247,127,0,.2),rgba(76,201,240,.2))}
+.m-info{flex:1;min-width:0}
+.m-name{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-meta{font-size:8px;color:var(--dim)}
+.m-amt{font-size:12px;font-weight:700;color:var(--warn);white-space:nowrap}
+.m-fab{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));margin:4px auto 0;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 16px rgba(247,127,0,.3)}
+
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-text{max-width:100%}
+  .hero-buttons,.trust-row{justify-content:center}
+  .phone{width:240px}
+}
+
+/* Section */
+section{padding:100px 0}
+.s-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.s-title{font-size:clamp(28px,4.5vw,40px);font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:12px}
+.s-desc{font-size:17px;color:var(--dim);max-width:520px;margin-bottom:48px}
+
+/* Pain points */
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.pain{padding:24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);position:relative;overflow:hidden;transition:.3s}
+.pain:hover{border-color:rgba(247,127,0,.15)}
+.pain-emoji{font-size:36px;margin-bottom:12px}
+.pain h3{font-size:15px;font-weight:700;margin-bottom:6px;color:rgba(255,150,100,.9)}
+.pain p{font-size:14px;color:var(--dim);line-height:1.6}
+
+/* Solution banner */
+.solution-banner{margin-top:40px;padding:28px 32px;border-radius:var(--radius);background:linear-gradient(135deg,rgba(247,127,0,.06),rgba(76,201,240,.06));border:1px solid rgba(247,127,0,.12);text-align:center}
+.solution-banner p{font-size:20px;font-weight:800;letter-spacing:-.5px}
+.solution-banner p span{color:var(--accent)}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step{padding:32px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.3s}
+.step:hover{border-color:rgba(247,127,0,.15);transform:translateY(-4px)}
+.step-num{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:16px;background:rgba(247,127,0,.1);color:var(--accent)}
+.step h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.step p{font-size:14px;color:var(--dim);line-height:1.6}
+.step-screenshot{width:100%;margin-top:16px;border-radius:12px;background:var(--surface);border:1px solid var(--border);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.step-screenshot img{width:100%;height:100%;object-fit:cover}
+.step-screenshot .placeholder{font-size:13px;color:var(--dim);padding:16px;text-align:center}
+@media(max-width:768px){.steps{grid-template-columns:1fr}}
+
+/* Features / Why Pasha */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.feat{padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);transition:.3s;display:flex;gap:16px;align-items:flex-start}
+.feat:hover{border-color:rgba(247,127,0,.12)}
+.feat-icon{font-size:28px;flex-shrink:0;margin-top:2px}
+.feat-body h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.feat-body p{font-size:14px;color:var(--dim);line-height:1.6}
+
+/* User voices */
+.voice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.voice{padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);transition:.3s;position:relative}
+.voice:hover{border-color:rgba(247,127,0,.12)}
+.voice-quote{font-size:15px;line-height:1.8;margin-bottom:16px;color:var(--text);font-style:normal}
+.voice-quote::before{content:'\201C';font-size:32px;color:var(--accent);opacity:.4;line-height:1;display:block;margin-bottom:4px}
+.voice-author{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--dim)}
+.voice-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(247,127,0,.15),rgba(76,201,240,.15));display:flex;align-items:center;justify-content:center;font-size:16px}
+
+/* Pricing */
+.price-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:700px;margin:0 auto}
+.price-card{padding:36px;border-radius:var(--radius);border:1px solid var(--border);background:var(--glass);position:relative}
+.price-card.featured{border-color:rgba(247,127,0,.25);background:linear-gradient(180deg,rgba(247,127,0,.04),transparent)}
+.price-name{font-size:14px;font-weight:700;color:var(--dim);margin-bottom:4px}
+.price-card.featured .price-name{color:var(--accent)}
+.price-amount{font-size:42px;font-weight:900;letter-spacing:-2px}
+.price-period{font-size:14px;color:var(--dim);margin-bottom:20px}
+.price-list{list-style:none;margin-bottom:28px}
+.price-list li{padding:7px 0;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--dim)}
+.price-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--success);flex-shrink:0}
+.price-compare{margin-top:24px;padding:16px 24px;border-radius:12px;background:rgba(247,127,0,.04);border:1px solid rgba(247,127,0,.08);text-align:center;font-size:14px;color:var(--dim)}
+.price-compare strong{color:var(--accent)}
+@media(max-width:640px){.price-cards{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text);transition:.2s}
+.faq-q:hover{color:var(--accent)}
+.faq-q::after{content:'+';font-size:20px;color:var(--dim);transition:.3s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:var(--dim);line-height:1.8}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding-top:12px}
+
+/* CTA */
+.final-cta{text-align:center;padding:100px 24px 120px}
+.final-cta h2{font-size:clamp(28px,6vw,48px);font-weight:900;letter-spacing:-1.5px;margin-bottom:16px;line-height:1.1}
+.final-cta p{color:var(--dim);font-size:18px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+
+/* Footer */
+footer{padding:40px 24px;border-top:1px solid var(--border);text-align:center}
+footer p{color:var(--dim);font-size:13px}
+footer a{color:var(--accent);text-decoration:none}
+
+/* Trust bar */
+.trust-bar{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:48px 24px 0}
+.trust-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px 32px;text-align:center;min-width:160px;transition:.3s}
+.trust-card:hover{border-color:rgba(247,127,0,.15);transform:translateY(-2px)}
+.trust-num{font-size:clamp(28px,4vw,36px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.trust-label{font-size:12px;color:var(--dim);margin-top:4px;font-weight:500}
+
+/* Floating cross-promo */
+.float-banner{position:fixed;bottom:0;left:0;right:0;z-index:99;padding:12px 24px;background:rgba(8,8,15,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .4s ease}
+.float-banner.show{transform:translateY(0)}
+.float-banner-text{font-size:13px;color:var(--dim);font-weight:500}
+.float-banner a{color:var(--primary);text-decoration:none;font-weight:700;font-size:13px}
+.float-banner-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;padding:4px 8px}
+
+/* Scroll animations */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.phone{animation:float 6s ease-in-out infinite}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span>パシャ</span></div>
+  <div class="nav-links">
+    <a href="#how">使い方</a>
+    <a href="#why">選ばれる理由</a>
+    <a href="#pricing">料金</a>
+    <a href="/suite" style="color:var(--primary)">5点セット</a>
+    <a href="#download" class="nav-cta">無料で始める</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <a href="/suite" style="display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(76,201,240,.08);border:1px solid rgba(76,201,240,.15);color:var(--primary);text-decoration:none;margin-bottom:12px;transition:.2s">&#x2728; 5点セットで確定申告を完結 &rarr;</a>
+      <div class="badge">電子帳簿保存法対応</div>
+      <h1>確定申告の準備、<br><span class="text-gradient">スマホ1台で完了。</span></h1>
+      <p class="hero-sub">レシートを撮るだけで<strong>AIが自動入力</strong>。<br>電子帳簿保存法<strong>全8要件対応</strong>で紙のレシートは捨ててOK。</p>
+      <div class="hero-buttons">
+        <a href="#download" class="btn btn-primary">無料で始める</a>
+        <a href="#how" class="btn btn-outline">使い方を見る</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><div class="trust-dot" style="background:var(--success)"></div>電子帳簿保存法対応</div>
+        <div class="trust-item"><div class="trust-dot" style="background:var(--primary)"></div>データは端末内保存</div>
+        <div class="trust-item"><div class="trust-dot" style="background:var(--accent)"></div>1万件以上処理可能</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="/img/pasha_hero.png" alt="パシャ レシート管理" style="max-width:100%;border-radius:20px;box-shadow:0 40px 80px rgba(0,0,0,.5);animation:float 6s ease-in-out infinite;">
+    </div>
+  </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar reveal">
+    <div class="trust-card">
+        <div class="trust-num">全8要件</div>
+        <div class="trust-label">電子帳簿保存法対応</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">7通貨</div>
+        <div class="trust-label">JPY/USD/EUR他</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">freee/MF</div>
+        <div class="trust-label">確定申告CSV対応</div>
+    </div>
+</div>
+
+<!-- Pain section -->
+<section style="background:var(--surface)">
+  <div class="container reveal">
+    <div class="s-label" style="color:var(--accent)">こんな経験ありませんか？</div>
+    <h2 class="s-title">フリーランスの経費管理、大変すぎませんか？</h2>
+
+    <div class="pain-grid">
+      <div class="pain">
+        <div class="pain-emoji">😫</div>
+        <h3>月末にレシートの山と格闘</h3>
+        <p>財布、ポケット、カバンの底... あちこちに散らばったレシートを集めるだけで一苦労。</p>
+      </div>
+      <div class="pain">
+        <div class="pain-emoji">😱</div>
+        <h3>大事なレシートをなくした</h3>
+        <p>5万円のパソコン周辺機器のレシート、どこいった？ 経費にできなくて大損。</p>
+      </div>
+      <div class="pain">
+        <div class="pain-emoji">😴</div>
+        <h3>確定申告の前日に徹夜</h3>
+        <p>1年分のレシートを一気に入力。毎年「来年こそは...」と思いながら同じことの繰り返し。</p>
+      </div>
+      <div class="pain">
+        <div class="pain-emoji">😨</div>
+        <h3>税務調査が怖い</h3>
+        <p>「この経費の証拠は？」と聞かれたら... レシート捨てちゃったかも。</p>
+      </div>
+    </div>
+
+    <div class="solution-banner">
+      <p>パシャなら、<span>ぜんぶ解決</span>します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how">
+  <div class="container reveal">
+    <div class="s-label" style="color:var(--accent)">使い方はカンタン</div>
+    <h2 class="s-title">たったの3ステップ</h2>
+    <p class="s-desc">むずかしい操作は一切なし。スマホが使えれば、誰でもできます。</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>レシートを撮る</h3>
+        <p>カメラボタンを押すだけ。レシートをかざしてパシャ。</p>
+        <div class="step-screenshot">
+          <img src="/img/step1_scan.png" alt="レシートを撮影" style="width:100%;border-radius:12px;">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>自動で入力される</h3>
+        <p>AIが金額・日付・お店の名前を読み取って、自動で入力してくれます。</p>
+        <div class="step-screenshot">
+          <img src="/img/step2_auto.png" alt="AI自動認識" style="width:100%;border-radius:12px;">
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>メールでCSVを受け取る</h3>
+        <p>メールアドレスを入力するだけ。確定申告用CSVがfreee・マネーフォワード対応で届きます。</p>
+        <div class="step-screenshot">
+          <img src="/img/step3_export.png" alt="CSV出力" style="width:100%;border-radius:12px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Pasha -->
+<section id="why" style="background:var(--surface)">
+  <div class="container reveal">
+    <div class="s-label" style="color:var(--success)">選ばれる理由</div>
+    <h2 class="s-title">パシャが選ばれる6つの理由</h2>
+    <p class="s-desc">フリーランスの「あったらいいな」を全部つめこみました。</p>
+
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="feat-icon">📸</div>
+        <div class="feat-body">
+          <h3>撮るだけで入力完了</h3>
+          <p>AIが金額・日付・お店の名前を自動で読み取り。手入力はほぼゼロになります。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📋</div>
+        <div class="feat-body">
+          <h3>電子帳簿保存法に完全対応</h3>
+          <p>法律の要件をすべてクリア。条件を満たせば、紙のレシートは捨ててOKです。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🔄</div>
+        <div class="feat-body">
+          <h3>freee・マネーフォワードに連携</h3>
+          <p>ワンタップでデータを書き出し。確定申告ソフトにそのまま取り込めます。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🌍</div>
+        <div class="feat-body">
+          <h3>7通貨対応</h3>
+          <p>海外出張のレシートも、ドル・ユーロ・ポンドなど7つの通貨でそのまま記録できます。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🔒</div>
+        <div class="feat-body">
+          <h3>データは自分のiPhoneだけに保存</h3>
+          <p>外部サーバーには一切送信しません。情報漏洩の心配がありません。</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🛡️</div>
+        <div class="feat-body">
+          <h3>改ざんできない記録</h3>
+          <p>一度記録したデータは書き換え不可能。税務調査でも「証拠」として安心です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why we built this -->
+<section>
+  <div class="container reveal">
+    <div class="s-label" style="color:var(--accent)">開発者より</div>
+    <h2 class="s-title">なぜ作ったのか</h2>
+    <div style="max-width:700px;margin:0 auto;display:flex;gap:20px;align-items:flex-start;padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border)">
+      <div style="font-size:40px;flex-shrink:0">&#x1F468;&#x200D;&#x1F4BB;</div>
+      <div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:8px">開発者より</div>
+        <p style="font-size:15px;color:var(--dim);line-height:1.9;margin-bottom:12px">フリーランスエンジニアとして、自分が毎日使いたいツールを作りました。freeeは機能が多すぎ、CloudSignは高すぎ。もっとシンプルに、もっと安く。</p>
+        <p style="color:var(--accent);font-size:14px;font-weight:600">&mdash; Yuki Hamada, フリーランスエンジニア</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" style="background:var(--surface)">
+  <div class="container reveal text-center">
+    <div class="s-label" style="color:var(--accent)">料金プラン</div>
+    <h2 class="s-title">シンプルに2つだけ</h2>
+    <p class="s-desc" style="margin:0 auto 48px">まずは無料で試してみてください。</p>
+
+    <div class="price-cards">
+      <!-- Free -->
+      <div class="price-card">
+        <div class="price-name">Free</div>
+        <div class="price-amount">&#165;0</div>
+        <div class="price-period">ずっと無料</div>
+        <ul class="price-list">
+          <li style="color:var(--text)">月30件まで撮影OK</li>
+          <li style="color:var(--text)">AIが自動で入力</li>
+          <li style="color:var(--text)">基本の検索機能</li>
+          <li style="color:var(--text)">データはiPhoneに保存</li>
+        </ul>
+        <a href="#download" class="btn btn-outline" style="width:100%;justify-content:center">無料で始める</a>
+      </div>
+      <!-- Pro -->
+      <div class="price-card featured">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%)">
+          <span class="badge" style="background:var(--accent);color:#fff;font-size:11px">おすすめ</span>
+        </div>
+        <div class="price-name">Pro</div>
+        <div class="price-amount">&#165;480<span style="font-size:16px;font-weight:400;color:var(--dim)">/月</span></div>
+        <div class="price-period">全機能使い放題</div>
+        <ul class="price-list">
+          <li style="color:var(--text)">撮影は無制限</li>
+          <li style="color:var(--text)">電子帳簿保存法に完全対応</li>
+          <li style="color:var(--text)">freee・マネーフォワード連携</li>
+          <li style="color:var(--text)">7通貨に対応</li>
+          <li style="color:var(--text)">改ざん不可能な記録</li>
+          <li style="color:var(--text)">全機能が使えます</li>
+        </ul>
+        <a href="#download" class="btn btn-primary" style="width:100%;justify-content:center">Proを始める</a>
+        <p style="font-size:11px;color:var(--dim);margin-top:8px">年額&#165;4,800（2ヶ月分お得）</p>
+        <p style="font-size:11px;color:var(--accent);margin-top:4px;font-weight:600">早期登録で Pro 1ヶ月無料</p>
+      </div>
+    </div>
+
+    <div class="price-compare">
+      freeeは月&#165;1,298〜。パシャProは<strong>&#165;480</strong>。freeeより安く、もっとシンプル。
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container reveal">
+    <div class="s-label text-center" style="color:var(--accent)">よくある質問</div>
+    <h2 class="s-title text-center" style="margin-bottom:40px">気になるギモンにお答えします</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">紙のレシートは捨てていいの？</div>
+        <div class="faq-a"><div class="faq-a-inner">電子帳簿保存法の要件（解像度・タイムスタンプ等）を満たしていれば、紙のレシートは廃棄できます。パシャProは全要件をクリアしているので、安心して紙を処分できます。</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">データが消えたらどうなるの？</div>
+        <div class="faq-a"><div class="faq-a-inner">iCloudに自動でバックアップされます。iPhoneを買い替えたり、万が一壊れても、データはしっかり残ります。</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">税務調査で大丈夫？</div>
+        <div class="faq-a"><div class="faq-a-inner">パシャは電子帳簿保存法の全要件をクリアしています。さらに、一度記録したデータは改ざんできない仕組みなので、「これが本物の記録です」と自信を持って提出できます。</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">freeeやマネーフォワードとの違いは？</div>
+        <div class="faq-a"><div class="faq-a-inner">freeeやマネーフォワードは「会計ソフト」で、パシャは経費の「入口」です。レシートを撮影してデータ化するところに特化しています。作ったデータはfreeeやマネーフォワードにそのまま取り込めるので、一緒に使うのがおすすめです。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta" id="download">
+  <h2>今日から、<br><span class="text-gradient">レシートの山から解放されよう。</span></h2>
+  <p>まずは無料で使ってみてください。<br>もうレシートに振り回される日々は終わりです。</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="https://testflight.apple.com/join/CTmyqV6H" class="btn btn-primary" style="font-size:17px;padding:16px 36px">TestFlightで無料ダウンロード</a>
+  </div>
+  <p style="color:var(--dim);font-size:13px;margin-top:16px">iOS 17以降 | iPhone専用 | 無料で使えます</p>
+</section>
+
+<footer style="padding-bottom:80px">
+  <p>&copy; 2026 パシャ by <a href="https://enablerdao.com">Enabler</a> &mdash; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/poi">ポイッ</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a></p>
+  <p style="margin-top:8px;font-size:12px"><a href="mailto:info@enablerdao.com">お問い合わせ</a></p>
+</footer>
+
+<!-- Floating cross-promo banner -->
+<div class="float-banner" id="floatBanner">
+    <span class="float-banner-text">経費・収入・契約・売却・申告を一括管理 &mdash;</span>
+    <a href="/suite">5点セットを見る &rarr;</a>
+    <button class="float-banner-close" onclick="document.getElementById('floatBanner').classList.remove('show')">&times;</button>
+</div>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Floating banner
+let bannerShown=false;
+window.addEventListener('scroll',()=>{
+    if(!bannerShown&&window.scrollY>600){
+        document.getElementById('floatBanner').classList.add('show');
+        bannerShown=true;
+    }
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>

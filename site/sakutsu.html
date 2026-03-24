@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="サクッ — 申告、サクッと。フリーランスのための確定申告アプリ。パシャ・チャリン・ポイッのデータを取り込んで自動計算、e-Tax XML出力。">
+<meta name="theme-color" content="#08080f">
+<meta property="og:title" content="サクッ — 申告、サクッと。">
+<meta property="og:description" content="確定申告アプリ。姉妹アプリのデータを自動取込、所得税・住民税を自動計算、e-Tax XMLで提出。">
+<title>サクッ — 申告、サクッと。確定申告アプリ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#08080f;--surface:#0e0e1a;--card:#141428;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--primary:#4cc9f0;--accent:#3B82F6;--success:#06d6a0;--warn:#ffd60a;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(8,8,15,.75);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--dim);font-size:13px;text-decoration:none;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:8px 20px;border-radius:10px;background:var(--accent);color:#fff!important;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
+.nav-cta:hover{opacity:.9}
+@media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.06),transparent 60%);top:-300px;right:-200px;pointer-events:none}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:30px;font-size:12px;font-weight:600;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);color:var(--accent);margin-bottom:20px}
+.suite-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(76,201,240,.08);border:1px solid rgba(76,201,240,.15);color:var(--primary);text-decoration:none;margin-bottom:12px;transition:.2s}
+.suite-badge:hover{background:rgba(76,201,240,.15)}
+.hero h1{font-size:clamp(34px,5.5vw,56px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:20px}
+.hero h1 span{background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:18px;color:var(--dim);max-width:580px;margin:0 auto 36px}
+.hero-sub strong{color:var(--text)}
+.btn{padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(59,130,246,.3)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:rgba(255,255,255,.15)}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.cta-sub{font-size:12px;color:var(--dim);margin-bottom:24px}
+
+section{padding:100px 0}
+.section-surface{background:var(--surface)}
+h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--dim);text-align:center;max-width:600px;margin:0 auto 48px}
+
+/* Trust bar */
+.trust-bar{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:48px 24px 0}
+.trust-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px 32px;text-align:center;min-width:160px;transition:.3s}
+.trust-card:hover{border-color:rgba(59,130,246,.15);transform:translateY(-2px)}
+.trust-num{font-size:clamp(28px,4vw,36px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.trust-label{font-size:12px;color:var(--dim);margin-top:4px;font-weight:500}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.feature{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:28px;transition:.3s}
+.feature:hover{transform:translateY(-4px);border-color:rgba(59,130,246,.15)}
+.feature-emoji{font-size:32px;margin-bottom:12px}
+.feature h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.feature p{font-size:13px;color:var(--dim)}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.step{padding:32px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.3s}
+.step:hover{border-color:rgba(59,130,246,.15);transform:translateY(-4px)}
+.step-num{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:16px;background:rgba(59,130,246,.1);color:var(--accent)}
+.step h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.step p{font-size:14px;color:var(--dim);line-height:1.6}
+@media(max-width:768px){.steps{grid-template-columns:1fr}}
+
+/* Testimonials */
+.voice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.voice{padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);transition:.3s}
+.voice:hover{border-color:rgba(59,130,246,.12)}
+.voice-quote{font-size:15px;line-height:1.8;margin-bottom:16px;color:var(--text)}
+.voice-quote::before{content:'\201C';font-size:32px;color:var(--accent);opacity:.4;line-height:1;display:block;margin-bottom:4px}
+.voice-author{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--dim)}
+.voice-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(59,130,246,.15),rgba(76,201,240,.15));display:flex;align-items:center;justify-content:center;font-size:16px}
+
+/* FAQ */
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text);transition:.2s}
+.faq-q:hover{color:var(--accent)}
+.faq-q::after{content:'+';font-size:20px;color:var(--dim);transition:.3s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:var(--dim);line-height:1.8}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding-top:12px}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+
+.sister-row{display:flex;gap:12px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+.sister-link{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border);color:var(--dim);transition:.2s}
+.sister-link:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+
+/* Floating cross-promo */
+.float-banner{position:fixed;bottom:0;left:0;right:0;z-index:99;padding:12px 24px;background:rgba(8,8,15,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .4s ease}
+.float-banner.show{transform:translateY(0)}
+.float-banner-text{font-size:13px;color:var(--dim);font-weight:500}
+.float-banner a{color:var(--primary);text-decoration:none;font-weight:700;font-size:13px}
+.float-banner-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;padding:4px 8px}
+
+footer{text-align:center;padding:40px 24px 80px;border-top:1px solid var(--border);color:var(--dim);font-size:12px}
+footer a{color:var(--primary);text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="/sakutsu" class="nav-logo">サクッ</a>
+    <div class="nav-links">
+        <a href="/suite">5点セット</a>
+        <a href="/">パシャ</a>
+        <a href="/charin">チャリン</a>
+        <a href="/pon">ポン</a>
+        <a href="/poi">ポイッ</a>
+        <a href="mailto:info@enablerdao.com?subject=サクッリリース通知希望" class="nav-cta">リリース通知</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <a href="/suite" class="suite-badge">&#x2728; 5点セットで確定申告を完結 &rarr;</a>
+        <div class="badge">&#x1F4CB; パシャ・チャリン・ポン・ポイッの姉妹アプリ</div>
+        <h1>確定申告、<br><span>スマホだけで終わる。</span></h1>
+        <p class="hero-sub">
+            パシャ(経費)・チャリン(収入)・ポイッ(売上)のデータを<strong>自動取込</strong>。<br>
+            <strong>控除を入力</strong>するだけで<strong>e-Tax XML</strong>を出力。freee確定申告より安い。
+        </p>
+        <div class="cta-row" id="download">
+            <a href="mailto:info@enablerdao.com?subject=サクッリリース通知希望" class="btn btn-primary">リリース通知を受け取る</a>
+            <a href="/suite" class="btn btn-outline">5点セットを見る</a>
+        </div>
+        <p class="cta-sub">早期登録で Pro 1ヶ月無料</p>
+        <div style="margin-top:40px;">
+            <img src="/img/sakutsu_hero.png" alt="サクッ 確定申告" style="max-width:600px;width:100%;border-radius:20px;box-shadow:0 40px 80px rgba(0,0,0,.5);">
+        </div>
+    </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar reveal">
+    <div class="trust-card">
+        <div class="trust-num">7種類</div>
+        <div class="trust-label">控除対応</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">自動計算</div>
+        <div class="trust-label">所得税・住民税</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">e-Tax XML</div>
+        <div class="trust-label">出力対応</div>
+    </div>
+</div>
+
+<!-- How it Works -->
+<section>
+    <div class="container">
+        <h2 class="reveal">カンタン3ステップ</h2>
+        <p class="section-sub reveal">確定申告の準備から提出まで、たったの3ステップ。</p>
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step-num">1</div>
+                <h3>データ取込</h3>
+                <p>パシャ(経費)・チャリン(収入)・ポイッ(売上)からCSVをワンタップで取込。手入力ゼロ。</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">2</div>
+                <h3>控除入力</h3>
+                <p>医療費控除・社会保険料・ふるさと納税など7種類の控除をガイドに沿って入力。</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">3</div>
+                <h3>申告書出力</h3>
+                <p>所得税・住民税を自動計算。e-Tax XML形式で出力し、そのまま電子申告。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="section-surface">
+    <div class="container">
+        <h2 class="reveal">サクッでできること</h2>
+        <p class="section-sub reveal">確定申告に必要な全てを、これ1つで。</p>
+        <div class="features">
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4E5;</div>
+                <h3>CSVインポート</h3>
+                <p>パシャ・チャリン・ポイッのCSVデータをワンタップで取込。freee/MFのCSVにも対応。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F9EE;</div>
+                <h3>自動税額計算</h3>
+                <p>収入・経費・控除から所得税・住民税を自動計算。税率テーブルは毎年更新。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4CB;</div>
+                <h3>7種類の控除</h3>
+                <p>基礎控除・医療費控除・社会保険料・小規模企業共済・ふるさと納税・生命保険・扶養控除。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4D8;</div>
+                <h3>青色/白色対応</h3>
+                <p>青色申告(65万円控除)にも白色申告にも対応。事業所得・雑所得の切替もワンタップ。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4C4;</div>
+                <h3>e-Tax XML出力</h3>
+                <p>国税庁e-Taxに直接取り込めるXML形式で申告書を出力。紙の提出は不要。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F517;</div>
+                <h3>5アプリ連携</h3>
+                <p>ポンで契約、チャリンで収入、パシャで経費、ポイッで売却、サクッで申告。フリーランス完全フロー。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Table -->
+<section>
+    <div class="container">
+        <h2 class="reveal">他社との比較</h2>
+        <p class="section-sub reveal">freee確定申告の半額以下で、フリーランスに必要な機能を。</p>
+        <div style="max-width:700px;margin:0 auto;overflow-x:auto" class="reveal">
+            <table style="width:100%;border-collapse:collapse;font-size:14px">
+                <thead>
+                    <tr style="border-bottom:2px solid var(--border)">
+                        <th style="padding:14px 16px;text-align:left;color:var(--dim);font-weight:600"></th>
+                        <th style="padding:14px 16px;text-align:center;color:var(--accent);font-weight:800">サクッ</th>
+                        <th style="padding:14px 16px;text-align:center;color:var(--dim);font-weight:600">freee確定申告</th>
+                        <th style="padding:14px 16px;text-align:center;color:var(--dim);font-weight:600">弥生</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:12px 16px;font-weight:600">月額</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--accent);font-weight:700">&#165;480</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#165;1,298~</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#165;733~</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:12px 16px;font-weight:600">姉妹アプリ連携</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success);font-weight:700">5アプリ</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&times;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&times;</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:12px 16px;font-weight:600">e-Tax XML</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:12px 16px;font-weight:600">フリーランス向け</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--accent);font-weight:700">&#9678;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#9651;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&#9651;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Developer Story -->
+<section class="section-surface">
+    <div class="container">
+        <h2 class="reveal">開発者より</h2>
+        <div style="max-width:700px;margin:0 auto;display:flex;gap:20px;align-items:flex-start;padding:28px;border-radius:16px;background:var(--glass);border:1px solid var(--border)" class="reveal">
+            <div style="font-size:40px;flex-shrink:0">&#x1F468;&#x200D;&#x1F4BB;</div>
+            <div>
+                <div style="font-size:16px;font-weight:700;margin-bottom:8px">開発者より</div>
+                <p style="font-size:15px;color:var(--dim);line-height:1.9;margin-bottom:12px">フリーランスエンジニアとして、自分が毎日使いたいツールを作りました。freeeは機能が多すぎ、弥生は高すぎ。もっとシンプルに、もっと安く。</p>
+                <p style="color:var(--accent);font-size:14px;font-weight:600">&mdash; Yuki Hamada, フリーランスエンジニア</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section>
+    <div class="container">
+        <h2 class="reveal">シンプルな料金</h2>
+        <p class="section-sub reveal">freee確定申告の半額以下。まずは無料で。</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;margin:0 auto" class="reveal">
+            <div style="padding:32px;border-radius:16px;background:var(--glass);border:1px solid var(--border);text-align:center">
+                <div style="font-size:14px;color:var(--dim);font-weight:600;margin-bottom:8px">FREE</div>
+                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;0</div>
+                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">ずっと無料</div>
+                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
+                    <li style="padding:6px 0">白色申告のみ</li>
+                    <li style="padding:6px 0">基本控除3種類</li>
+                    <li style="padding:6px 0">手動CSV取込</li>
+                </ul>
+            </div>
+            <div style="padding:32px;border-radius:16px;background:linear-gradient(135deg,rgba(59,130,246,.04),rgba(76,201,240,.04));border:1px solid rgba(59,130,246,.2);text-align:center">
+                <div style="font-size:14px;color:var(--accent);font-weight:700;margin-bottom:8px">PRO</div>
+                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;480<span style="font-size:16px;font-weight:400;color:var(--dim)">/月</span></div>
+                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">年額&#165;4,800（2ヶ月分お得）</div>
+                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
+                    <li style="padding:6px 0;color:var(--text)">青色申告(65万円控除)</li>
+                    <li style="padding:6px 0;color:var(--text)">7種類の控除対応</li>
+                    <li style="padding:6px 0;color:var(--text)">e-Tax XML出力</li>
+                    <li style="padding:6px 0;color:var(--text)">5アプリ自動連携</li>
+                </ul>
+                <p style="font-size:11px;color:var(--accent);margin-top:8px;font-weight:600">早期登録で Pro 1ヶ月無料</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-surface">
+    <div class="container reveal">
+        <h2 style="margin-bottom:40px">よくある質問</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-q">サクッだけで確定申告は完結しますか？</div>
+                <div class="faq-a"><div class="faq-a-inner">はい、収入・経費のCSVデータがあれば、サクッ単体でも確定申告書の作成が可能です。パシャ・チャリン・ポイッと連携するとデータ取込が自動化されてさらに楽になります。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">e-Taxへの提出方法は？</div>
+                <div class="faq-a"><div class="faq-a-inner">サクッが出力するXMLファイルを国税庁のe-Taxソフトまたはe-Tax Webに取り込むだけで提出できます。マイナンバーカードとスマホがあればオンラインで完結します。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">税理士なしでも大丈夫ですか？</div>
+                <div class="faq-a"><div class="faq-a-inner">フリーランスの一般的な確定申告であれば、サクッのガイドに沿って入力するだけで申告書を作成できます。複雑な税務処理が必要な場合は税理士にご相談ください。</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section style="text-align:center;padding:80px 24px">
+    <h2 class="reveal">確定申告、もう怖くない。</h2>
+    <p style="color:var(--dim);margin-bottom:32px" class="reveal">申告、サクッと。スマホだけで終わる。</p>
+    <div class="cta-row reveal">
+        <a href="mailto:info@enablerdao.com?subject=サクッリリース通知希望" class="btn btn-primary">リリース通知を受け取る</a>
+    </div>
+    <p class="cta-sub reveal">リリース記念: 年額プランが最初の100名限定で40%OFF</p>
+    <div class="sister-row reveal">
+        <a href="/" class="sister-link">&#x1F4F8; パシャ &mdash; 支出管理</a>
+        <a href="/charin" class="sister-link">&#x1F4B0; チャリン &mdash; 収入管理</a>
+        <a href="/pon" class="sister-link">&#x270B; ポン &mdash; 契約管理</a>
+        <a href="/poi" class="sister-link">&#x267B;&#xFE0F; ポイッ &mdash; 不用品売却</a>
+        <a href="/suite" class="sister-link">&#x2728; 5点セット</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Enabler DAO &mdash; <a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/poi">ポイッ</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a> &middot; <a href="/privacy">プライバシー</a></p>
+</footer>
+
+<!-- Floating cross-promo banner -->
+<div class="float-banner" id="floatBanner">
+    <span class="float-banner-text">5つ揃うと最強 &mdash;</span>
+    <a href="/suite">5点セットを見る &rarr;</a>
+    <button class="float-banner-close" onclick="document.getElementById('floatBanner').classList.remove('show')">&times;</button>
+</div>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+        const item=q.parentElement;
+        const wasOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+        if(!wasOpen)item.classList.add('open');
+    });
+});
+
+let bannerShown=false;
+window.addEventListener('scroll',()=>{
+    if(!bannerShown&&window.scrollY>600){
+        document.getElementById('floatBanner').classList.add('show');
+        bannerShown=true;
+    }
+});
+</script>
+</body>
+</html>

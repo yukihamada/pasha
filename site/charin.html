@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="チャリン — 届いた、チャリン。フリーランスのための収入管理・請求書アプリ。">
+<meta name="theme-color" content="#08080f">
+<meta property="og:title" content="チャリン — 届いた、チャリン。">
+<meta property="og:description" content="収入管理・請求書発行アプリ。4テンプレートの美しいPDF請求書をメール・LINEで送れる。">
+<title>チャリン — 届いた、チャリン。収入管理・請求書アプリ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#08080f;--surface:#0e0e1a;--card:#141428;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--primary:#4cc9f0;--accent:#f77f00;--success:#06d6a0;--warn:#ffd60a;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(8,8,15,.75);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--dim);font-size:13px;text-decoration:none;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:8px 20px;border-radius:10px;background:var(--accent);color:#fff!important;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
+.nav-cta:hover{opacity:.9}
+@media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(247,127,0,.06),transparent 60%);top:-300px;right:-200px;pointer-events:none}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:30px;font-size:12px;font-weight:600;background:rgba(247,127,0,.08);border:1px solid rgba(247,127,0,.15);color:var(--accent);margin-bottom:20px}
+.suite-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(76,201,240,.08);border:1px solid rgba(76,201,240,.15);color:var(--primary);text-decoration:none;margin-bottom:12px;transition:.2s}
+.suite-badge:hover{background:rgba(76,201,240,.15)}
+.hero h1{font-size:clamp(34px,5.5vw,56px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:20px}
+.hero h1 span{background:linear-gradient(135deg,var(--success),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:18px;color:var(--dim);max-width:580px;margin:0 auto 36px}
+.hero-sub strong{color:var(--text)}
+.btn{padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(247,127,0,.3)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:rgba(255,255,255,.15)}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.cta-sub{font-size:12px;color:var(--dim);margin-bottom:24px}
+
+section{padding:100px 0}
+.section-surface{background:var(--surface)}
+h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--dim);text-align:center;max-width:600px;margin:0 auto 48px}
+
+/* Trust bar */
+.trust-bar{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:48px 24px 0}
+.trust-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px 32px;text-align:center;min-width:160px;transition:.3s}
+.trust-card:hover{border-color:rgba(247,127,0,.15);transform:translateY(-2px)}
+.trust-num{font-size:clamp(28px,4vw,36px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.trust-label{font-size:12px;color:var(--dim);margin-top:4px;font-weight:500}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.feature{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:28px;transition:.3s}
+.feature:hover{transform:translateY(-4px);border-color:rgba(247,127,0,.15)}
+.feature-emoji{font-size:32px;margin-bottom:12px}
+.feature h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.feature p{font-size:13px;color:var(--dim)}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.step{padding:32px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.3s}
+.step:hover{border-color:rgba(247,127,0,.15);transform:translateY(-4px)}
+.step-num{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:16px;background:rgba(247,127,0,.1);color:var(--accent)}
+.step h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.step p{font-size:14px;color:var(--dim);line-height:1.6}
+@media(max-width:768px){.steps{grid-template-columns:1fr}}
+
+.templates{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:700px;margin:0 auto}
+@media(max-width:640px){.templates{grid-template-columns:repeat(2,1fr)}}
+.tmpl{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center;transition:.3s}
+.tmpl:hover{border-color:rgba(247,127,0,.2);transform:translateY(-3px)}
+.tmpl-preview{width:60px;height:80px;border-radius:8px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900}
+.tmpl-name{font-size:12px;font-weight:600}
+
+/* Testimonials */
+.voice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.voice{padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);transition:.3s}
+.voice:hover{border-color:rgba(247,127,0,.12)}
+.voice-quote{font-size:15px;line-height:1.8;margin-bottom:16px;color:var(--text)}
+.voice-quote::before{content:'\201C';font-size:32px;color:var(--accent);opacity:.4;line-height:1;display:block;margin-bottom:4px}
+.voice-author{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--dim)}
+.voice-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(247,127,0,.15),rgba(76,201,240,.15));display:flex;align-items:center;justify-content:center;font-size:16px}
+
+/* FAQ */
+.faq-list{max-width:700px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text);transition:.2s}
+.faq-q:hover{color:var(--accent)}
+.faq-q::after{content:'+';font-size:20px;color:var(--dim);transition:.3s;flex-shrink:0}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:var(--dim);line-height:1.8}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding-top:12px}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+
+.sister-row{display:flex;gap:12px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+.sister-link{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border);color:var(--dim);transition:.2s}
+.sister-link:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+
+/* Floating cross-promo */
+.float-banner{position:fixed;bottom:0;left:0;right:0;z-index:99;padding:12px 24px;background:rgba(8,8,15,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .4s ease}
+.float-banner.show{transform:translateY(0)}
+.float-banner-text{font-size:13px;color:var(--dim);font-weight:500}
+.float-banner a{color:var(--primary);text-decoration:none;font-weight:700;font-size:13px}
+.float-banner-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;padding:4px 8px}
+
+footer{text-align:center;padding:40px 24px 80px;border-top:1px solid var(--border);color:var(--dim);font-size:12px}
+footer a{color:var(--primary);text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="/charin" class="nav-logo">チャリン</a>
+    <div class="nav-links">
+        <a href="/suite">5点セット</a>
+        <a href="/">パシャ</a>
+        <a href="/pon">ポン</a>
+        <a href="/poi">ポイッ</a>
+        <a href="/sakutsu">サクッ</a>
+        <a href="mailto:info@enablerdao.com?subject=チャリンリリース通知希望" class="nav-cta">リリース通知</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <a href="/suite" class="suite-badge">&#x2728; 5点セットで確定申告を完結 &rarr;</a>
+        <div class="badge">&#x1F4B0; パシャの姉妹アプリ</div>
+        <h1>請求書を5分で作って、<br><span>LINEで送る。</span></h1>
+        <p class="hero-sub">
+            フリーランスの<strong>収入を一元管理</strong>。<br>
+            <strong>4つのPDFデザイン</strong>から選んで<strong>メール・LINE</strong>で即送信。freeeより安い。
+        </p>
+        <div class="cta-row" id="download">
+            <a href="mailto:info@enablerdao.com?subject=チャリンリリース通知希望" class="btn btn-primary">リリース時に通知を受け取る</a>
+            <a href="/suite" class="btn btn-outline">5点セットを見る</a>
+        </div>
+        <p class="cta-sub">チャリンはパシャアプリ内から利用できます（開発中）</p>
+        <div style="margin-top:40px;">
+            <img src="/img/charin_hero.png" alt="チャリン 請求書" style="max-width:600px;width:100%;border-radius:20px;box-shadow:0 40px 80px rgba(0,0,0,.5);">
+        </div>
+    </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar reveal">
+    <div class="trust-card">
+        <div class="trust-num">4種類</div>
+        <div class="trust-label">請求書テンプレート</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">7通貨</div>
+        <div class="trust-label">JPY/USD/EUR他</div>
+    </div>
+    <div class="trust-card">
+        <div class="trust-num">CSV対応</div>
+        <div class="trust-label">確定申告エクスポート</div>
+    </div>
+</div>
+
+<!-- How it Works -->
+<section>
+    <div class="container">
+        <h2 class="reveal">カンタン3ステップ</h2>
+        <p class="section-sub reveal">収入の記録から請求書送信まで、たったの3ステップ。</p>
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step-num">1</div>
+                <h3>収入を入力</h3>
+                <p>金額・ソース・日付をサクッと入力。複数プロダクトの収入をまとめて管理。</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">2</div>
+                <h3>テンプレートを選択</h3>
+                <p>Dark Pro・Classic・Minimal・Neonの4デザインから、相手に合ったスタイルを選ぶ。</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-num">3</div>
+                <h3>送信</h3>
+                <p>メール・AirDrop・LINEでワンタップ送信。PDFも画像もどちらでもOK。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-surface">
+    <div class="container">
+        <h2 class="reveal">チャリンでできること</h2>
+        <p class="section-sub reveal">収入記録から請求書送信まで、これ1つで。</p>
+        <div class="features">
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4CA;</div>
+                <h3>収入ダッシュボード</h3>
+                <p>月間合計、ソース別内訳、年間推移が一目でわかる。複数プロダクトの収入を統合管理。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4C4;</div>
+                <h3>4テンプレート請求書</h3>
+                <p>Dark Pro・Classic・Minimal・Neonの4デザインから選べるプロ品質PDF請求書。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4E8;</div>
+                <h3>メール・LINEで送信</h3>
+                <p>PDF請求書はメール・AirDropで、画像版はLINE・SNSで。ワンタップで送れる。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F4BE;</div>
+                <h3>確定申告CSV</h3>
+                <p>年・月・ソースでフィルターしてCSVエクスポート。税理士にそのまま渡せるフォーマット。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F30F;</div>
+                <h3>7通貨対応</h3>
+                <p>JPY・USD・EUR・GBP・CNY・KRW・THB。海外クライアントとの取引も管理。</p>
+            </div>
+            <div class="feature reveal">
+                <div class="feature-emoji">&#x1F517;</div>
+                <h3>パシャ・ポン連携</h3>
+                <p>ポンで契約、チャリンで請求、パシャで経費管理、サクッで申告。5アプリで確定申告が完結。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2 class="reveal">4つの請求書テンプレート</h2>
+        <p class="section-sub reveal">プレビューしてから送れる。相手に合わせてスタイルを選択。</p>
+        <div class="templates">
+            <div class="tmpl reveal">
+                <div class="tmpl-preview" style="background:#0F0F1A;color:#06D6A0;border:1px solid rgba(76,201,240,.2)">&yen;</div>
+                <div class="tmpl-name" style="color:var(--primary)">Dark Pro</div>
+            </div>
+            <div class="tmpl reveal">
+                <div class="tmpl-preview" style="background:#fff;color:#1a1a1a;border:1px solid #ddd">&yen;</div>
+                <div class="tmpl-name">Classic</div>
+            </div>
+            <div class="tmpl reveal">
+                <div class="tmpl-preview" style="background:#fafafa;color:#333;border:1px solid #eee;font-weight:300">&yen;</div>
+                <div class="tmpl-name">Minimal</div>
+            </div>
+            <div class="tmpl reveal">
+                <div class="tmpl-preview" style="background:#0a0014;color:#FF006E;border:1px solid rgba(255,0,110,.2)">&yen;</div>
+                <div class="tmpl-name" style="color:#FF006E">Neon</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Developer Story -->
+<section class="section-surface">
+    <div class="container">
+        <h2 class="reveal">開発者より</h2>
+        <div style="max-width:700px;margin:0 auto;display:flex;gap:20px;align-items:flex-start;padding:28px;border-radius:16px;background:var(--glass);border:1px solid var(--border)" class="reveal">
+            <div style="font-size:40px;flex-shrink:0">&#x1F468;&#x200D;&#x1F4BB;</div>
+            <div>
+                <div style="font-size:16px;font-weight:700;margin-bottom:8px">開発者より</div>
+                <p style="font-size:15px;color:var(--dim);line-height:1.9;margin-bottom:12px">フリーランスエンジニアとして、自分が毎日使いたいツールを作りました。freeeは機能が多すぎ、CloudSignは高すぎ。もっとシンプルに、もっと安く。</p>
+                <p style="color:var(--accent);font-size:14px;font-weight:600">&mdash; Yuki Hamada, フリーランスエンジニア</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section>
+    <div class="container">
+        <h2 class="reveal">シンプルな料金</h2>
+        <p class="section-sub reveal">まずは無料で。Proは月&#165;480から。</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;margin:0 auto" class="reveal">
+            <div style="padding:32px;border-radius:16px;background:var(--glass);border:1px solid var(--border);text-align:center">
+                <div style="font-size:14px;color:var(--dim);font-weight:600;margin-bottom:8px">FREE</div>
+                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;0</div>
+                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">ずっと無料</div>
+                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
+                    <li style="padding:6px 0">Classicテンプレート</li>
+                    <li style="padding:6px 0">月5件の請求書作成</li>
+                    <li style="padding:6px 0">基本の収入管理</li>
+                </ul>
+            </div>
+            <div style="padding:32px;border-radius:16px;background:linear-gradient(135deg,rgba(247,127,0,.04),rgba(76,201,240,.04));border:1px solid rgba(247,127,0,.2);text-align:center">
+                <div style="font-size:14px;color:var(--accent);font-weight:700;margin-bottom:8px">PRO</div>
+                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;480<span style="font-size:16px;font-weight:400;color:var(--dim)">/月</span></div>
+                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">年額&#165;4,800（2ヶ月分お得）</div>
+                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
+                    <li style="padding:6px 0;color:var(--text)">4テンプレート全て利用可</li>
+                    <li style="padding:6px 0;color:var(--text)">無制限の請求書作成</li>
+                    <li style="padding:6px 0;color:var(--text)">7通貨対応</li>
+                    <li style="padding:6px 0;color:var(--text)">確定申告CSV出力</li>
+                </ul>
+                <p style="font-size:11px;color:var(--accent);margin-top:8px;font-weight:600">早期登録で Pro 1ヶ月無料</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section>
+    <div class="container reveal">
+        <h2 style="margin-bottom:40px">よくある質問</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-q">無料プランでも請求書は作れますか？</div>
+                <div class="faq-a"><div class="faq-a-inner">はい、無料プランでもClassicテンプレートで請求書を作成・送信できます。Proにアップグレードすると4テンプレート全てが使えます。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">インボイス制度（適格請求書）に対応していますか？</div>
+                <div class="faq-a"><div class="faq-a-inner">登録番号・税率ごとの消費税額など、適格請求書に必要な項目を全て記載できます。設定画面で登録番号を入力するだけで対応完了です。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">パシャやポンとの連携は必要ですか？</div>
+                <div class="faq-a"><div class="faq-a-inner">チャリン単体でも収入管理・請求書発行は完結します。ポンで契約管理、パシャで経費管理をすると確定申告がさらに楽になります。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">データのバックアップはどうなりますか？</div>
+                <div class="faq-a"><div class="faq-a-inner">データはiPhoneに保存され、iCloudで自動バックアップされます。機種変更してもデータは引き継がれます。</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-surface" style="text-align:center;padding:80px 24px">
+    <h2 class="reveal">今日から、収入をスマートに管理。</h2>
+    <p style="color:var(--dim);margin-bottom:32px" class="reveal">届いた、チャリン。</p>
+    <div class="cta-row reveal">
+        <a href="mailto:info@enablerdao.com?subject=チャリンリリース通知希望" class="btn btn-primary">リリース時に通知を受け取る</a>
+    </div>
+    <p class="cta-sub reveal">リリース記念: 年額プランが最初の100名限定で40%OFF</p>
+    <div class="sister-row reveal">
+        <a href="/" class="sister-link">&#x1F4F8; パシャ &mdash; 支出管理</a>
+        <a href="/pon" class="sister-link">&#x270B; ポン &mdash; 契約管理</a>
+        <a href="/poi" class="sister-link">&#x267B;&#xFE0F; ポイッ &mdash; 不用品売却</a>
+        <a href="/sakutsu" class="sister-link">&#x1F4CB; サクッ &mdash; 確定申告</a>
+        <a href="/suite" class="sister-link">&#x2728; 5点セット</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Enabler DAO &mdash; <a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/poi">ポイッ</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a> &middot; <a href="/privacy">プライバシー</a></p>
+</footer>
+
+<!-- Floating cross-promo banner -->
+<div class="float-banner" id="floatBanner">
+    <span class="float-banner-text">5つ揃うと最強 &mdash;</span>
+    <a href="/suite">5点セットを見る &rarr;</a>
+    <button class="float-banner-close" onclick="document.getElementById('floatBanner').classList.remove('show')">&times;</button>
+</div>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+        const item=q.parentElement;
+        const wasOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+        if(!wasOpen)item.classList.add('open');
+    });
+});
+
+// Show floating banner after scroll
+let bannerShown=false;
+window.addEventListener('scroll',()=>{
+    if(!bannerShown&&window.scrollY>600){
+        document.getElementById('floatBanner').classList.add('show');
+        bannerShown=true;
+    }
+});
+</script>
+</body>
+</html>
