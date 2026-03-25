@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SOLUNA FEST HAWAII — プロジェクトダッシュボード</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans',sans-serif;background:#09090b;color:#e4e4e7;line-height:1.7;padding:24px}
+.container{max-width:900px;margin:0 auto}
+h1{font-size:28px;font-weight:800;margin-bottom:8px}
+h1 span{background:linear-gradient(135deg,#E8A838,#FF6B6B);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:14px;color:#71717a;margin-bottom:32px}
+h2{font-size:18px;font-weight:700;color:#E8A838;margin:32px 0 16px;display:flex;align-items:center;gap:8px}
+h2::before{content:'';width:3px;height:20px;background:#E8A838;border-radius:2px}
+h3{font-size:14px;font-weight:700;color:#a1a1aa;margin:16px 0 8px}
+.card{background:#18181b;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px;margin-bottom:12px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px}
+.badge-green{background:rgba(16,185,129,.15);color:#10B981}
+.badge-yellow{background:rgba(245,158,11,.15);color:#F59E0B}
+.badge-red{background:rgba(239,68,68,.15);color:#EF4444}
+.badge-blue{background:rgba(59,159,232,.15);color:#3B9FE8}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:#71717a;font-weight:600;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:#d4d4d8}
+tr:hover td{background:rgba(255,255,255,.02)}
+.action{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#18181b;border:1px solid rgba(255,255,255,.06);border-radius:10px;margin-bottom:8px}
+.action-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.action-urgent .action-num{background:#EF4444;color:#000}
+.action-high .action-num{background:#F59E0B;color:#000}
+.action-med .action-num{background:#3B9FE8;color:#000}
+.action-text{flex:1;font-size:13px}
+.action-date{font-size:11px;color:#71717a;white-space:nowrap}
+.progress{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:8px}
+.progress-bar{height:100%;border-radius:3px}
+a{color:#3B9FE8;text-decoration:none}
+a:hover{text-decoration:underline}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+.metric{text-align:center;padding:16px}
+.metric-value{font-size:28px;font-weight:800}
+.metric-label{font-size:11px;color:#71717a;margin-top:2px}
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.06)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:'';position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;border:2px solid #E8A838;background:#09090b}
+.tl-done::before{background:#10B981;border-color:#10B981}
+.tl-active::before{background:#E8A838;border-color:#E8A838;box-shadow:0 0 8px rgba(232,168,56,.4)}
+.tl-date{font-size:11px;color:#71717a}
+.tl-text{font-size:13px;color:#d4d4d8}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1><span>SOLUNA FEST HAWAII 2026</span></h1>
+<p class="subtitle">プロジェクトダッシュボード · 最終更新: 2026-03-25</p>
+
+<!-- KPIs -->
+<div class="grid2">
+  <div class="card">
+    <div class="grid2">
+      <div class="metric"><div class="metric-value" style="color:#E8A838">Sept 5-6</div><div class="metric-label">開催日 (Labor Day Weekend)</div></div>
+      <div class="metric"><div class="metric-value">8,400</div><div class="metric-label">目標キャパシティ</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="grid2">
+      <div class="metric"><div class="metric-value" style="color:#10B981">$1.5M</div><div class="metric-label">目標チケット収入</div></div>
+      <div class="metric"><div class="metric-value">164日</div><div class="metric-label">開催まで</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Status Overview -->
+<h2>ステータス</h2>
+<div class="card">
+<table>
+<tr><th>項目</th><th>状態</th><th>担当</th><th>期限</th></tr>
+<tr><td>TicketBlox契約</td><td><span class="badge badge-yellow">交渉中</span></td><td>Keyanna / Anup</td><td>3/25 ミーティング</td></tr>
+<tr><td>Zamnaライセンス</td><td><span class="badge badge-yellow">検討中</span></td><td>JC / Yuki</td><td>4月中</td></tr>
+<tr><td>会場 (Moanalua Gardens)</td><td><span class="badge badge-yellow">LOIドラフト済</span></td><td>Sean / JP</td><td>4月上旬</td></tr>
+<tr><td>NDA</td><td><span class="badge badge-green">署名済み</span></td><td>全員</td><td>完了</td></tr>
+<tr><td>タレントブッキング</td><td><span class="badge badge-blue">開始</span></td><td>JC / Nico / Victor</td><td>6月</td></tr>
+<tr><td>チケット販売</td><td><span class="badge badge-red">未開始</span></td><td>TicketBlox</td><td>4月</td></tr>
+<tr><td>スポンサー</td><td><span class="badge badge-red">未開始</span></td><td>Sid / Yuki</td><td>5月</td></tr>
+<tr><td>SOLUNAテック</td><td><span class="badge badge-green">開発中</span></td><td>Yuki</td><td>8月</td></tr>
+<tr><td>Koeデバイス製造</td><td><span class="badge badge-blue">プロトタイプ</span></td><td>Yuki</td><td>7月</td></tr>
+<tr><td>Electric Palmsコラボ</td><td><span class="badge badge-yellow">検討中</span></td><td>Sean</td><td>4月</td></tr>
+</table>
+</div>
+
+<!-- Team -->
+<h2>チーム</h2>
+<div class="card">
+<table>
+<tr><th>名前</th><th>役割</th><th>連絡先</th><th>拠点</th></tr>
+<tr><td><strong>Yuki Hamada</strong></td><td>テック / SOLUNA</td><td>mail@yukihamada.jp</td><td>東京</td></tr>
+<tr><td><strong>Sid Zuber</strong></td><td>プロデューサー (Coachella創設)</td><td>sid@solunahi.com</td><td>LA</td></tr>
+<tr><td><strong>Sean Tsai</strong></td><td>ハワイローカル / 会場</td><td>sean@solunahi.com</td><td>Hawaii</td></tr>
+<tr><td><strong>Keyanna Gibson</strong></td><td>運営マネージャー</td><td>info@solunahi.com</td><td>Hawaii</td></tr>
+<tr><td><strong>Vakas Sial</strong></td><td>アーティストリレーション</td><td>artistrelations@solunahi.com</td><td>—</td></tr>
+<tr><td><strong>JC Sterrett</strong></td><td>Zamna / タレント統括</td><td>jc@zamnafestival.com</td><td>—</td></tr>
+<tr><td><strong>Nico</strong></td><td>Zamna / プロダクション</td><td>nico@zamnafestival.com</td><td>—</td></tr>
+<tr><td><strong>Victor Aguilar</strong></td><td>Zamna / タレント</td><td>victor.aguilar@zamnafestival.com</td><td>—</td></tr>
+<tr><td><strong>Anup Marwadi</strong></td><td>TicketBlox CEO</td><td>anup@ticketblox.com</td><td>—</td></tr>
+<tr><td><strong>Aditya</strong></td><td>TicketBlox プロダクト</td><td>aditya@hypertrends.com</td><td>—</td></tr>
+</table>
+</div>
+
+<!-- Timeline -->
+<h2>タイムライン</h2>
+<div class="card">
+<div class="timeline">
+  <div class="tl-item tl-done"><div class="tl-date">3/5</div><div class="tl-text">タレントリクエスト開始 (JC → Nico/Victor)</div></div>
+  <div class="tl-item tl-done"><div class="tl-date">3/7</div><div class="tl-text">Moanalua Gardens 会場視察 (Sid/Sean/Doug)</div></div>
+  <div class="tl-item tl-done"><div class="tl-date">3/10</div><div class="tl-text">Electric Palmsコラボ検討開始</div></div>
+  <div class="tl-item tl-done"><div class="tl-date">3/12</div><div class="tl-text">Letter of Intent ドラフト作成</div></div>
+  <div class="tl-item tl-done"><div class="tl-date">3/17</div><div class="tl-text">NDA受付完了 (#1)</div></div>
+  <div class="tl-item tl-done"><div class="tl-date">3/19</div><div class="tl-text">TicketBlox NDA署名 (DocuSign)</div></div>
+  <div class="tl-item tl-done"><div class="tl-date">3/20</div><div class="tl-text">Sid → Moanalua Gardens 正式提案書送付</div></div>
+  <div class="tl-item tl-active"><div class="tl-date">3/25</div><div class="tl-text"><strong>今日: TicketBlox × Soluna ミーティング (11am HST)</strong></div></div>
+  <div class="tl-item"><div class="tl-date">4月上旬</div><div class="tl-text">会場LOI締結 / 新契約条件合意</div></div>
+  <div class="tl-item"><div class="tl-date">4月中旬</div><div class="tl-text">Early Birdチケット販売開始 ($89 × 1,000枚)</div></div>
+  <div class="tl-item"><div class="tl-date">5月</div><div class="tl-text">ヘッドライナー発表 / スポンサー確定</div></div>
+  <div class="tl-item"><div class="tl-date">6月</div><div class="tl-text">Full Lineup発表 / Tier 2チケット</div></div>
+  <div class="tl-item"><div class="tl-date">7月</div><div class="tl-text">Koeデバイス量産開始 (COIN × 4,000)</div></div>
+  <div class="tl-item"><div class="tl-date">8月</div><div class="tl-text">SOLUNAプロトコル最終テスト / リハーサル</div></div>
+  <div class="tl-item"><div class="tl-date">9/5-6</div><div class="tl-text">🎵 SOLUNA FEST HAWAII 開催</div></div>
+</div>
+</div>
+
+<!-- Budget -->
+<h2>収支計画</h2>
+<div class="grid2">
+<div class="card">
+<h3>収入 (100%時)</h3>
+<table>
+<tr><td>チケット (8,400枚)</td><td style="text-align:right;font-weight:700">$1,520,000</td></tr>
+<tr><td>テーブル/VIP (50卓)</td><td style="text-align:right">$250,000</td></tr>
+<tr><td>スポンサー</td><td style="text-align:right">$200,000</td></tr>
+<tr><td>F&B</td><td style="text-align:right">$132,000</td></tr>
+<tr><td>グッズ</td><td style="text-align:right">$50,000</td></tr>
+<tr style="border-top:2px solid rgba(255,255,255,.1)"><td><strong>合計</strong></td><td style="text-align:right;font-weight:700;color:#10B981">$2,152,000</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>支出</h3>
+<table>
+<tr><td>タレント</td><td style="text-align:right;font-weight:700">$500,000</td></tr>
+<tr><td>プロダクション</td><td style="text-align:right">$350,000</td></tr>
+<tr><td>マーケティング</td><td style="text-align:right">$215,000</td></tr>
+<tr><td>会場+許可</td><td style="text-align:right">$100,000</td></tr>
+<tr><td>セキュリティ+保険</td><td style="text-align:right">$120,000</td></tr>
+<tr><td>スタッフ+物流</td><td style="text-align:right">$140,000</td></tr>
+<tr><td>予備費10%</td><td style="text-align:right">$150,000</td></tr>
+<tr style="border-top:2px solid rgba(255,255,255,.1)"><td><strong>合計</strong></td><td style="text-align:right;font-weight:700;color:#EF4444">$1,575,000</td></tr>
+</table>
+</div>
+</div>
+<div class="card" style="text-align:center">
+<div class="metric-value" style="color:#10B981;font-size:24px">想定利益: $577,000 (100%時) / 損益分岐点: 5,000人 (60%)</div>
+</div>
+
+<!-- Ticket Tiers -->
+<h2>チケット価格</h2>
+<div class="card">
+<table>
+<tr><th>Tier</th><th>価格</th><th>枚数</th><th>収入</th><th>販売時期</th></tr>
+<tr><td>Early Bird</td><td>$89</td><td>1,000</td><td>$89,000</td><td>4月中旬</td></tr>
+<tr><td>Tier 1</td><td>$129</td><td>2,000</td><td>$258,000</td><td>5月</td></tr>
+<tr><td>Tier 2</td><td>$159</td><td>2,000</td><td>$318,000</td><td>6月</td></tr>
+<tr><td>Final</td><td>$189</td><td>1,000</td><td>$189,000</td><td>7-8月</td></tr>
+<tr><td>VIP</td><td>$299</td><td>1,000</td><td>$299,000</td><td>全期間</td></tr>
+<tr><td>Ultra-VIP</td><td>$599</td><td>200</td><td>$119,800</td><td>全期間</td></tr>
+<tr><td>テーブル(10名)</td><td>$3,000-5,000</td><td>50</td><td>$200,000</td><td>5月〜</td></tr>
+</table>
+</div>
+
+<!-- Marketing -->
+<h2>集客戦略 (5,000-10,000人)</h2>
+<div class="card">
+<table>
+<tr><th>セグメント</th><th>目標</th><th>施策</th><th>予算</th></tr>
+<tr><td>ハワイ地元+軍</td><td>2,000-3,500</td><td>ラジオ(KPOI, Island98.5) + 軍割引20%</td><td>$12K</td></tr>
+<tr><td>米本土 (Labor Day)</td><td>1,500-3,000</td><td>TikTok/IG広告 + DJ SNS</td><td>$80K</td></tr>
+<tr><td>日本 (Silver Week)</td><td>500-1,500</td><td>旅行インフルエンサー5-10人</td><td>$25K</td></tr>
+<tr><td>Zamnaファン</td><td>500-1,000</td><td>Zamna公式SNS (50万フォロワー)</td><td>$0</td></tr>
+<tr><td>航空/ホテルパッケージ</td><td>400-800</td><td>Hawaiian Airlines + Waikikiホテル</td><td>$10K</td></tr>
+<tr><td>PR</td><td>200-400</td><td>Billboard, DJ Mag, Resident Advisor</td><td>$20K</td></tr>
+</table>
+</div>
+
+<!-- Tech -->
+<h2>テック / SOLUNA</h2>
+<div class="card">
+<table>
+<tr><th>コンポーネント</th><th>状態</th><th>詳細</th></tr>
+<tr><td>SOLUNAプロトコル</td><td><span class="badge badge-green">開発中</span></td><td>P2P UDP 239.42.42.1:4242(audio) / 4243(LED)</td></tr>
+<tr><td>Koe COIN (来場者配布)</td><td><span class="badge badge-blue">設計済</span></td><td>26mm丸基板, ESP32-S3, BOM $24, ×4,000台</td></tr>
+<tr><td>Koe SUB (メインスピーカー)</td><td><span class="badge badge-yellow">仕様確定</span></td><td>15"/1000W ×10台, $12,000/台</td></tr>
+<tr><td>Koe FILL (サブスピーカー)</td><td><span class="badge badge-yellow">仕様確定</span></td><td>8"+1"horn, Pi5+WiFi7 ×18台</td></tr>
+<tr><td>guitar-stream.py</td><td><span class="badge badge-green">動作確認済</span></td><td>Babyface Pro → UDP 22ms latency</td></tr>
+<tr><td>LED同期</td><td><span class="badge badge-green">8パターン</span></td><td>led-send.py / led-show.py</td></tr>
+<tr><td>solun.art (投資家ページ)</td><td><span class="badge badge-green">公開中</span></td><td><a href="https://solun.art/investor">solun.art/investor</a></td></tr>
+</table>
+</div>
+
+<!-- Contract Notes -->
+<h2>契約メモ</h2>
+<div class="card">
+<h3>TicketBlox契約 (交渉中)</h3>
+<ul style="font-size:13px;color:#d4d4d8;padding-left:20px;margin-top:8px">
+<li>旧契約をキャンセルし新条件で再契約する方向 (3/17 Keyanna)</li>
+<li>Anupが新契約Word文書を送付済み (3/19)</li>
+<li>デモ + 条件交渉のミーティング: 3/25 11am HST</li>
+<li><strong>確認ポイント:</strong> レベニューシェア比率、独占権範囲、テック権利保持</li>
+</ul>
+<h3 style="margin-top:16px">Zamnaライセンス (検討中)</h3>
+<ul style="font-size:13px;color:#d4d4d8;padding-left:20px;margin-top:8px">
+<li>JC/Toni/Nicoがプロダクション+タレント担当</li>
+<li>「Zamna Hawaii」ブランド使用条件の詳細は未確定</li>
+<li><strong>推奨:</strong> ライセンス使用。初回はZamnaの知名度+ネットワークが不可欠</li>
+<li>テック(SOLUNA/Koe)の権利は100%自社保持を契約に明記すること</li>
+</ul>
+<h3 style="margin-top:16px">会場 (Moanalua Gardens)</h3>
+<ul style="font-size:13px;color:#d4d4d8;padding-left:20px;margin-top:8px">
+<li>Letter of Intent ドラフト完了 (Sean → JP)</li>
+<li>近隣住民への通知文書ドラフト完了</li>
+<li>LOI最終化は4月上旬目標</li>
+</ul>
+</div>
+
+<!-- Next Actions -->
+<h2>ネクストアクション</h2>
+
+<div class="action action-urgent">
+<div class="action-num">1</div>
+<div class="action-text"><strong>TicketBloxミーティング参加</strong> — デモ確認 + 新契約条件交渉<br><a href="https://meet.google.com/axc-hgea-fzf">Google Meet</a></div>
+<div class="action-date">今日 11am HST</div>
+</div>
+
+<div class="action action-urgent">
+<div class="action-num">2</div>
+<div class="action-text"><strong>契約書レビュー</strong> — Anupが送付したWord文書を確認。レベニューシェア/独占権/テック権利を精査</div>
+<div class="action-date">今日</div>
+</div>
+
+<div class="action action-high">
+<div class="action-num">3</div>
+<div class="action-text"><strong>Zamnaライセンス条件確認</strong> — JCに使用料/条件を正式に問い合わせ</div>
+<div class="action-date">今週</div>
+</div>
+
+<div class="action action-high">
+<div class="action-num">4</div>
+<div class="action-text"><strong>Moanalua Gardens LOI最終化</strong> — Sean/JPと最終条件詰め</div>
+<div class="action-date">4月上旬</div>
+</div>
+
+<div class="action action-high">
+<div class="action-num">5</div>
+<div class="action-text"><strong>Early Birdチケット販売開始</strong> — TicketBlox連携確認後、$89 × 1,000枚</div>
+<div class="action-date">4月中旬</div>
+</div>
+
+<div class="action action-med">
+<div class="action-num">6</div>
+<div class="action-text"><strong>ヘッドライナー候補リスト作成</strong> — JC/Nico/Victorと協議。予算$300-500K</div>
+<div class="action-date">4月</div>
+</div>
+
+<div class="action action-med">
+<div class="action-num">7</div>
+<div class="action-text"><strong>スポンサーデッキ作成</strong> — テック×音楽×ハワイのユニークさを訴求</div>
+<div class="action-date">4月</div>
+</div>
+
+<div class="action action-med">
+<div class="action-num">8</div>
+<div class="action-text"><strong>Koe COIN基板発注</strong> — JLCPB BOM/CPL → 4,000台の発注準備</div>
+<div class="action-date">5月</div>
+</div>
+
+<div class="action action-med">
+<div class="action-num">9</div>
+<div class="action-text"><strong>Hawaiian Airlines提携交渉</strong> — フェスチケット+航空券パッケージ</div>
+<div class="action-date">5月</div>
+</div>
+
+<div class="action action-med">
+<div class="action-num">10</div>
+<div class="action-text"><strong>日本向けマーケティング開始</strong> — Silver Week (9/19-23) との連動プロモ</div>
+<div class="action-date">6月</div>
+</div>
+
+<!-- Links -->
+<h2>リンク</h2>
+<div class="card">
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<a href="https://pasha.run/fest" style="padding:6px 14px;background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.2);border-radius:8px;font-size:13px">フェスページ</a>
+<a href="https://solun.art/investor" style="padding:6px 14px;background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.2);border-radius:8px;font-size:13px">投資家ページ</a>
+<a href="https://enablerdao.com" style="padding:6px 14px;background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.2);border-radius:8px;font-size:13px">Enabler</a>
+<a href="https://koe.live" style="padding:6px 14px;background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.2);border-radius:8px;font-size:13px">Koe</a>
+<a href="https://solun.art" style="padding:6px 14px;background:rgba(59,159,232,.1);border:1px solid rgba(59,159,232,.2);border-radius:8px;font-size:13px">SOLUNA</a>
+<a href="https://meet.google.com/axc-hgea-fzf" style="padding:6px 14px;background:rgba(232,168,56,.1);border:1px solid rgba(232,168,56,.2);border-radius:8px;font-size:13px;color:#E8A838">今日のミーティング</a>
+</div>
+</div>
+
+<p style="text-align:center;font-size:11px;color:#52525b;margin-top:32px">© 2026 SOLUNA HAWAII LLC · Powered by Enabler</p>
+
+</div>
+</body>
+</html>
