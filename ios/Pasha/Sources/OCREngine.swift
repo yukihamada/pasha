@@ -5,6 +5,7 @@ struct OCRResult {
     var amount: Int?
     var date: Date?
     var vendor: String?
+    var category: String?
     var confidence: OCRConfidence = OCRConfidence()
     var rawLines: [String] = []
 }

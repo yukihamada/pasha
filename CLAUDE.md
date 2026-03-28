@@ -83,8 +83,9 @@ xcodebuild -exportArchive -archivePath build/Pasha.xcarchive \
 
 # 5. 審査提出
 FASTLANE_USER=mail@yukihamada.jp \
-FASTLANE_PASSWORD=Adbokuno29 \
-FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=sfpj-mfap-knlg-hksk \
+FASTLANE_PASSWORD=$FASTLANE_PASSWORD \
+FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD=$FASTLANE_ASP \
+# Note: Set FASTLANE_PASSWORD and FASTLANE_ASP in ~/.env or shell environment (never commit plaintext)
 fastlane deliver --username mail@yukihamada.jp --app_identifier com.enablerdao.pasha \
   --skip_binary_upload --skip_metadata --skip_screenshots \
   --submit_for_review --automatic_release false --force \

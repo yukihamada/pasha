@@ -4,6 +4,8 @@ import PhotosUI
 import SwiftData
 
 struct CameraView: View {
+    var onCaptured: ((Receipt) -> Void)?
+
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Environment(\.auditModelContext) private var auditModelContext
@@ -11,7 +13,6 @@ struct CameraView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @StateObject private var camera = CameraModel()
     @State private var flashOpacity = 0.0
-    @State private var navigateToDetail: Receipt?
     @State private var showLimitAlert = false
     @State private var isProcessing = false
     @State private var processingWithVLM = false
@@ -169,9 +170,6 @@ struct CameraView: View {
             auditManager.requestLocationPermission()
         }
         .onDisappear { camera.stop() }
-        .sheet(item: $navigateToDetail) { receipt in
-            NavigationStack { ReceiptDetailView(receipt: receipt) }
-        }
         .alert("無料プランは月30件まで", isPresented: $showLimitAlert) {
             Button("閉じる", role: .cancel) {}
         } message: {
@@ -184,7 +182,12 @@ struct CameraView: View {
                     if continuousMode {
                         finishContinuousCapture()
                     } else {
-                        navigateToDetail = receipt
+                        let r = receipt
+                        camera.stop()
+                        dismiss()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            onCaptured?(r)
+                        }
                     }
                 }
                 pendingReceipt = nil
@@ -320,19 +323,31 @@ struct CameraView: View {
                     auditManager.log(action: "AI自動入力", receipt: receipt, context: auditCtx)
                     try? modelContext.save()
                 }
-                needsVLM = ocrResult.confidence.isLow && VLMManager.shared.isAvailable
+                // Always use VLM when available for best accuracy
+                needsVLM = VLMManager.shared.isAvailable
             }
 
             if needsVLM {
                 await MainActor.run { processingWithVLM = true }
                 if let vlmResult = await VLMManager.shared.analyzeReceipt(imageData: imageData) {
                     await MainActor.run {
-                        var vlmChanged = false
-                        if let a = vlmResult.amount, a > 0, receipt.amount == 0 { receipt.amount = a; vlmChanged = true }
-                        if let v = vlmResult.vendor, !v.isEmpty, receipt.vendor.isEmpty { receipt.vendor = v; vlmChanged = true }
-                        if vlmChanged {
-                            receipt.addHistory("VLM自動入力")
-                            auditManager.log(action: "VLM自動入力", receipt: receipt, context: auditCtx)
+                        var vlmChanges: [String] = []
+                        // VLM overrides OCR for all fields (higher accuracy from vision model)
+                        if let a = vlmResult.amount, a > 0 {
+                            if receipt.amount != a { receipt.amount = a; vlmChanges.append("金額") }
+                        }
+                        if let v = vlmResult.vendor, !v.isEmpty {
+                            if receipt.vendor != v { receipt.vendor = v; vlmChanges.append("取引先") }
+                        }
+                        if let d = vlmResult.date {
+                            if receipt.date != d { receipt.date = d; vlmChanges.append("日付") }
+                        }
+                        if let c = vlmResult.category, !c.isEmpty {
+                            if receipt.category != c { receipt.category = c; vlmChanges.append("科目") }
+                        }
+                        if !vlmChanges.isEmpty {
+                            receipt.addHistory("AI最終判定: " + vlmChanges.joined(separator: ", "))
+                            auditManager.log(action: "AI最終判定", receipt: receipt, context: auditCtx)
                             try? modelContext.save()
                         }
                     }
@@ -365,10 +380,15 @@ struct CameraView: View {
                     } else {
                         isProcessing = false
                         showCelebration = true
+                        let capturedReceipt = receipt
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             showCelebration = false
                             camera.stop()
                             dismiss()
+                            // Navigate to detail view after camera dismiss
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                onCaptured?(capturedReceipt)
+                            }
                         }
                     }
                 }

@@ -79,7 +79,7 @@ class SubscriptionManager: ObservableObject {
     func updateMonthlyCount(context: ModelContext) {
         let cal = Calendar.current
         let now = Date()
-        let startOfMonth = cal.date(from: cal.dateComponents([.year, .month], from: now))!
+        guard let startOfMonth = cal.date(from: cal.dateComponents([.year, .month], from: now)) else { return }
         let descriptor = FetchDescriptor<Receipt>(
             predicate: #Predicate { $0.createdAt >= startOfMonth && !$0.isDeleted }
         )
@@ -127,13 +127,19 @@ class SubscriptionManager: ObservableObject {
 
     /// Purchase the Pro subscription
     func purchasePro() async {
-        guard let product = proProduct else {
-            purchaseError = "商品情報を取得できません"
-            return
-        }
-
         isPurchasing = true
         purchaseError = nil
+
+        // If the product has not yet been fetched, fetch it now before proceeding.
+        if proProduct == nil {
+            await fetchProduct()
+        }
+
+        guard let product = proProduct else {
+            purchaseError = "商品情報を取得できません。しばらくしてから再度お試しください。"
+            isPurchasing = false
+            return
+        }
 
         do {
             let result = try await product.purchase()

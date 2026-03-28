@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03532054A57796C2E8847449 /* ReceiptParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B661C5E934493DC29D5C44 /* ReceiptParserTests.swift */; };
 		042B170D3E6658491F879A7B /* ReceiptParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6277F926A1F9B7E202755FB /* ReceiptParser.swift */; };
 		06D3114175A6204EA712634E /* pasha.wav in Resources */ = {isa = PBXBuildFile; fileRef = D94234F3C3D820ECCCB8AD06 /* pasha.wav */; };
 		0CBF1E4E40B4E3CBC3F40DB4 /* SeedTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C73ED1D3ADF55CC326FCFC /* SeedTestData.swift */; };
@@ -36,6 +37,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		68D38CBEFA1FC3FD345296B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE834B165561ECE36C1313D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D19540C56AAD3EBADEC4522C;
+			remoteInfo = Pasha;
+		};
 		8612133A0AF970E20DA9232A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FE834B165561ECE36C1313D1 /* Project object */;
@@ -48,6 +56,7 @@
 /* Begin PBXFileReference section */
 		01943F0913C26FC13C8AD23D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		12DCD5D3367BD4A69ED7258B /* SolanaAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolanaAnchor.swift; sourceTree = "<group>"; };
+		16C16201F374FA105E8BD068 /* PashaTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PashaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1770EB74805CC03B330B47C6 /* AuditManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditManager.swift; sourceTree = "<group>"; };
 		1CA54387C54CBF7A141BD64B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		24C68164177EE22579CEF9E4 /* ProcessingTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingTipsView.swift; sourceTree = "<group>"; };
@@ -67,6 +76,7 @@
 		8908BDFEDE4F8E44F7490FF7 /* PashaWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = PashaWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		980F4C1F85665FCECBE90807 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		A4F9E31AD1E781DED2659341 /* ReceiptDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptDetailView.swift; sourceTree = "<group>"; };
+		A7B661C5E934493DC29D5C44 /* ReceiptParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptParserTests.swift; sourceTree = "<group>"; };
 		B41E061C5765D9FB9458C31E /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		B6277F926A1F9B7E202755FB /* ReceiptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptParser.swift; sourceTree = "<group>"; };
 		B8EA86F19B641AD3056044EE /* CustomCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCategory.swift; sourceTree = "<group>"; };
@@ -92,6 +102,7 @@
 		6B49FB2CD785606B879C6032 = {
 			isa = PBXGroup;
 			children = (
+				EEC61A6F458154560AAFBEB0 /* PashaTests */,
 				30BB8801F79B2EB7B874B994 /* PashaWidget */,
 				EA08F0790D263283E4C40476 /* Resources */,
 				6E766B42CCD86B05DAB99F2A /* Sources */,
@@ -134,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				3195EC2EBE7EB93CD4E1EDB7 /* Pasha.app */,
+				16C16201F374FA105E8BD068 /* PashaTests.xctest */,
 				8908BDFEDE4F8E44F7490FF7 /* PashaWidget.appex */,
 			);
 			name = Products;
@@ -149,9 +161,35 @@
 			path = Pasha/Resources;
 			sourceTree = "<group>";
 		};
+		EEC61A6F458154560AAFBEB0 /* PashaTests */ = {
+			isa = PBXGroup;
+			children = (
+				A7B661C5E934493DC29D5C44 /* ReceiptParserTests.swift */,
+			);
+			path = PashaTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		270E40C14BAF032F6C661842 /* PashaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5FBAFD24B89493E41944A87 /* Build configuration list for PBXNativeTarget "PashaTests" */;
+			buildPhases = (
+				AD568B88A915E9A58DEEE37A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91379145267E9189578119F7 /* PBXTargetDependency */,
+			);
+			name = PashaTests;
+			packageProductDependencies = (
+			);
+			productName = PashaTests;
+			productReference = 16C16201F374FA105E8BD068 /* PashaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6401A0FD3C162904CC000841 /* PashaWidget */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6FDD0924C307F03BE6142760 /* Build configuration list for PBXNativeTarget "PashaWidget" */;
@@ -197,6 +235,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					270E40C14BAF032F6C661842 = {
+						DevelopmentTeam = 5BV85JW8US;
+						ProvisioningStyle = Automatic;
+					};
 					6401A0FD3C162904CC000841 = {
 						DevelopmentTeam = 5BV85JW8US;
 						ProvisioningStyle = Automatic;
@@ -222,6 +264,7 @@
 			projectRoot = "";
 			targets = (
 				D19540C56AAD3EBADEC4522C /* Pasha */,
+				270E40C14BAF032F6C661842 /* PashaTests */,
 				6401A0FD3C162904CC000841 /* PashaWidget */,
 			);
 		};
@@ -270,6 +313,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AD568B88A915E9A58DEEE37A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03532054A57796C2E8847449 /* ReceiptParserTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DCF3C7A5B33777B0CED532F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -285,6 +336,11 @@
 			isa = PBXTargetDependency;
 			target = D19540C56AAD3EBADEC4522C /* Pasha */;
 			targetProxy = 8612133A0AF970E20DA9232A /* PBXContainerItemProxy */;
+		};
+		91379145267E9189578119F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D19540C56AAD3EBADEC4522C /* Pasha */;
+			targetProxy = 68D38CBEFA1FC3FD345296B1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -345,6 +401,25 @@
 			};
 			name = Release;
 		};
+		3B424FA30DA1017E75280C44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5BV85JW8US;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.enablerdao.PashaTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pasha.app/Pasha";
+			};
+			name = Debug;
+		};
 		89A86981202D7CDBA48A7C52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,7 +473,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5BV85JW8US;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -429,6 +504,25 @@
 				SWIFT_VERSION = 5.9;
 			};
 			name = Debug;
+		};
+		9CC6BF7A733E231104DC1D76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5BV85JW8US;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.enablerdao.PashaTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pasha.app/Pasha";
+			};
+			name = Release;
 		};
 		E9F3D56260F5B1FAC0B644E2 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -465,7 +559,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5BV85JW8US;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -516,6 +610,15 @@
 			buildConfigurations = (
 				10F4F9F75D9010BA12734D5D /* Debug */,
 				2F61F6941876647760E4312E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F5FBAFD24B89493E41944A87 /* Build configuration list for PBXNativeTarget "PashaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B424FA30DA1017E75280C44 /* Debug */,
+				9CC6BF7A733E231104DC1D76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

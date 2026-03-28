@@ -422,6 +422,7 @@ actor SolanaAnchor {
     private func saveAnchorRecord(_ record: AnchorRecord) {
         var records = loadAnchorRecords()
         records.append(record)
+        if records.count > 100 { records = Array(records.suffix(100)) }
         if let data = try? JSONEncoder().encode(records) {
             UserDefaults.standard.set(data, forKey: storageKey)
         }

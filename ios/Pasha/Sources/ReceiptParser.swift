@@ -5,6 +5,23 @@ import Foundation
 /// to understand receipt structure without an LLM.
 struct ReceiptParser {
 
+    // MARK: - Cached regex patterns (compiled once)
+    private static let amountRegex = try! NSRegularExpression(pattern: "[¥￥]?\\s?([\\d,]+)(?:\\.\\d+)?\\s?(?:円)?")
+    private static let dateLineRegex = try! NSRegularExpression(pattern: "(20)?\\d{2}[/\\-\\.]\\d{1,2}[/\\-\\.]\\d{1,2}")
+    private static let dateParsers: [(NSRegularExpression, (NSTextCheckingResult, String) -> Date?)] = {
+        let patterns: [(String, (NSTextCheckingResult, String) -> Date?)] = [
+            ("(20\\d{2})[/\\-\\.](\\d{1,2})[/\\-\\.](\\d{1,2})", { m, text in ymd(m, text, adj: false) }),
+            ("(20\\d{2})年\\s?(\\d{1,2})月\\s?(\\d{1,2})日", { m, text in ymd(m, text, adj: false) }),
+            ("(?:令和|R)\\s?(\\d{1,2})[年\\./](\\d{1,2})[月\\./](\\d{1,2})", { m, text in
+                guard let r = range(m, 1, text), let mo = range(m, 2, text), let d = range(m, 3, text),
+                      let reiwa = Int(r), let month = Int(mo), let day = Int(d) else { return nil }
+                return makeDate(reiwa + 2018, month, day)
+            }),
+            ("(\\d{2})[/\\-\\.](\\d{1,2})[/\\-\\.](\\d{1,2})", { m, text in ymd(m, text, adj: true) }),
+        ]
+        return patterns.map { (try! NSRegularExpression(pattern: $0.0), $0.1) }
+    }()
+
     struct Result {
         var vendor: String?
         var amount: Int?
@@ -141,31 +158,10 @@ struct ReceiptParser {
     }
 
     private static func parseDate(from text: String) -> Date? {
-        let patterns: [(String, (NSTextCheckingResult) -> Date?)] = [
-            // 2026/03/18, 2026-03-18, 2026.03.18
-            ("(20\\d{2})[/\\-\\.](\\d{1,2})[/\\-\\.](\\d{1,2})", { m in
-                ymd(m, text, adj: false)
-            }),
-            // 2026年3月18日
-            ("(20\\d{2})年\\s?(\\d{1,2})月\\s?(\\d{1,2})日", { m in
-                ymd(m, text, adj: false)
-            }),
-            // 令和8年3月18日, R8.3.18
-            ("(?:令和|R)\\s?(\\d{1,2})[年\\./](\\d{1,2})[月\\./](\\d{1,2})", { m in
-                guard let r = range(m, 1, text), let mo = range(m, 2, text), let d = range(m, 3, text),
-                      let reiwa = Int(r), let month = Int(mo), let day = Int(d) else { return nil }
-                return makeDate(reiwa + 2018, month, day)
-            }),
-            // 26/03/18 (2-digit year)
-            ("(\\d{2})[/\\-\\.](\\d{1,2})[/\\-\\.](\\d{1,2})", { m in
-                ymd(m, text, adj: true)
-            }),
-        ]
-
-        for (pattern, handler) in patterns {
-            guard let regex = try? NSRegularExpression(pattern: pattern),
-                  let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),
-                  let date = handler(match) else { continue }
+        let nsRange = NSRange(text.startIndex..., in: text)
+        for (regex, handler) in dateParsers {
+            guard let match = regex.firstMatch(in: text, range: nsRange),
+                  let date = handler(match, text) else { continue }
             return date
         }
         return nil
@@ -236,10 +232,8 @@ struct ReceiptParser {
     // MARK: - Helpers
 
     private static func extractNumber(from text: String) -> Int? {
-        // Match numbers with optional ¥/￥ prefix and comma separators
-        let pattern = try! NSRegularExpression(pattern: "[¥￥]?\\s?([\\d,]+)(?:\\.\\d+)?\\s?(?:円)?")
         let range = NSRange(text.startIndex..., in: text)
-        let matches = pattern.matches(in: text, range: range)
+        let matches = amountRegex.matches(in: text, range: range)
 
         var best: Int?
         for match in matches {
@@ -256,8 +250,7 @@ struct ReceiptParser {
     }
 
     private static func isDateLine(_ line: String) -> Bool {
-        let datePattern = try! NSRegularExpression(pattern: "(20)?\\d{2}[/\\-\\.]\\d{1,2}[/\\-\\.]\\d{1,2}")
-        return datePattern.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)) != nil
+        return dateLineRegex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)) != nil
     }
 
     private static func isNoiseLine(_ line: String) -> Bool {

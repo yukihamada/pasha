@@ -4,6 +4,7 @@ import SwiftData
 struct ContentView: View {
     @State private var selectedTab = 0
     @State private var showCamera = false
+    @State private var capturedReceipt: Receipt?
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
@@ -46,7 +47,12 @@ struct ContentView: View {
             .offset(y: -2)
         }
         .fullScreenCover(isPresented: $showCamera) {
-            CameraView()
+            CameraView(onCaptured: { receipt in
+                capturedReceipt = receipt
+            })
+        }
+        .sheet(item: $capturedReceipt) { receipt in
+            NavigationStack { ReceiptDetailView(receipt: receipt) }
         }
         .preferredColorScheme(.dark)
         .task {

@@ -64,7 +64,7 @@ struct SettingsView: View {
                                         .font(.caption).foregroundStyle(.secondary)
                                 }
                                 Spacer()
-                                if subscriptionManager.isPurchasing {
+                                if subscriptionManager.isPurchasing || subscriptionManager.proProduct == nil {
                                     ProgressView().controlSize(.small)
                                 } else {
                                     Text(subscriptionManager.formattedPrice)
@@ -73,7 +73,7 @@ struct SettingsView: View {
                                 }
                             }
                         }
-                        .disabled(subscriptionManager.isPurchasing)
+                        .disabled(subscriptionManager.isPurchasing || subscriptionManager.proProduct == nil)
 
                         Button {
                             Task { await subscriptionManager.restorePurchases() }
@@ -252,40 +252,84 @@ struct SettingsView: View {
 
                 // AI Engine
                 Section {
-                    HStack(spacing: 12) {
-                        Image(systemName: "brain")
-                            .font(.title3)
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [Color.pasha, Color.pashaAccent],
-                                    startPoint: .topLeading, endPoint: .bottomTrailing
-                                )
-                            )
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(vlmManager.modelName)
-                                .font(.subheadline.weight(.medium))
-                            if vlmManager.serverModeEnabled {
-                                Text("クラウド解析（有効）")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.pashaSuccess)
-                            } else if vlmManager.isLocalModelDownloaded {
-                                Text(vlmManager.status.displayText)
-                                    .font(.caption)
-                                    .foregroundStyle(Color.pashaSuccess)
-                            } else {
-                                Text("ローカルモード（Vision OCR）")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
+                    // Provider picker
+                    Picker(selection: Binding(
+                        get: { vlmManager.selectedProvider },
+                        set: { newProvider in
+                            vlmManager.selectedProvider = newProvider
+                            vlmManager.userApiKey = vlmManager.apiKey(for: newProvider)
+                            vlmManager.serverModeEnabled = true
                         }
-                        Spacer()
-                        if vlmManager.isAvailable {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(Color.pashaSuccess)
+                    )) {
+                        ForEach(VLMManager.AIProvider.allCases) { provider in
+                            HStack {
+                                Text(provider.displayName)
+                                if !vlmManager.apiKey(for: provider).isEmpty || !provider.needsApiKey {
+                                    Spacer()
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundStyle(Color.pashaSuccess)
+                                        .font(.caption)
+                                }
+                            }
+                            .tag(provider)
+                        }
+                    } label: {
+                        HStack(spacing: 12) {
+                            Image(systemName: "brain")
+                                .font(.title3)
+                                .foregroundStyle(
+                                    LinearGradient(
+                                        colors: [Color.pasha, Color.pashaAccent],
+                                        startPoint: .topLeading, endPoint: .bottomTrailing
+                                    )
+                                )
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("AIプロバイダー")
+                                    .font(.subheadline.weight(.medium))
+                                Text(vlmManager.selectedProvider.visionModel)
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
                         }
                     }
 
-                    // Server mode opt-in toggle
+                    // API key input
+                    if vlmManager.selectedProvider.needsApiKey {
+                        HStack {
+                            SecureField(vlmManager.selectedProvider.placeholder, text: Binding(
+                                get: { vlmManager.apiKey(for: vlmManager.selectedProvider) },
+                                set: { vlmManager.setApiKey($0, for: vlmManager.selectedProvider) }
+                            ))
+                            .font(.system(size: 14, design: .monospaced))
+                            .textContentType(.password)
+                            .autocorrectionDisabled()
+
+                            if !vlmManager.apiKey(for: vlmManager.selectedProvider).isEmpty {
+                                Button {
+                                    vlmManager.setApiKey("", for: vlmManager.selectedProvider)
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                    }
+
+                    // Status
+                    HStack {
+                        if vlmManager.hasValidKey && vlmManager.serverModeEnabled {
+                            Label("AI解析: 有効", systemImage: "checkmark.circle.fill")
+                                .font(.caption).foregroundStyle(Color.pashaSuccess)
+                        } else if !vlmManager.hasValidKey {
+                            Label("APIキーを入力してください", systemImage: "exclamationmark.triangle.fill")
+                                .font(.caption).foregroundStyle(Color.pashaWarn)
+                        } else {
+                            Label("AI解析: 無効（設定でONにしてください）", systemImage: "info.circle")
+                                .font(.caption).foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                    }
+
+                    // Cloud toggle
                     Toggle(isOn: Binding(
                         get: { vlmManager.serverModeEnabled },
                         set: { newValue in
@@ -299,12 +343,13 @@ struct SettingsView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("クラウドAI解析")
                                 .font(.subheadline.weight(.medium))
-                            Text("レシート画像を外部サーバーに送信して高精度解析")
+                            Text("撮影時にAIが自動で金額・日付・取引先を判定")
                                 .font(.caption).foregroundStyle(.secondary)
                         }
                     }
                     .tint(Color.pasha)
 
+                    // Local model download
                     switch vlmManager.status {
                     case .notDownloaded:
                         Button {
@@ -329,17 +374,13 @@ struct SettingsView: View {
                         }
                     case .downloading(let progress):
                         VStack(spacing: 8) {
-                            ProgressView(value: progress)
-                                .tint(Color.pasha)
+                            ProgressView(value: progress).tint(Color.pasha)
                             HStack {
                                 Text("ダウンロード中... \(Int(progress * 100))%")
                                     .font(.caption).foregroundStyle(.secondary)
                                 Spacer()
-                                Button("キャンセル") {
-                                    vlmManager.cancelDownload()
-                                }
-                                .font(.caption)
-                                .foregroundStyle(.red)
+                                Button("キャンセル") { vlmManager.cancelDownload() }
+                                    .font(.caption).foregroundStyle(.red)
                             }
                         }
                     case .downloaded:
@@ -349,24 +390,20 @@ struct SettingsView: View {
                                     .font(.caption).foregroundStyle(.secondary)
                             }
                             Spacer()
-                            Button(role: .destructive) {
-                                vlmManager.deleteModel()
-                            } label: {
-                                Text("削除")
-                                    .font(.caption)
+                            Button(role: .destructive) { vlmManager.deleteModel() } label: {
+                                Text("削除").font(.caption)
                             }
                         }
                     case .analyzing:
                         HStack {
                             ProgressView().controlSize(.small)
-                            Text("解析中...")
-                                .font(.caption).foregroundStyle(.secondary)
+                            Text("解析中...").font(.caption).foregroundStyle(.secondary)
                         }
                     }
                 } header: {
                     Label("AI解析エンジン", systemImage: "cpu")
                 } footer: {
-                    Text("ローカルモードではすべての処理が端末内で完結し、データが外部に送信されることはありません。クラウドAI解析を有効にすると、レシート画像が外部サーバーに送信されます。")
+                    Text("Geminiはデフォルトキー付き（無料）。OpenAI/Anthropic/Groqは自分のAPIキーを設定すると利用可能。chatweb.aiはキー不要（精度低め）。")
                         .font(.caption2)
                 }
 
@@ -543,7 +580,7 @@ struct SettingsView: View {
                 }
                 Button("キャンセル", role: .cancel) {}
             } message: {
-                Text("レシート画像が外部サーバー（chatweb.ai）に送信され、AI解析が行われます。送信されたデータはレシート解析のみに使用されます。")
+                Text("レシート画像が\(vlmManager.selectedProvider.displayName)のAPIに送信され、AI解析が行われます。送信されたデータはレシート解析のみに使用されます。")
             }
             .alert("モバイルデータ通信で大容量ダウンロード", isPresented: $showCellularDownloadAlert) {
                 Button("ダウンロード") {
@@ -588,7 +625,7 @@ struct SettingsView: View {
 
         if let json = try? JSONSerialization.data(withJSONObject: data),
            let str = String(data: json, encoding: .utf8) {
-            UIPasteboard.general.string = "SAKUTSU_IMPORT:" + str
+            UIPasteboard.general.setItems([["public.utf8-plain-text": "SAKUTSU_IMPORT:" + str]], options: [.expirationDate: Date().addingTimeInterval(60)])
             if let url = URL(string: "sakutsu://import?source=pasha") {
                 UIApplication.shared.open(url)
             }
