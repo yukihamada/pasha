@@ -29,16 +29,16 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    // Free tier limit banner
+                    // Usage banner
                     if subscriptionManager.currentTier == .free {
                         if !subscriptionManager.canAddReceipt {
                             HStack(spacing: 8) {
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .foregroundStyle(Color.pashaWarn)
-                                Text("今月の無料枠を使い切りました")
+                                Text("今月の登録枠を使い切りました")
                                     .font(.caption.weight(.semibold))
                                 Spacer()
-                                Text("Proへ")
+                                Text("アップグレード")
                                     .font(.caption.weight(.bold))
                                     .foregroundStyle(Color.pasha)
                             }
@@ -50,17 +50,10 @@ struct HomeView: View {
                                 Image(systemName: "camera.fill")
                                     .font(.caption2)
                                     .foregroundStyle(Color.pasha)
-                                Text("残り \(subscriptionManager.remainingFreeCount)/\(subscriptionManager.freeMonthlyLimit)件")
+                                Text("今月 \(subscriptionManager.monthlyReceiptCount)件登録済み")
                                     .font(.caption.weight(.medium))
                                     .foregroundStyle(.secondary)
                                 Spacer()
-                                Text("Free")
-                                    .font(.system(size: 10, weight: .bold, design: .rounded))
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 3)
-                                    .background(Color.pasha.opacity(0.15))
-                                    .foregroundStyle(Color.pasha)
-                                    .clipShape(Capsule())
                             }
                             .padding(10)
                             .glassCard()

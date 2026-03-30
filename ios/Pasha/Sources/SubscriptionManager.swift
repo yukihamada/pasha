@@ -1,6 +1,8 @@
 import StoreKit
 import SwiftUI
 import SwiftData
+import Foundation
+import CommonCrypto
 
 @MainActor
 class SubscriptionManager: ObservableObject {
@@ -11,18 +13,38 @@ class SubscriptionManager: ObservableObject {
         case pro = "pro"  // ¥980/月 - 全機能（電子帳簿保存法、ブロックチェーン、無制限）
     }
 
+    enum ProSource: String {
+        case none
+        case subscription  // IAP
+        case fanClub       // ENABLER NFT
+    }
+
     static let proProductID = "com.enablerdao.pasha.pro.monthly"
 
+    /// Promo code verification endpoint (enablerdao.com fan club API)
+    static let promoCodesURL = "https://enablerdao.com/api/fanclub/codes"
+
     @Published var currentTier: Tier = .free
+    @Published var proSource: ProSource = .none
     @Published var monthlyReceiptCount: Int = 0
     @Published var proProduct: Product?
     @Published var purchaseError: String?
     @Published var isPurchasing: Bool = false
     @Published var expirationDate: Date?
 
+    // Fan club (promo code)
+    @Published var isFanClubVerified: Bool = false
+    @Published var fanClubError: String?
+    @Published var isVerifyingFanClub: Bool = false
+
     let freeMonthlyLimit = 30
 
     private var transactionListener: Task<Void, Never>?
+
+    // UserDefaults keys for fan club persistence
+    private let fanClubCodeHashKey = "enabler_fanclub_code_hash"
+    private let fanClubVerifiedKey = "enabler_fanclub_verified"
+    private let fanClubVerifiedDateKey = "enabler_fanclub_verified_date"
 
     var canAddReceipt: Bool {
         currentTier != .free || monthlyReceiptCount < freeMonthlyLimit
@@ -51,12 +73,23 @@ class SubscriptionManager: ObservableObject {
         }
     }
 
+    var proSourceText: String {
+        switch proSource {
+        case .subscription: return "サブスクリプション"
+        case .fanClub: return "Enablerファンクラブ"
+        case .none: return ""
+        }
+    }
+
     var formattedPrice: String {
-        proProduct?.displayPrice ?? "¥980/月"
+        proProduct?.displayPrice ?? ""
     }
 
     var subscriptionStatusText: String {
         guard currentTier == .pro else { return "" }
+        if proSource == .fanClub {
+            return "Enablerファンクラブ特典"
+        }
         if let exp = expirationDate {
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
@@ -69,6 +102,7 @@ class SubscriptionManager: ObservableObject {
 
     init() {
         transactionListener = listenForTransactions()
+        loadFanClubState()
     }
 
     deinit {
@@ -86,7 +120,7 @@ class SubscriptionManager: ObservableObject {
         monthlyReceiptCount = (try? context.fetchCount(descriptor)) ?? 0
     }
 
-    /// Load subscription status from StoreKit 2
+    /// Load subscription status from StoreKit 2 + fan club
     func loadTier() {
         Task {
             await fetchProduct()
@@ -106,23 +140,136 @@ class SubscriptionManager: ObservableObject {
         }
     }
 
-    /// Check current entitlements and update tier
+    /// Check current entitlements and update tier (StoreKit + fan club)
     func updateSubscriptionStatus() async {
-        var foundPro = false
+        var foundStoreKitPro = false
 
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }
             if transaction.productID == Self.proProductID && transaction.revocationDate == nil {
-                foundPro = true
+                foundStoreKitPro = true
                 expirationDate = transaction.expirationDate
                 break
             }
         }
 
-        currentTier = foundPro ? .pro : .free
-        if !foundPro {
+        if foundStoreKitPro {
+            currentTier = .pro
+            proSource = .subscription
+        } else if isFanClubVerified {
+            currentTier = .pro
+            proSource = .fanClub
+            expirationDate = nil
+        } else {
+            currentTier = .free
+            proSource = .none
             expirationDate = nil
         }
+    }
+
+    // MARK: - Fan Club (Promo Code)
+
+    /// Load persisted fan club state from UserDefaults
+    private func loadFanClubState() {
+        let defaults = UserDefaults.standard
+        isFanClubVerified = defaults.bool(forKey: fanClubVerifiedKey)
+
+        // Re-verify code validity every 7 days
+        if isFanClubVerified, let lastDate = defaults.object(forKey: fanClubVerifiedDateKey) as? Date {
+            if Date().timeIntervalSince(lastDate) > 7 * 86400 {
+                Task { await refreshFanClubCode() }
+            }
+        }
+    }
+
+    /// Verify a promo code against the server hash list
+    func verifyPromoCode(_ code: String) async {
+        let normalized = code.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        guard !normalized.isEmpty else {
+            fanClubError = "招待コードを入力してください"
+            return
+        }
+
+        isVerifyingFanClub = true
+        fanClubError = nil
+
+        do {
+            let codeHash = sha256(normalized)
+            let valid = try await checkCodeHash(codeHash)
+
+            if valid {
+                isFanClubVerified = true
+                saveFanClubState(codeHash: codeHash)
+                await updateSubscriptionStatus()
+            } else {
+                fanClubError = "無効な招待コードです"
+            }
+        } catch {
+            fanClubError = "検証に失敗しました。ネットワークを確認してください。"
+        }
+
+        isVerifyingFanClub = false
+    }
+
+    /// Disconnect fan club membership
+    func disconnectFanClub() {
+        isFanClubVerified = false
+        fanClubError = nil
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: fanClubCodeHashKey)
+        defaults.set(false, forKey: fanClubVerifiedKey)
+        defaults.removeObject(forKey: fanClubVerifiedDateKey)
+        Task { await updateSubscriptionStatus() }
+    }
+
+    /// Silently re-verify the stored code is still valid
+    private func refreshFanClubCode() async {
+        let defaults = UserDefaults.standard
+        guard let storedHash = defaults.string(forKey: fanClubCodeHashKey) else { return }
+        do {
+            let valid = try await checkCodeHash(storedHash)
+            isFanClubVerified = valid
+            if valid {
+                defaults.set(Date(), forKey: fanClubVerifiedDateKey)
+            } else {
+                defaults.set(false, forKey: fanClubVerifiedKey)
+            }
+            await updateSubscriptionStatus()
+        } catch {
+            // Keep existing state on network error
+        }
+    }
+
+    private func saveFanClubState(codeHash: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(codeHash, forKey: fanClubCodeHashKey)
+        defaults.set(true, forKey: fanClubVerifiedKey)
+        defaults.set(Date(), forKey: fanClubVerifiedDateKey)
+    }
+
+    /// Fetch hash list from server and check if codeHash exists
+    private func checkCodeHash(_ codeHash: String) async throws -> Bool {
+        guard let url = URL(string: Self.promoCodesURL) else { return false }
+
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 10
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+
+        guard let hashes = json?["hashes"] as? [String] else { return false }
+        return hashes.contains(codeHash)
+    }
+
+    /// SHA-256 hash of a string
+    private func sha256(_ input: String) -> String {
+        let data = Data(input.utf8)
+        var hash = [UInt8](repeating: 0, count: 32)
+        data.withUnsafeBytes { buffer in
+            _ = CC_SHA256(buffer.baseAddress, CC_LONG(data.count), &hash)
+        }
+        return hash.map { String(format: "%02x", $0) }.joined()
     }
 
     /// Purchase the Pro subscription

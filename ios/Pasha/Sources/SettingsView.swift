@@ -19,6 +19,7 @@ struct SettingsView: View {
     @State private var budgetInput: String = ""
     @State private var showServerModeAlert = false
     @State private var showCellularDownloadAlert = false
+    @State private var fanClubWalletInput = ""
 
     private var anchoredCount: Int { allLogs.filter { $0.isAnchored }.count }
     private var activeCount: Int { allReceipts.filter { !$0.isDeleted }.count }
@@ -42,7 +43,7 @@ struct SettingsView: View {
                             Text("現在のプラン: \(subscriptionManager.tierDisplayName)")
                                 .font(.subheadline.weight(.medium))
                             if subscriptionManager.currentTier == .free {
-                                Text("月\(subscriptionManager.freeMonthlyLimit)件まで無料")
+                                Text("今月 \(subscriptionManager.monthlyReceiptCount)件登録済み")
                                     .font(.caption).foregroundStyle(.secondary)
                             } else {
                                 Text(subscriptionManager.subscriptionStatusText)
@@ -64,7 +65,7 @@ struct SettingsView: View {
                                         .font(.caption).foregroundStyle(.secondary)
                                 }
                                 Spacer()
-                                if subscriptionManager.isPurchasing || subscriptionManager.proProduct == nil {
+                                if subscriptionManager.isPurchasing {
                                     ProgressView().controlSize(.small)
                                 } else {
                                     Text(subscriptionManager.formattedPrice)
@@ -73,7 +74,7 @@ struct SettingsView: View {
                                 }
                             }
                         }
-                        .disabled(subscriptionManager.isPurchasing || subscriptionManager.proProduct == nil)
+                        .disabled(subscriptionManager.isPurchasing)
 
                         Button {
                             Task { await subscriptionManager.restorePurchases() }
@@ -82,6 +83,9 @@ struct SettingsView: View {
                                 .font(.subheadline)
                         }
                         .disabled(subscriptionManager.isPurchasing)
+                    } else if subscriptionManager.proSource == .fanClub {
+                        Text("Enablerファンクラブ特典でProプランが有効です")
+                            .font(.caption).foregroundStyle(Color.pashaSuccess)
                     } else {
                         Text("サブスクリプションの管理はiOSの設定アプリから行えます")
                             .font(.caption).foregroundStyle(.secondary)
@@ -93,6 +97,76 @@ struct SettingsView: View {
                     }
                 } header: {
                     Label("プラン", systemImage: "crown")
+                }
+
+                // Fan Club
+                Section {
+                    if subscriptionManager.isFanClubVerified {
+                        HStack(spacing: 12) {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.title3)
+                                .foregroundStyle(Color.pashaSuccess)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Enablerファンクラブ認証済み")
+                                    .font(.subheadline.weight(.medium))
+                                Text("Proプランが有効です")
+                                    .font(.caption).foregroundStyle(Color.pashaSuccess)
+                            }
+                            Spacer()
+                            Text("Pro").font(.caption.weight(.bold))
+                                .padding(.horizontal, 8).padding(.vertical, 2)
+                                .background(Color.pasha.opacity(0.2))
+                                .clipShape(Capsule())
+                                .foregroundStyle(Color.pasha)
+                        }
+                        Button(role: .destructive) {
+                            subscriptionManager.disconnectFanClub()
+                        } label: {
+                            Label("連携を解除", systemImage: "xmark.circle")
+                                .font(.subheadline)
+                        }
+                    } else {
+                        HStack(spacing: 12) {
+                            Image(systemName: "star.circle.fill")
+                                .font(.title3)
+                                .foregroundStyle(Color.pasha)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Enablerファンクラブ")
+                                    .font(.subheadline.weight(.medium))
+                                Text("招待コードをお持ちの方はProプランが無料")
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                        }
+
+                        HStack {
+                            TextField("招待コード（例: ENABLER-XXXX-XXXX-XXXX）", text: $fanClubWalletInput)
+                                .font(.system(size: 13, design: .monospaced))
+                                .autocorrectionDisabled()
+                                .textInputAutocapitalization(.characters)
+                            Button {
+                                Task { await subscriptionManager.verifyPromoCode(fanClubWalletInput) }
+                            } label: {
+                                if subscriptionManager.isVerifyingFanClub {
+                                    ProgressView().controlSize(.small)
+                                } else {
+                                    Text("認証")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(Color.pasha)
+                                }
+                            }
+                            .disabled(fanClubWalletInput.isEmpty || subscriptionManager.isVerifyingFanClub)
+                        }
+
+                        if let error = subscriptionManager.fanClubError {
+                            Label(error, systemImage: "exclamationmark.triangle.fill")
+                                .font(.caption).foregroundStyle(.red)
+                        }
+                    }
+                } header: {
+                    Label("ファンクラブ", systemImage: "star.circle")
+                } footer: {
+                    Text("Enablerファンクラブの招待コードを入力すると、Proプランの全機能が無料で利用可能になります。")
+                        .font(.caption2)
                 }
 
                 // Data Storage

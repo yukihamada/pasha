@@ -1,0 +1,1386 @@
+{
+  "version": 2,
+  "updatedAt": "2026-03-27",
+  "areas": [
+    {
+      "id": "minato-1",
+      "ward": "港区",
+      "name": "芝地区",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.6565,
+      "longitude": 139.7514
+    },
+    {
+      "id": "minato-2",
+      "ward": "港区",
+      "name": "麻布地区",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.6542,
+      "longitude": 139.7372
+    },
+    {
+      "id": "minato-3",
+      "ward": "港区",
+      "name": "赤坂地区",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        3
+      ],
+      "recyclableDays": [
+        6
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.6726,
+      "longitude": 139.7348
+    },
+    {
+      "id": "minato-4",
+      "ward": "港区",
+      "name": "高輪地区",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        5
+      ],
+      "paperDays": [
+        2
+      ],
+      "latitude": 35.6352,
+      "longitude": 139.735
+    },
+    {
+      "id": "minato-5",
+      "ward": "港区",
+      "name": "芝浦港南地区",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        6
+      ],
+      "recyclableDays": [
+        4
+      ],
+      "paperDays": [
+        3
+      ],
+      "latitude": 35.6432,
+      "longitude": 139.756
+    },
+    {
+      "id": "shibuya-1",
+      "ward": "渋谷区",
+      "name": "神宮前・千駄ヶ谷",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.6708,
+      "longitude": 139.7078
+    },
+    {
+      "id": "shibuya-2",
+      "ward": "渋谷区",
+      "name": "渋谷・東・広尾",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.6615,
+      "longitude": 139.7107
+    },
+    {
+      "id": "shibuya-3",
+      "ward": "渋谷区",
+      "name": "恵比寿・代官山",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        3
+      ],
+      "recyclableDays": [
+        6
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.648,
+      "longitude": 139.71
+    },
+    {
+      "id": "shibuya-4",
+      "ward": "渋谷区",
+      "name": "代々木・初台・幡ヶ谷",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        5
+      ],
+      "paperDays": [
+        2
+      ],
+      "latitude": 35.672,
+      "longitude": 139.687
+    },
+    {
+      "id": "shibuya-5",
+      "ward": "渋谷区",
+      "name": "笹塚・北沢",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        6
+      ],
+      "recyclableDays": [
+        4
+      ],
+      "paperDays": [
+        3
+      ],
+      "latitude": 35.668,
+      "longitude": 139.67
+    },
+    {
+      "id": "shinjuku-1",
+      "ward": "新宿区",
+      "name": "新宿・歌舞伎町",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.6938,
+      "longitude": 139.7034
+    },
+    {
+      "id": "shinjuku-2",
+      "ward": "新宿区",
+      "name": "四谷・市谷",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.687,
+      "longitude": 139.72
+    },
+    {
+      "id": "shinjuku-3",
+      "ward": "新宿区",
+      "name": "高田馬場・早稲田",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        3
+      ],
+      "recyclableDays": [
+        6
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.713,
+      "longitude": 139.704
+    },
+    {
+      "id": "meguro-1",
+      "ward": "目黒区",
+      "name": "目黒・下目黒",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.634,
+      "longitude": 139.7155
+    },
+    {
+      "id": "meguro-2",
+      "ward": "目黒区",
+      "name": "中目黒・祐天寺",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.644,
+      "longitude": 139.698
+    },
+    {
+      "id": "meguro-3",
+      "ward": "目黒区",
+      "name": "自由が丘・緑が丘",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        3
+      ],
+      "recyclableDays": [
+        6
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.607,
+      "longitude": 139.669
+    },
+    {
+      "id": "setagaya-1",
+      "ward": "世田谷区",
+      "name": "三軒茶屋・太子堂",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.644,
+      "longitude": 139.67
+    },
+    {
+      "id": "setagaya-2",
+      "ward": "世田谷区",
+      "name": "下北沢・代田",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.661,
+      "longitude": 139.668
+    },
+    {
+      "id": "setagaya-3",
+      "ward": "世田谷区",
+      "name": "二子玉川・用賀",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        3
+      ],
+      "recyclableDays": [
+        6
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.611,
+      "longitude": 139.626
+    },
+    {
+      "id": "shinagawa-1",
+      "ward": "品川区",
+      "name": "大崎・五反田",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.6195,
+      "longitude": 139.728
+    },
+    {
+      "id": "shinagawa-2",
+      "ward": "品川区",
+      "name": "戸越・中延",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.61,
+      "longitude": 139.714
+    },
+    {
+      "id": "ota-1",
+      "ward": "大田区",
+      "name": "蒲田・糀谷",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.563,
+      "longitude": 139.716
+    },
+    {
+      "id": "ota-2",
+      "ward": "大田区",
+      "name": "大森・山王",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.588,
+      "longitude": 139.728
+    },
+    {
+      "id": "chuo-1",
+      "ward": "中央区",
+      "name": "日本橋",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.6824,
+      "longitude": 139.774
+    },
+    {
+      "id": "chuo-2",
+      "ward": "中央区",
+      "name": "銀座・築地",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.671,
+      "longitude": 139.765
+    },
+    {
+      "id": "chiyoda-1",
+      "ward": "千代田区",
+      "name": "神田",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.694,
+      "longitude": 139.771
+    },
+    {
+      "id": "chiyoda-2",
+      "ward": "千代田区",
+      "name": "麹町・番町",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.688,
+      "longitude": 139.743
+    },
+    {
+      "id": "bunkyo-1",
+      "ward": "文京区",
+      "name": "本郷・湯島",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.708,
+      "longitude": 139.759
+    },
+    {
+      "id": "bunkyo-2",
+      "ward": "文京区",
+      "name": "小石川・白山",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.717,
+      "longitude": 139.747
+    },
+    {
+      "id": "taito-1",
+      "ward": "台東区",
+      "name": "上野・浅草",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.714,
+      "longitude": 139.777
+    },
+    {
+      "id": "taito-2",
+      "ward": "台東区",
+      "name": "谷中・根岸",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.725,
+      "longitude": 139.771
+    },
+    {
+      "id": "toshima-1",
+      "ward": "豊島区",
+      "name": "池袋",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.7295,
+      "longitude": 139.7109
+    },
+    {
+      "id": "toshima-2",
+      "ward": "豊島区",
+      "name": "大塚・巣鴨",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.734,
+      "longitude": 139.728
+    },
+    {
+      "id": "nakano-1",
+      "ward": "中野区",
+      "name": "中野駅周辺",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.7065,
+      "longitude": 139.6635
+    },
+    {
+      "id": "nakano-2",
+      "ward": "中野区",
+      "name": "東中野・落合",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.712,
+      "longitude": 139.681
+    },
+    {
+      "id": "suginami-1",
+      "ward": "杉並区",
+      "name": "荻窪・西荻窪",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.703,
+      "longitude": 139.62
+    },
+    {
+      "id": "suginami-2",
+      "ward": "杉並区",
+      "name": "阿佐谷・高円寺",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.705,
+      "longitude": 139.649
+    },
+    {
+      "id": "koto-1",
+      "ward": "江東区",
+      "name": "豊洲・有明",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.653,
+      "longitude": 139.796
+    },
+    {
+      "id": "koto-2",
+      "ward": "江東区",
+      "name": "門前仲町・清澄",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.677,
+      "longitude": 139.797
+    },
+    {
+      "id": "sumida-1",
+      "ward": "墨田区",
+      "name": "錦糸町・両国",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.696,
+      "longitude": 139.813
+    },
+    {
+      "id": "sumida-2",
+      "ward": "墨田区",
+      "name": "押上・曳舟",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.711,
+      "longitude": 139.816
+    },
+    {
+      "id": "nerima-1",
+      "ward": "練馬区",
+      "name": "練馬駅周辺",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.737,
+      "longitude": 139.653
+    },
+    {
+      "id": "nerima-2",
+      "ward": "練馬区",
+      "name": "石神井・大泉",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.743,
+      "longitude": 139.61
+    },
+    {
+      "id": "itabashi-1",
+      "ward": "板橋区",
+      "name": "板橋・大山",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.751,
+      "longitude": 139.709
+    },
+    {
+      "id": "itabashi-2",
+      "ward": "板橋区",
+      "name": "成増・赤塚",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.775,
+      "longitude": 139.634
+    },
+    {
+      "id": "kita-1",
+      "ward": "北区",
+      "name": "赤羽・岩淵",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.778,
+      "longitude": 139.721
+    },
+    {
+      "id": "kita-2",
+      "ward": "北区",
+      "name": "王子・十条",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.753,
+      "longitude": 139.737
+    },
+    {
+      "id": "arakawa-1",
+      "ward": "荒川区",
+      "name": "日暮里・西日暮里",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.728,
+      "longitude": 139.771
+    },
+    {
+      "id": "arakawa-2",
+      "ward": "荒川区",
+      "name": "南千住・町屋",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.737,
+      "longitude": 139.792
+    },
+    {
+      "id": "adachi-1",
+      "ward": "足立区",
+      "name": "北千住",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.7495,
+      "longitude": 139.8048
+    },
+    {
+      "id": "adachi-2",
+      "ward": "足立区",
+      "name": "竹ノ塚・西新井",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.775,
+      "longitude": 139.792
+    },
+    {
+      "id": "katsushika-1",
+      "ward": "葛飾区",
+      "name": "亀有・金町",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.763,
+      "longitude": 139.847
+    },
+    {
+      "id": "katsushika-2",
+      "ward": "葛飾区",
+      "name": "新小岩・堀切",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.737,
+      "longitude": 139.854
+    },
+    {
+      "id": "edogawa-1",
+      "ward": "江戸川区",
+      "name": "小岩・篠崎",
+      "burnableDays": [
+        2,
+        5
+      ],
+      "nonBurnableDays": [
+        4
+      ],
+      "recyclableDays": [
+        3
+      ],
+      "paperDays": [
+        6
+      ],
+      "latitude": 35.733,
+      "longitude": 139.879
+    },
+    {
+      "id": "edogawa-2",
+      "ward": "江戸川区",
+      "name": "葛西・西葛西",
+      "burnableDays": [
+        3,
+        6
+      ],
+      "nonBurnableDays": [
+        5
+      ],
+      "recyclableDays": [
+        2
+      ],
+      "paperDays": [
+        4
+      ],
+      "latitude": 35.662,
+      "longitude": 139.861
+    }
+  ],
+  "bulkyWasteItems": [
+    {
+      "id": "chair",
+      "name": "椅子（回転式）",
+      "icon": "🪑",
+      "fee": 400,
+      "category": "家具"
+    },
+    {
+      "id": "sofa1",
+      "name": "ソファ（1人掛け）",
+      "icon": "🛋",
+      "fee": 800,
+      "category": "家具"
+    },
+    {
+      "id": "sofa2",
+      "name": "ソファ（2人掛け〜）",
+      "icon": "🛋",
+      "fee": 2000,
+      "category": "家具"
+    },
+    {
+      "id": "table-s",
+      "name": "テーブル（小）",
+      "icon": "🪟",
+      "fee": 400,
+      "category": "家具"
+    },
+    {
+      "id": "table-l",
+      "name": "テーブル（大）",
+      "icon": "🪟",
+      "fee": 2800,
+      "category": "家具"
+    },
+    {
+      "id": "mattress-s",
+      "name": "マットレス（シングル）",
+      "icon": "🛏",
+      "fee": 1200,
+      "category": "寝具"
+    },
+    {
+      "id": "mattress-d",
+      "name": "マットレス（ダブル）",
+      "icon": "🛏",
+      "fee": 2000,
+      "category": "寝具"
+    },
+    {
+      "id": "bed-s",
+      "name": "ベッド枠（シングル）",
+      "icon": "🛏",
+      "fee": 1200,
+      "category": "寝具"
+    },
+    {
+      "id": "bed-d",
+      "name": "ベッド枠（ダブル）",
+      "icon": "🛏",
+      "fee": 2000,
+      "category": "寝具"
+    },
+    {
+      "id": "futon",
+      "name": "布団",
+      "icon": "🛏",
+      "fee": 400,
+      "category": "寝具"
+    },
+    {
+      "id": "bike",
+      "name": "自転車",
+      "icon": "🚲",
+      "fee": 800,
+      "category": "乗り物"
+    },
+    {
+      "id": "cabinet-s",
+      "name": "食器棚（小）",
+      "icon": "🗄",
+      "fee": 1200,
+      "category": "家具"
+    },
+    {
+      "id": "cabinet-l",
+      "name": "食器棚（大）",
+      "icon": "🗄",
+      "fee": 2800,
+      "category": "家具"
+    },
+    {
+      "id": "bookshelf",
+      "name": "本棚",
+      "icon": "📚",
+      "fee": 1200,
+      "category": "家具"
+    },
+    {
+      "id": "carpet",
+      "name": "カーペット",
+      "icon": "🟫",
+      "fee": 800,
+      "category": "インテリア"
+    },
+    {
+      "id": "microwave",
+      "name": "電子レンジ",
+      "icon": "📦",
+      "fee": 400,
+      "category": "家電"
+    },
+    {
+      "id": "fan",
+      "name": "扇風機",
+      "icon": "🌀",
+      "fee": 400,
+      "category": "家電"
+    },
+    {
+      "id": "heater",
+      "name": "ヒーター",
+      "icon": "🔥",
+      "fee": 400,
+      "category": "家電"
+    },
+    {
+      "id": "vacuum",
+      "name": "掃除機",
+      "icon": "🧹",
+      "fee": 400,
+      "category": "家電"
+    },
+    {
+      "id": "printer",
+      "name": "プリンター",
+      "icon": "🖨",
+      "fee": 400,
+      "category": "家電"
+    },
+    {
+      "id": "suitcase",
+      "name": "スーツケース",
+      "icon": "🧳",
+      "fee": 400,
+      "category": "その他"
+    },
+    {
+      "id": "golf",
+      "name": "ゴルフセット",
+      "icon": "⛳",
+      "fee": 400,
+      "category": "スポーツ"
+    },
+    {
+      "id": "ski",
+      "name": "スキー板",
+      "icon": "⛷",
+      "fee": 400,
+      "category": "スポーツ"
+    }
+  ],
+  "bulkyWasteConfig": {
+    "港区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/minato",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "渋谷区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/shibuya",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "新宿区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/shinjuku",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "目黒区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/meguro",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "世田谷区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/setagaya",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "品川区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/shinagawa",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "大田区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/ota",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "中央区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/chuo",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "千代田区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/chiyoda",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "文京区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/bunkyo",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "台東区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/taito",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "豊島区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/toshima",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "中野区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/nakano",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "杉並区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/suginami",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "江東区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/koto",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "墨田区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/sumida",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "練馬区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/nerima",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "板橋区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/itabashi",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "北区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/kita",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "荒川区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/arakawa",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "足立区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/adachi",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "葛飾区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/katsushika",
+      "hours": "月〜土 8:00〜19:00"
+    },
+    "江戸川区": {
+      "phone": "03-5296-7000",
+      "webURL": "https://sodai.tokyokankyo.or.jp/Sodai/V2Index/0/0/0/edogawa",
+      "hours": "月〜土 8:00〜19:00"
+    }
+  }
+}
