@@ -11,6 +11,7 @@ struct HomeView: View {
     @State private var currentMonth = Date()
     @State private var monthReceipts: [Receipt] = []
     @AppStorage("monthlyBudget") private var monthlyBudget: Int = 0
+    @AppStorage("hasSeenProPrompt") private var hasSeenProPrompt: Bool = false
 
     private var monthTotal: Int { monthReceipts.reduce(0) { $0 + $1.amountInJPY } }
 
@@ -29,6 +30,67 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
+                    // Pro plan card — TOP priority for free users
+                    if subscriptionManager.currentTier == .free {
+                        Button {
+                            Task { await subscriptionManager.purchasePro() }
+                        } label: {
+                            VStack(alignment: .leading, spacing: 12) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 6) {
+                                        HStack {
+                                            Image(systemName: "crown.fill")
+                                                .font(.headline)
+                                                .foregroundStyle(Color.pashaWarn)
+                                            Text("Proプランで無制限")
+                                                .font(.headline.weight(.bold))
+                                                .foregroundStyle(.primary)
+                                        }
+                                        Text("月30件の制限を無くし、電子帳簿保存法対応・ブロックチェーン検証を利用")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    Spacer()
+                                    VStack(alignment: .trailing, spacing: 2) {
+                                        Text(subscriptionManager.formattedPrice)
+                                            .font(.title3.weight(.bold))
+                                            .foregroundStyle(Color.pasha)
+                                        Text("月額")
+                                            .font(.caption2)
+                                            .foregroundStyle(.tertiary)
+                                    }
+                                }
+                                HStack(spacing: 8) {
+                                    if subscriptionManager.isPurchasing {
+                                        ProgressView().controlSize(.small)
+                                    } else {
+                                        Image(systemName: "arrow.right")
+                                            .font(.caption.weight(.semibold))
+                                    }
+                                    Text(subscriptionManager.isPurchasing ? "処理中..." : "今すぐアップグレード")
+                                        .font(.subheadline.weight(.semibold))
+                                    Spacer()
+                                }
+                                .foregroundStyle(Color.pasha)
+                            }
+                            .padding(16)
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.pasha.opacity(0.15), Color.pashaWarn.opacity(0.1)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.pasha.opacity(0.3), lineWidth: 1)
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(subscriptionManager.isPurchasing)
+                    }
+
                     // Usage banner
                     if subscriptionManager.currentTier == .free {
                         if !subscriptionManager.canAddReceipt {

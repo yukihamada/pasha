@@ -10,8 +10,8 @@ settings:
     DEVELOPMENT_TEAM: 5BV85JW8US
     CODE_SIGN_STYLE: Automatic
     SWIFT_VERSION: "5.9"
-    CURRENT_PROJECT_VERSION: 10
-    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: 16
+    MARKETING_VERSION: "1.0.1"
 
 schemes:
   Pasha:
@@ -19,9 +19,12 @@ schemes:
       targets:
         Pasha: all
         PashaTests: [test]
+    run:
+      storeKitConfiguration: Pasha/Products.storekit
     test:
       targets:
         - PashaTests
+      storeKitConfiguration: Pasha/Products.storekit
 
 targets:
   Pasha:
