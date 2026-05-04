@@ -11,7 +11,7 @@
 <!-- OGP -->
 <meta property="og:title" content="KAGI — スマートホーム管理">
 <meta property="og:description" content="鍵・照明・民泊をまとめて管理。E2E暗号化で安全にシェア。SwitchBot, Sesame, Hue, Beds24対応。">
-<meta property="og:image" content="https://enablerdao.com/static/screenshots/kagi-home.jpg">
+<meta property="og:image" content="https://pasha.run/img/pasha_hero.png">
 <meta property="og:url" content="https://pasha.run/kacha">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Enabler">
@@ -20,35 +20,89 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="KAGI — スマートホーム管理">
 <meta name="twitter:description" content="鍵・照明・民泊をまとめて管理。E2E暗号化で安全にシェア。SwitchBot, Sesame, Hue, Beds24対応。">
-<meta name="twitter:image" content="https://enablerdao.com/static/screenshots/kagi-home.jpg">
+<meta name="twitter:image" content="https://pasha.run/img/pasha_hero.png">
 <meta name="twitter:site" content="@enablerdao">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0A0A12;--surface:#0e0e1a;--card:#141428;--border:rgba(255,255,255,.06);--primary:#E8A838;--accent:#3B9FE8;--success:#10B981;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
+:root{--bg:#0A0A12;--surface:#0e0e1a;--card:#141428;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--primary:#E8A838;--accent:#3B9FE8;--success:#10B981;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
-.container{max-width:900px;margin:0 auto;padding:0 24px}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
 
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px;text-align:center}
-.hero h1{font-size:clamp(36px,8vw,64px);font-weight:900;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
-.hero p{color:var(--dim);font-size:18px;max-width:600px;margin:0 auto 32px}
-.hero .tagline{font-size:14px;color:var(--primary);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
-.cta{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:var(--primary);color:#000;font-weight:700;border-radius:12px;text-decoration:none;font-size:16px;transition:.2s}
-.cta:hover{opacity:.9;transform:translateY(-2px)}
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(10,10,18,.75);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px;text-decoration:none}
+.nav-logo span{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--dim);font-size:13px;text-decoration:none;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:8px 20px;border-radius:10px;background:var(--primary);color:#000!important;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
+.nav-cta:hover{opacity:.9}
+@media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
 
-.features{padding:80px 24px}
-.features h2{text-align:center;font-size:28px;margin-bottom:48px;color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-.card{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
-.card h3{font-size:16px;margin-bottom:8px;color:var(--primary)}
-.card p{font-size:14px;color:var(--dim)}
-.card .icon{font-size:28px;margin-bottom:12px}
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(232,168,56,.06),transparent 60%);top:-350px;right:-200px;pointer-events:none}
+.hero .tagline{font-size:12px;color:var(--primary);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+.suite-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(59,159,232,.08);border:1px solid rgba(59,159,232,.15);color:var(--accent);text-decoration:none;margin-bottom:12px;transition:.2s}
+.suite-badge:hover{background:rgba(59,159,232,.15)}
 
-.security{padding:60px 24px;text-align:center}
-.security h2{font-size:24px;margin-bottom:16px}
-.security p{color:var(--dim);max-width:500px;margin:0 auto 24px}
+/* App Icon */
+.app-icon{width:100px;height:100px;border-radius:22px;background:linear-gradient(135deg,#1a1205,#3a2810);display:flex;align-items:center;justify-content:center;font-size:48px;margin:0 auto 20px;box-shadow:0 8px 32px rgba(232,168,56,.2),0 0 0 1px rgba(255,255,255,.05)}
+
+.hero h1{font-size:clamp(40px,8vw,64px);font-weight:900;letter-spacing:-2px;line-height:1.1;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:18px;color:var(--dim);max-width:600px;margin:0 auto 12px}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-copy{font-size:15px;color:var(--dim);max-width:520px;margin:0 auto 36px}
+
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.btn{padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--primary);color:#000;box-shadow:0 4px 20px rgba(232,168,56,.3)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:rgba(255,255,255,.15)}
+.cta-sub{font-size:12px;color:var(--dim);margin-bottom:32px}
+
+/* Trust */
+.trust-bar{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.trust-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:20px 28px;text-align:center;min-width:140px;transition:.3s}
+.trust-card:hover{border-color:rgba(232,168,56,.15);transform:translateY(-2px)}
+.trust-num{font-size:clamp(24px,4vw,32px);font-weight:900;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.trust-label{font-size:11px;color:var(--dim);margin-top:4px;font-weight:500}
+
+/* Sections */
+section{padding:100px 0}
+.section-surface{background:var(--surface)}
+h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--dim);text-align:center;max-width:600px;margin:0 auto 48px}
+
+/* Features */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.feature{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:28px;transition:.3s}
+.feature:hover{transform:translateY(-4px);border-color:rgba(232,168,56,.15)}
+.feature-emoji{font-size:32px;margin-bottom:12px}
+.feature h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.feature p{font-size:13px;color:var(--dim)}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+@media(max-width:768px){.steps{grid-template-columns:1fr}}
+.step{padding:32px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.3s}
+.step:hover{border-color:rgba(232,168,56,.15);transform:translateY(-4px)}
+.step-num{width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin-bottom:16px;background:rgba(232,168,56,.1);color:var(--primary)}
+.step h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.step p{font-size:13px;color:var(--dim)}
+
+/* Security */
 .badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .badge{padding:8px 16px;border-radius:30px;font-size:12px;font-weight:600;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);color:var(--success)}
+
+/* Device compat */
+.devices{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.device{padding:16px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);text-align:center;min-width:140px}
+.device-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.device-type{font-size:11px;color:var(--dim)}
 
 footer{padding:40px 24px;text-align:center;color:var(--dim);font-size:13px}
 footer a{color:var(--accent);text-decoration:none}
@@ -57,7 +111,7 @@ footer a{color:var(--accent);text-decoration:none}
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "カチャ",
+  "name": "KAGI",
   "description": "スマートホームデバイスと民泊物件をまとめて管理。E2E暗号化で安全にゲストとシェア。",
   "operatingSystem": "iOS",
   "applicationCategory": "UtilitiesApplication",
@@ -74,50 +128,109 @@ footer a{color:var(--accent);text-decoration:none}
   "url": "https://pasha.run/kacha"
 }
 </script>
+<script defer src="https://enabler-analytics.fly.dev/t.js"></script>
 </head>
 <body>
 
+<nav>
+<a class="nav-logo" href="/kacha"><span>KAGI</span></a>
+<div class="nav-links">
+<a href="/">パシャ</a>
+<a href="/pon">ポン</a>
+<a href="/suite">5点セット</a>
+<a class="nav-cta" href="https://testflight.apple.com/join/tntB2b27">TestFlight</a>
+</div>
+</nav>
+
 <section class="hero">
 <div>
+<a class="suite-badge" href="/suite">5点セットで確定申告を完結 &rarr;</a>
+<div class="app-icon">🔑</div>
 <div class="tagline">Smart Home Management</div>
-<h1>カチャ</h1>
-<p>開いた、ウェルカム。<br>スマートホームデバイスと民泊物件をまとめて管理。<br>E2E暗号化で安全にゲストとシェア。</p>
-<a class="cta" href="https://testflight.apple.com/join/tntB2b27">TestFlightでベータテスト</a>
+<h1><span>KAGI</span></h1>
+<p class="hero-sub">深夜2時、<strong>「鍵が開きません」</strong>で飛び起きなくていい。</p>
+<p class="hero-copy">スマートホームデバイスと民泊物件をまとめて管理。<br>鍵・照明・空調をスマホ1台で。布団から1秒で解錠。<br>E2E暗号化で安全にゲストとシェア。</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="https://testflight.apple.com/join/tntB2b27">TestFlightでベータテスト</a>
+<a class="btn btn-outline" href="#features">できること</a>
+</div>
+<p class="cta-sub">iOS 16+ &middot; 無料 &middot; 広告なし</p>
+
+<div class="trust-bar">
+<div class="trust-card"><div class="trust-num">24/7</div><div class="trust-label">どこからでも操作</div></div>
+<div class="trust-card"><div class="trust-num">1秒</div><div class="trust-label">布団から解錠</div></div>
+<div class="trust-card"><div class="trust-num">E2E</div><div class="trust-label">暗号化シェア</div></div>
+<div class="trust-card"><div class="trust-num">4言語</div><div class="trust-label">ゲストカード</div></div>
+</div>
 </div>
 </section>
 
-<section class="features">
+<section class="section-surface" id="features">
 <div class="container">
 <h2>できること</h2>
-<div class="grid">
-<div class="card"><div class="icon">🔐</div><h3>スマートロック</h3><p>SwitchBot、Sesame、Nuki対応。施錠/解錠をワンタップで。オートロック遠隔解除も。</p></div>
-<div class="card"><div class="icon">💡</div><h3>照明制御</h3><p>Philips Hue対応。おかえり/おでかけ/おやすみシーンをワンタップ。</p></div>
-<div class="card"><div class="icon">🔒</div><h3>E2E暗号化シェア</h3><p>AES-256-GCMで端末上で暗号化。サーバーに平文は保存されない。期間指定+取り消し可能。</p></div>
-<div class="card"><div class="icon">📅</div><h3>Beds24連携</h3><p>予約を自動同期。物件を自動検出。Airbnb/Booking.com/じゃらん対応。</p></div>
-<div class="card"><div class="icon">👥</div><h3>チーム管理</h3><p>ゲスト/清掃/マネージャー/オーナー代理の4段階権限。それぞれに必要な情報だけ共有。</p></div>
-<div class="card"><div class="icon">📊</div><h3>収支レポート</h3><p>月別売上グラフ、プラットフォーム別内訳、光熱費トラッキング。</p></div>
-<div class="card"><div class="icon">🏠</div><h3>複数物件</h3><p>スワイプで物件切り替え。ダッシュボードで全物件の予約を一覧。</p></div>
-<div class="card"><div class="icon">📱</div><h3>ゲストカード</h3><p>WiFi QRコード、ドアコード、近隣施設情報を4言語で表示。</p></div>
-<div class="card"><div class="icon">📋</div><h3>ハウスマニュアル</h3><p>14テンプレートから選んでタップで作成。WiFi/ドアコード自動入力。</p></div>
+<p class="section-sub">鍵、照明、予約、ゲスト対応。全部スマホ1台で。</p>
+<div class="features">
+<div class="feature"><div class="feature-emoji">🔐</div><h3>スマートロック</h3><p>SwitchBot、Sesame、Nuki対応。施錠/解錠をワンタップで。オートロック遠隔解除も。</p></div>
+<div class="feature"><div class="feature-emoji">💡</div><h3>照明制御</h3><p>Philips Hue対応。おかえり/おでかけ/おやすみシーンをワンタップ。</p></div>
+<div class="feature"><div class="feature-emoji">🔒</div><h3>E2E暗号化シェア</h3><p>AES-256-GCMで端末上で暗号化。サーバーに平文は保存されない。期間指定+取り消し可能。</p></div>
+<div class="feature"><div class="feature-emoji">📅</div><h3>Beds24連携</h3><p>予約を自動同期。物件を自動検出。Airbnb/Booking.com/じゃらん対応。</p></div>
+<div class="feature"><div class="feature-emoji">👥</div><h3>チーム管理</h3><p>ゲスト/清掃/マネージャー/オーナー代理の4段階権限。必要な情報だけ共有。</p></div>
+<div class="feature"><div class="feature-emoji">📊</div><h3>収支レポート</h3><p>月別売上グラフ、プラットフォーム別内訳、光熱費トラッキング。</p></div>
+<div class="feature"><div class="feature-emoji">🏠</div><h3>複数物件</h3><p>スワイプで物件切り替え。ダッシュボードで全物件の予約を一覧。</p></div>
+<div class="feature"><div class="feature-emoji">📱</div><h3>ゲストカード</h3><p>WiFi QRコード、ドアコード、近隣施設情報を4言語で表示。</p></div>
+<div class="feature"><div class="feature-emoji">📋</div><h3>ハウスマニュアル</h3><p>14テンプレートから選んでタップで作成。WiFi/ドアコード自動入力。</p></div>
 </div>
 </div>
 </section>
 
-<section class="security">
+<section>
+<div class="container" style="text-align:center">
+<h2>使い方</h2>
+<p class="section-sub">3ステップで始められる。</p>
+<div class="steps">
+<div class="step"><div class="step-num">1</div><h3>デバイスを追加</h3><p>SwitchBot、Sesame、Hueなど対応デバイスをアプリから追加。</p></div>
+<div class="step"><div class="step-num">2</div><h3>物件を設定</h3><p>Beds24と連携して予約を自動同期。ゲストカードも自動生成。</p></div>
+<div class="step"><div class="step-num">3</div><h3>布団から管理</h3><p>深夜の「鍵開けて」も1秒。照明もワンタップ。</p></div>
+</div>
+
+<h3 style="margin-top:60px;font-size:20px;font-weight:700;margin-bottom:24px">対応デバイス</h3>
+<div class="devices">
+<div class="device"><div class="device-name">SwitchBot</div><div class="device-type">ロック / ボット / ハブ</div></div>
+<div class="device"><div class="device-name">Sesame</div><div class="device-type">スマートロック</div></div>
+<div class="device"><div class="device-name">Nuki</div><div class="device-type">スマートロック</div></div>
+<div class="device"><div class="device-name">Philips Hue</div><div class="device-type">照明</div></div>
+<div class="device"><div class="device-name">Beds24</div><div class="device-type">予約管理 (PMS)</div></div>
+</div>
+</div>
+</section>
+
+<section class="section-surface" style="text-align:center">
+<div class="container">
 <h2>セキュリティ</h2>
-<p>データはすべてiPhoneのローカルに保存。広告なし、トラッキングなし。</p>
+<p class="section-sub">鍵のデータは最高レベルで守る。</p>
 <div class="badges">
 <div class="badge">AES-256-GCM E2E暗号化</div>
 <div class="badge">広告なし</div>
 <div class="badge">トラッキングなし</div>
 <div class="badge">Keychainバックアップ</div>
+<div class="badge">データは端末内保存</div>
+</div>
+</div>
+</section>
+
+<section style="text-align:center;padding:80px 24px">
+<div class="app-icon" style="margin-bottom:20px">🔑</div>
+<h2>今すぐ始める</h2>
+<p class="section-sub">TestFlightで無料ベータテスト中。</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="https://testflight.apple.com/join/tntB2b27">TestFlightでダウンロード</a>
 </div>
 </section>
 
 <footer>
-<p>&copy; 2026 カチャ by <a href="https://enablerdao.com">Enabler</a> &mdash; <a href="/privacy">プライバシーポリシー</a> &middot; <a href="/support">サポート</a></p>
+<p>&copy; 2026 KAGI by <a href="https://enablerdao.com">Enabler</a> &mdash; <a href="/privacy">プライバシーポリシー</a> &middot; <a href="/terms">利用規約</a></p>
 <p style="margin-top:8px"><a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a></p>
-<p style="margin-top:8px;font-size:12px;color:#7a7a95">TestFlight: <a href="https://testflight.apple.com/join/tntB2b27">カチャ</a> &middot; <a href="https://testflight.apple.com/join/CTmyqV6H">パシャ</a> &middot; <a href="https://testflight.apple.com/join/SAqxf1bm">チャリン</a> &middot; <a href="https://testflight.apple.com/join/XyZdmPVt">ポン</a> &middot; <a href="https://testflight.apple.com/join/mxnbXjjH">サクッ</a></p>
+<p style="margin-top:8px;font-size:12px;color:#7a7a95">TestFlight: <a href="https://testflight.apple.com/join/tntB2b27">KAGI</a> &middot; <a href="https://testflight.apple.com/join/CTmyqV6H">パシャ</a> &middot; <a href="https://testflight.apple.com/join/SAqxf1bm">チャリン</a> &middot; <a href="https://testflight.apple.com/join/XyZdmPVt">ポン</a> &middot; <a href="https://testflight.apple.com/join/mxnbXjjH">サクッ</a></p>
 </footer>
 
 </body>

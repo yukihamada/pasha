@@ -3,26 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ポイッ — 捨てて、貯まる。不用品をワンタップで出品・買取。写真を撮るだけでAIが値段を推定。">
-<meta name="theme-color" content="#08080f">
-<meta property="og:title" content="ポイッ — 捨てて、貯まる。">
-<meta property="og:description" content="不用品買取アプリ。写真を撮ってワンタップ出品。AIが値段を推定し、ステータスを追跡。">
+<title>ポイッ — ゴミ出しアプリ</title>
+<meta name="description" content="今日は何ゴミ？粗大ゴミの申し込みもアプリで完結。港区・渋谷区対応。まだ使えるモノはメルカリへ。">
 <link rel="canonical" href="https://pasha.run/poi">
-<title>ポイッ — 捨てて、貯まる。不用品ワンタップ買取アプリ</title>
+<link rel="icon" href="/favicon.ico">
+<meta name="theme-color" content="#84CC16">
+<meta property="og:title" content="ポイッ — ゴミ出しアプリ">
+<meta property="og:description" content="今日は何ゴミ？粗大ゴミの申し込みもアプリで完結。港区・渋谷区対応。まだ使えるモノはメルカリへ。">
+<meta property="og:image" content="https://pasha.run/img/poi_hero.png">
+<meta property="og:url" content="https://pasha.run/poi">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Enabler">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ポイッ — ゴミ出しアプリ">
+<meta name="twitter:description" content="今日は何ゴミ？粗大ゴミの申し込みもアプリで完結。港区・渋谷区対応。まだ使えるモノはメルカリへ。">
+<meta name="twitter:image" content="https://pasha.run/img/poi_hero.png">
+<meta name="twitter:site" content="@enablerdao">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#08080f;--surface:#0e0e1a;--card:#141428;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--primary:#4cc9f0;--accent:#84CC16;--success:#06d6a0;--warn:#ffd60a;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
+:root{--bg:#08080f;--surface:#0e0e1a;--card:#141428;--glass:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--primary:#4cc9f0;--accent:#84CC16;--success:#06d6a0;--warn:#ffd60a;--danger:#ef233c;--text:#eaeaf2;--dim:#7a7a95;--radius:16px}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .container{max-width:1120px;margin:0 auto;padding:0 24px}
+
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(8,8,15,.75);border-bottom:1px solid var(--border)}
 .nav-logo{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
 .nav-links{display:flex;gap:20px;align-items:center}
 .nav-links a{color:var(--dim);font-size:13px;text-decoration:none;font-weight:500;transition:.2s}
 .nav-links a:hover{color:var(--text)}
-.nav-cta{padding:8px 20px;border-radius:10px;background:var(--accent);color:#fff!important;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
+.nav-cta{padding:8px 20px;border-radius:10px;background:var(--accent);color:#000!important;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
 .nav-cta:hover{opacity:.9}
 @media(max-width:768px){.nav-links a:not(.nav-cta){display:none}}
+
+.app-icon{width:100px;height:100px;border-radius:22px;background:linear-gradient(135deg,#1a2205,#2a3810);display:flex;align-items:center;justify-content:center;font-size:48px;margin:0 auto 20px;box-shadow:0 8px 32px rgba(132,204,22,.2),0 0 0 1px rgba(255,255,255,.05)}
 
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(132,204,22,.06),transparent 60%);top:-300px;right:-200px;pointer-events:none}
@@ -35,7 +49,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;display:fl
 .hero-sub strong{color:var(--text)}
 .btn{padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:8px}
 .btn:hover{transform:translateY(-2px)}
-.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(132,204,22,.3)}
+.btn-primary{background:var(--accent);color:#000;box-shadow:0 4px 20px rgba(132,204,22,.3)}
 .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
 .btn-outline:hover{border-color:rgba(255,255,255,.15)}
 .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
@@ -46,12 +60,11 @@ section{padding:100px 0}
 h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:16px}
 .section-sub{font-size:16px;color:var(--dim);text-align:center;max-width:600px;margin:0 auto 48px}
 
-/* Trust bar */
 .trust-bar{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:48px 24px 0}
-.trust-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px 32px;text-align:center;min-width:160px;transition:.3s}
+.trust-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px 32px;text-align:center;min-width:140px;transition:.3s}
 .trust-card:hover{border-color:rgba(132,204,22,.15);transform:translateY(-2px)}
-.trust-num{font-size:clamp(28px,4vw,36px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
-.trust-label{font-size:12px;color:var(--dim);margin-top:4px;font-weight:500}
+.trust-num{font-size:clamp(24px,4vw,32px);font-weight:900;background:linear-gradient(135deg,var(--accent),var(--primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.trust-label{font-size:11px;color:var(--dim);margin-top:4px;font-weight:500}
 
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .feature{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:28px;transition:.3s}
@@ -60,7 +73,6 @@ h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align
 .feature h3{font-size:16px;font-weight:700;margin-bottom:6px}
 .feature p{font-size:13px;color:var(--dim)}
 
-/* Steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
 .step{padding:32px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.3s}
 .step:hover{border-color:rgba(132,204,22,.15);transform:translateY(-4px)}
@@ -69,31 +81,33 @@ h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align
 .step p{font-size:14px;color:var(--dim);line-height:1.6}
 @media(max-width:768px){.steps{grid-template-columns:1fr}}
 
-/* Status flow */
-.status-flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;max-width:800px;margin:0 auto}
-.status-pill{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;border:1px solid var(--border)}
-.status-arrow{color:var(--dim);font-size:18px}
-@media(max-width:640px){.status-arrow{display:none}.status-flow{gap:6px}.status-pill{padding:8px 14px;font-size:11px}}
+/* Garbage type cards */
+.garbage-types{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:900px;margin:0 auto}
+.g-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center;transition:.3s}
+.g-card:hover{transform:translateY(-4px)}
+.g-icon{font-size:36px;margin-bottom:8px}
+.g-name{font-size:16px;font-weight:700;margin-bottom:4px}
+.g-schedule{font-size:12px;color:var(--dim)}
+.g-examples{font-size:11px;color:var(--dim);margin-top:6px;opacity:.7}
 
-/* Category cards */
-.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:800px;margin:0 auto}
-@media(max-width:640px){.categories{grid-template-columns:repeat(2,1fr)}}
-.cat-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:.3s}
-.cat-card:hover{transform:translateY(-4px)}
-.cat-icon{font-size:36px;margin-bottom:10px}
-.cat-name{font-size:15px;font-weight:700}
-.cat-desc{font-size:11px;color:var(--dim);margin-top:4px}
+/* Area cards */
+.areas{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:700px;margin:0 auto}
+@media(max-width:640px){.areas{grid-template-columns:1fr}}
+.area-card{padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);transition:.3s}
+.area-card:hover{border-color:rgba(132,204,22,.15)}
+.area-name{font-size:22px;font-weight:900;margin-bottom:12px}
+.area-info{font-size:13px;color:var(--dim);line-height:1.8}
+.area-info strong{color:var(--text);font-weight:600}
+.area-badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600;background:rgba(132,204,22,.1);color:var(--accent);margin-bottom:12px}
 
-/* Testimonials */
-.voice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.voice{padding:28px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--border);transition:.3s}
-.voice:hover{border-color:rgba(132,204,22,.12)}
-.voice-quote{font-size:15px;line-height:1.8;margin-bottom:16px;color:var(--text)}
-.voice-quote::before{content:'\201C';font-size:32px;color:var(--accent);opacity:.4;line-height:1;display:block;margin-bottom:4px}
-.voice-author{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--dim)}
-.voice-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(132,204,22,.15),rgba(76,201,240,.15));display:flex;align-items:center;justify-content:center;font-size:16px}
+/* Bulky waste pricing */
+.price-table{max-width:600px;margin:0 auto;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.price-row{display:flex;justify-content:space-between;padding:14px 20px;font-size:14px;border-bottom:1px solid var(--border)}
+.price-row:last-child{border-bottom:none}
+.price-row:nth-child(odd){background:var(--glass)}
+.price-item{color:var(--text);font-weight:500}
+.price-cost{color:var(--accent);font-weight:700}
 
-/* FAQ */
 .faq-list{max-width:700px;margin:0 auto}
 .faq-item{border-bottom:1px solid var(--border);padding:20px 0}
 .faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text);transition:.2s}
@@ -101,7 +115,7 @@ h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align
 .faq-q::after{content:'+';font-size:20px;color:var(--dim);transition:.3s;flex-shrink:0}
 .faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--accent)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:var(--dim);line-height:1.8}
-.faq-item.open .faq-a{max-height:200px}
+.faq-item.open .faq-a{max-height:300px}
 .faq-a-inner{padding-top:12px}
 
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
@@ -111,307 +125,282 @@ h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align
 .sister-link{padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border);color:var(--dim);transition:.2s}
 .sister-link:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
 
-/* Floating cross-promo */
-.float-banner{position:fixed;bottom:0;left:0;right:0;z-index:99;padding:12px 24px;background:rgba(8,8,15,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .4s ease}
-.float-banner.show{transform:translateY(0)}
-.float-banner-text{font-size:13px;color:var(--dim);font-weight:500}
-.float-banner a{color:var(--primary);text-decoration:none;font-weight:700;font-size:13px}
-.float-banner-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;padding:4px 8px}
-
 footer{text-align:center;padding:40px 24px 80px;border-top:1px solid var(--border);color:var(--dim);font-size:12px}
 footer a{color:var(--primary);text-decoration:none}
 </style>
+<script defer src="https://enabler-analytics.fly.dev/t.js"></script>
 </head>
 <body>
 
 <nav>
-    <a href="/poi" class="nav-logo">ポイッ</a>
-    <div class="nav-links">
-        <a href="/suite">5点セット</a>
-        <a href="/">パシャ</a>
-        <a href="/charin">チャリン</a>
-        <a href="/pon">ポン</a>
-        <a href="/sakutsu">サクッ</a>
-        <a href="mailto:info@enablerdao.com?subject=ポイッリリース通知希望" class="nav-cta">リリース通知</a>
-    </div>
+<a href="/poi" class="nav-logo">ポイッ</a>
+<div class="nav-links">
+<a href="/">パシャ</a>
+<a href="/pon">ポン</a>
+<a href="/kacha">KAGI</a>
+<a href="/suite">5点セット</a>
+<a href="mailto:info@enablerdao.com?subject=ポイッリリース通知希望" class="nav-cta">リリース通知</a>
+</div>
 </nav>
 
 <section class="hero">
-    <div>
-        <a href="/suite" class="suite-badge">&#x2728; 5点セットで確定申告を完結 &rarr;</a>
-        <div class="badge">&#x267B;&#xFE0F; パシャ・チャリン・ポンの姉妹アプリ</div>
-        <h1>メルカリ出品、<br><span>3倍速く</span>なる。</h1>
-        <p class="hero-sub">
-            いらないモノを<strong>写真に撮るだけ</strong>。<br>
-            <strong>AIが値段を推定</strong>、<strong>6カテゴリ対応</strong>で出品から発送完了まで一元管理。
-        </p>
-        <div class="cta-row" id="download">
-            <a href="mailto:info@enablerdao.com?subject=ポイッリリース通知希望" class="btn btn-primary">リリース通知を受け取る</a>
-            <a href="/suite" class="btn btn-outline">5点セットを見る</a>
-        </div>
-        <p class="cta-sub">早期登録で Pro 1ヶ月無料</p>
-        <div style="margin-top:40px;">
-            <img src="/img/poi_hero.png" alt="ポイッ 出品" style="max-width:600px;width:100%;border-radius:20px;box-shadow:0 40px 80px rgba(0,0,0,.5);">
-        </div>
-    </div>
+<div>
+<a href="/suite" class="suite-badge">5点セットで確定申告を完結 &rarr;</a>
+<div class="app-icon">🗑</div>
+<div class="badge">🏠 港区・渋谷区対応</div>
+<h1>今日は何ゴミ？<br><span>もう迷わない。</span></h1>
+<p class="hero-sub">
+ゴミの日を<strong>自動で通知</strong>。<br>
+<strong>粗大ゴミの申し込み</strong>もアプリで完結。<br>
+まだ使えるモノは<strong>メルカリで売れる</strong>。
+</p>
+<div class="cta-row" id="download">
+<a href="mailto:info@enablerdao.com?subject=ポイッリリース通知希望" class="btn btn-primary">リリース通知を受け取る</a>
+<a href="#features" class="btn btn-outline">できること</a>
+</div>
+<p class="cta-sub">無料 &middot; 広告なし &middot; 港区・渋谷区対応（順次拡大）</p>
+</div>
 </section>
 
-<!-- Trust Bar -->
 <div class="trust-bar reveal">
-    <div class="trust-card">
-        <div class="trust-num">6カテゴリ</div>
-        <div class="trust-label">家電・衣類・書籍他</div>
-    </div>
-    <div class="trust-card">
-        <div class="trust-num">AI査定</div>
-        <div class="trust-label">写真から自動値付け</div>
-    </div>
-    <div class="trust-card">
-        <div class="trust-num">5段階</div>
-        <div class="trust-label">出品ステータス管理</div>
-    </div>
+<div class="trust-card"><div class="trust-num">5種類</div><div class="trust-label">ゴミ分別をカバー</div></div>
+<div class="trust-card"><div class="trust-num">自動通知</div><div class="trust-label">収集日をリマインド</div></div>
+<div class="trust-card"><div class="trust-num">粗大ゴミ</div><div class="trust-label">申し込みもアプリで</div></div>
+<div class="trust-card"><div class="trust-num">メルカリ</div><div class="trust-label">売れるモノは売る</div></div>
 </div>
 
-<!-- How it Works -->
 <section>
-    <div class="container">
-        <h2 class="reveal">カンタン3ステップ</h2>
-        <p class="section-sub reveal">不用品の現金化は、たったの3ステップ。</p>
-        <div class="steps">
-            <div class="step reveal">
-                <div class="step-num">1</div>
-                <h3>撮影する</h3>
-                <p>いらないモノをカメラで撮るだけ。タイトル・説明もAIが自動で生成してくれる。</p>
-            </div>
-            <div class="step reveal">
-                <div class="step-num">2</div>
-                <h3>AIが査定</h3>
-                <p>写真からアイテムを認識し、相場をAIが自動推定。適正価格を提案してくれる。</p>
-            </div>
-            <div class="step reveal">
-                <div class="step-num">3</div>
-                <h3>即入金</h3>
-                <p>売約が成立したら発送するだけ。売上はチャリンに自動で記録される。</p>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h2 class="reveal">カンタン3ステップ</h2>
+<p class="section-sub reveal">ゴミ出しのストレス、ゼロに。</p>
+<div class="steps">
+<div class="step reveal">
+<div class="step-num">1</div>
+<h3>住所を設定</h3>
+<p>港区か渋谷区の住所を入れるだけ。ゴミ収集スケジュールが自動で設定される。</p>
+</div>
+<div class="step reveal">
+<div class="step-num">2</div>
+<h3>通知が届く</h3>
+<p>「明日は可燃ゴミの日」。前日の夜に通知。朝出し忘れない。</p>
+</div>
+<div class="step reveal">
+<div class="step-num">3</div>
+<h3>ポイッと捨てる</h3>
+<p>粗大ゴミはアプリから申し込み。まだ使えるモノはメルカリへ出品。</p>
+</div>
+</div>
+</div>
 </section>
 
-<!-- Features -->
-<section class="section-surface">
-    <div class="container">
-        <h2 class="reveal">ポイッでできること</h2>
-        <p class="section-sub reveal">不用品の現金化を、これ1つで。</p>
-        <div class="features">
-            <div class="feature reveal">
-                <div class="feature-emoji">&#x1F4F8;</div>
-                <h3>ワンタップ出品</h3>
-                <p>写真を撮るだけで出品準備完了。タイトル・説明もAIが自動生成。手間ゼロで出品。</p>
-            </div>
-            <div class="feature reveal">
-                <div class="feature-emoji">&#x1F916;</div>
-                <h3>AI値段推定</h3>
-                <p>写真からアイテムを認識し、相場をAIが自動推定。適正価格で出品できる。</p>
-            </div>
-            <div class="feature reveal">
-                <div class="feature-emoji">&#x1F4CA;</div>
-                <h3>ステータス追跡</h3>
-                <p>撮影から完了まで5ステップで進捗管理。全アイテムの状態が一目でわかる。</p>
-            </div>
-            <div class="feature reveal">
-                <div class="feature-emoji">&#x1F4E6;</div>
-                <h3>6カテゴリ対応</h3>
-                <p>家電・衣類・書籍・家具・趣味・その他。カテゴリ別に整理して管理できる。</p>
-            </div>
-            <div class="feature reveal">
-                <div class="feature-emoji">&#x2B50;</div>
-                <h3>5段階コンディション</h3>
-                <p>新品・未使用に近い・目立った傷なし・やや傷あり・状態が悪い。正確な状態表示で信頼度アップ。</p>
-            </div>
-            <div class="feature reveal">
-                <div class="feature-emoji">&#x1F517;</div>
-                <h3>姉妹アプリ連携</h3>
-                <p>売上はチャリンに自動記録、経費はパシャで管理、サクッで申告。5アプリでお金の流れが完結。</p>
-            </div>
-        </div>
-    </div>
+<section class="section-surface" id="features">
+<div class="container">
+<h2 class="reveal">ゴミの種類</h2>
+<p class="section-sub reveal">何をいつ出せるか、一目でわかる。</p>
+<div class="garbage-types reveal">
+<div class="g-card" style="border-color:rgba(239,68,68,.15)">
+<div class="g-icon">🔥</div>
+<div class="g-name" style="color:#ef4444">可燃ゴミ</div>
+<div class="g-schedule">週2回</div>
+<div class="g-examples">生ゴミ、紙くず、布、ゴム</div>
+</div>
+<div class="g-card" style="border-color:rgba(96,165,250,.15)">
+<div class="g-icon">🧊</div>
+<div class="g-name" style="color:#60a5fa">不燃ゴミ</div>
+<div class="g-schedule">月2回</div>
+<div class="g-examples">金属、ガラス、陶器、小型家電</div>
+</div>
+<div class="g-card" style="border-color:rgba(132,204,22,.15)">
+<div class="g-icon">♻️</div>
+<div class="g-name" style="color:var(--accent)">資源ゴミ</div>
+<div class="g-schedule">週1回</div>
+<div class="g-examples">びん、缶、ペットボトル</div>
+</div>
+<div class="g-card" style="border-color:rgba(251,191,36,.15)">
+<div class="g-icon">📦</div>
+<div class="g-name" style="color:#fbbf24">古紙・段ボール</div>
+<div class="g-schedule">週1回</div>
+<div class="g-examples">新聞、雑誌、段ボール</div>
+</div>
+<div class="g-card" style="border-color:rgba(168,85,247,.15)">
+<div class="g-icon">🛋</div>
+<div class="g-name" style="color:#a855f7">粗大ゴミ</div>
+<div class="g-schedule">要予約</div>
+<div class="g-examples">家具、自転車、布団（有料）</div>
+</div>
+</div>
+</div>
 </section>
 
-<!-- Status Flow -->
 <section>
-    <div class="container">
-        <h2 class="reveal">出品のライフサイクルを管理</h2>
-        <p class="section-sub reveal">ワンタップでステータスを進行。全アイテムの状態が一目でわかる。</p>
-        <div class="status-flow reveal">
-            <div class="status-pill" style="background:rgba(132,204,22,.08);color:var(--accent)">&#x1F4F7; 撮影</div>
-            <div class="status-arrow">&rarr;</div>
-            <div class="status-pill" style="background:rgba(76,201,240,.08);color:var(--primary)">&#x1F4E2; 出品中</div>
-            <div class="status-arrow">&rarr;</div>
-            <div class="status-pill" style="background:rgba(255,214,10,.06);color:var(--warn)">&#x1F91D; 売約</div>
-            <div class="status-arrow">&rarr;</div>
-            <div class="status-pill" style="background:rgba(6,214,160,.08);color:var(--success)">&#x1F4E6; 発送済</div>
-            <div class="status-arrow">&rarr;</div>
-            <div class="status-pill" style="background:rgba(132,204,22,.12);color:var(--accent);border-color:rgba(132,204,22,.2)">&#x2705; 完了</div>
-        </div>
-    </div>
+<div class="container">
+<h2 class="reveal">粗大ゴミ、アプリで申し込み</h2>
+<p class="section-sub reveal">電話しなくていい。アプリでサクッと完結。</p>
+<div class="features reveal">
+<div class="feature">
+<div class="feature-emoji">📱</div>
+<h3>アプリから予約</h3>
+<p>品目を選んで日時を指定。電話不要、24時間いつでも申し込み可能。</p>
+</div>
+<div class="feature">
+<div class="feature-emoji">💴</div>
+<h3>料金を自動計算</h3>
+<p>品目を選ぶだけで料金がわかる。粗大ごみ処理券の必要枚数も表示。</p>
+</div>
+<div class="feature">
+<div class="feature-emoji">🏪</div>
+<h3>処理券の買い方ガイド</h3>
+<p>近くのコンビニで買える処理券。A券(200円)とB券(300円)の組み合わせも案内。</p>
+</div>
+<div class="feature">
+<div class="feature-emoji">📍</div>
+<h3>出し場所マップ</h3>
+<p>収集場所を地図で確認。当日朝に出す場所がわかる。</p>
+</div>
+<div class="feature">
+<div class="feature-emoji">🔔</div>
+<h3>収集日リマインド</h3>
+<p>予約した粗大ゴミの収集日前日に通知。出し忘れゼロ。</p>
+</div>
+<div class="feature">
+<div class="feature-emoji">🛒</div>
+<h3>メルカリ出品連携</h3>
+<p>捨てる前にAIが査定。まだ使えるモノはメルカリで売れる。捨てるよりお得。</p>
+</div>
+</div>
+</div>
 </section>
 
-<!-- Categories -->
 <section class="section-surface">
-    <div class="container">
-        <h2 class="reveal">6つのカテゴリ</h2>
-        <p class="section-sub reveal">あらゆる不用品に対応。AIが自動でカテゴリを判定。</p>
-        <div class="categories">
-            <div class="cat-card reveal" style="border-color:rgba(76,201,240,.1)">
-                <div class="cat-icon">&#x1F4F1;</div>
-                <div class="cat-name" style="color:var(--primary)">家電</div>
-                <div class="cat-desc">スマホ・PC・カメラ</div>
-            </div>
-            <div class="cat-card reveal" style="border-color:rgba(247,37,133,.1)">
-                <div class="cat-icon">&#x1F455;</div>
-                <div class="cat-name" style="color:#f72585">衣類</div>
-                <div class="cat-desc">服・靴・バッグ</div>
-            </div>
-            <div class="cat-card reveal" style="border-color:rgba(132,204,22,.1)">
-                <div class="cat-icon">&#x1F4DA;</div>
-                <div class="cat-name" style="color:var(--accent)">書籍</div>
-                <div class="cat-desc">本・漫画・教材</div>
-            </div>
-            <div class="cat-card reveal" style="border-color:rgba(247,127,0,.1)">
-                <div class="cat-icon">&#x1FA91;</div>
-                <div class="cat-name" style="color:#f77f00">家具</div>
-                <div class="cat-desc">椅子・机・収納</div>
-            </div>
-            <div class="cat-card reveal" style="border-color:rgba(123,47,190,.1)">
-                <div class="cat-icon">&#x1F3AE;</div>
-                <div class="cat-name" style="color:#7b2fbe">趣味</div>
-                <div class="cat-desc">ゲーム・楽器・スポーツ</div>
-            </div>
-            <div class="cat-card reveal" style="border-color:rgba(255,214,10,.1)">
-                <div class="cat-icon">&#x1F4E6;</div>
-                <div class="cat-name" style="color:var(--warn)">その他</div>
-                <div class="cat-desc">キッチン・雑貨・ベビー</div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h2 class="reveal">粗大ゴミ料金の目安</h2>
+<p class="section-sub reveal">品目ごとの料金。アプリが自動で計算。</p>
+<div class="price-table reveal">
+<div class="price-row"><span class="price-item">🪑 椅子（回転式）</span><span class="price-cost">400円</span></div>
+<div class="price-row"><span class="price-item">🛋 ソファ（1人掛け）</span><span class="price-cost">800円</span></div>
+<div class="price-row"><span class="price-item">🛋 ソファ（2人掛け〜）</span><span class="price-cost">2,000円</span></div>
+<div class="price-row"><span class="price-item">🪟 テーブル</span><span class="price-cost">400〜2,800円</span></div>
+<div class="price-row"><span class="price-item">🛏 マットレス（シングル）</span><span class="price-cost">1,200円</span></div>
+<div class="price-row"><span class="price-item">🛏 ベッド枠（シングル）</span><span class="price-cost">1,200円</span></div>
+<div class="price-row"><span class="price-item">🚲 自転車</span><span class="price-cost">800円</span></div>
+<div class="price-row"><span class="price-item">📺 食器棚</span><span class="price-cost">1,200〜2,800円</span></div>
+</div>
+<p style="text-align:center;font-size:12px;color:var(--dim);margin-top:16px">※ サイズにより料金が異なります。アプリで正確な金額を確認できます。</p>
+</div>
 </section>
 
-<!-- Developer Story -->
 <section>
-    <div class="container">
-        <h2 class="reveal">開発者より</h2>
-        <div style="max-width:700px;margin:0 auto;display:flex;gap:20px;align-items:flex-start;padding:28px;border-radius:16px;background:var(--glass);border:1px solid var(--border)" class="reveal">
-            <div style="font-size:40px;flex-shrink:0">&#x1F468;&#x200D;&#x1F4BB;</div>
-            <div>
-                <div style="font-size:16px;font-weight:700;margin-bottom:8px">開発者より</div>
-                <p style="font-size:15px;color:var(--dim);line-height:1.9;margin-bottom:12px">フリーランスエンジニアとして、自分が毎日使いたいツールを作りました。freeeは機能が多すぎ、CloudSignは高すぎ。もっとシンプルに、もっと安く。</p>
-                <p style="color:var(--accent);font-size:14px;font-weight:600">&mdash; Yuki Hamada, フリーランスエンジニア</p>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h2 class="reveal">対応エリア</h2>
+<p class="section-sub reveal">まずは2区からスタート。順次拡大予定。</p>
+<div class="areas reveal">
+<div class="area-card">
+<div class="area-badge">対応中</div>
+<div class="area-name">🏙 港区</div>
+<div class="area-info">
+<strong>可燃ゴミ</strong>: 週2回<br>
+<strong>不燃ゴミ</strong>: 月2回<br>
+<strong>資源ゴミ</strong>: 週1回<br>
+<strong>古紙</strong>: 週1回<br>
+<strong>粗大ゴミ</strong>: 要予約（アプリ対応）<br>
+<span style="font-size:11px;margin-top:8px;display:block;opacity:.6">※ 収集曜日は地域ごとに異なります</span>
+</div>
+</div>
+<div class="area-card">
+<div class="area-badge">対応中</div>
+<div class="area-name">🏙 渋谷区</div>
+<div class="area-info">
+<strong>可燃ゴミ</strong>: 週2回<br>
+<strong>不燃ゴミ</strong>: 月2回<br>
+<strong>資源ゴミ</strong>: 週1回<br>
+<strong>古紙</strong>: 週1回<br>
+<strong>粗大ゴミ</strong>: 要予約（アプリ対応）<br>
+<span style="font-size:11px;margin-top:8px;display:block;opacity:.6">※ 収集曜日は住所ごとに異なります</span>
+</div>
+</div>
+</div>
+<p style="text-align:center;margin-top:24px;font-size:13px;color:var(--dim)">次の対応エリア: 新宿区、目黒区、世田谷区（リクエスト受付中）</p>
+</div>
 </section>
 
-<!-- Pricing -->
 <section class="section-surface">
-    <div class="container">
-        <h2 class="reveal">シンプルな料金</h2>
-        <p class="section-sub reveal">まずは無料で。Proは月&#165;480から。</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:700px;margin:0 auto" class="reveal">
-            <div style="padding:32px;border-radius:16px;background:var(--glass);border:1px solid var(--border);text-align:center">
-                <div style="font-size:14px;color:var(--dim);font-weight:600;margin-bottom:8px">FREE</div>
-                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;0</div>
-                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">ずっと無料</div>
-                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
-                    <li style="padding:6px 0">月10出品まで</li>
-                    <li style="padding:6px 0">AI値段推定</li>
-                    <li style="padding:6px 0">ステータス管理</li>
-                </ul>
-            </div>
-            <div style="padding:32px;border-radius:16px;background:linear-gradient(135deg,rgba(132,204,22,.04),rgba(76,201,240,.04));border:1px solid rgba(132,204,22,.2);text-align:center">
-                <div style="font-size:14px;color:var(--accent);font-weight:700;margin-bottom:8px">PRO</div>
-                <div style="font-size:42px;font-weight:900;margin-bottom:4px">&#165;480<span style="font-size:16px;font-weight:400;color:var(--dim)">/月</span></div>
-                <div style="font-size:13px;color:var(--dim);margin-bottom:20px">年額&#165;4,800（2ヶ月分お得）</div>
-                <ul style="list-style:none;text-align:left;font-size:14px;color:var(--dim)">
-                    <li style="padding:6px 0;color:var(--text)">無制限の出品管理</li>
-                    <li style="padding:6px 0;color:var(--text)">6カテゴリ対応</li>
-                    <li style="padding:6px 0;color:var(--text)">チャリン自動連携</li>
-                    <li style="padding:6px 0;color:var(--text)">売上レポート</li>
-                </ul>
-                <p style="font-size:11px;color:var(--accent);margin-top:8px;font-weight:600">早期登録で Pro 1ヶ月無料</p>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h2 class="reveal">注意が必要なゴミ</h2>
+<p class="section-sub reveal">粗大ゴミに出せないものもある。アプリが案内。</p>
+<div class="features reveal">
+<div class="feature">
+<div class="feature-emoji">📺</div>
+<h3>テレビ・エアコン・冷蔵庫・洗濯機</h3>
+<p>家電リサイクル法対象。粗大ゴミNG。家電量販店か指定引取場所へ。アプリが手順を案内。</p>
+</div>
+<div class="feature">
+<div class="feature-emoji">💻</div>
+<h3>パソコン</h3>
+<p>PCリサイクル法対象。メーカー回収かリネットジャパンなどを利用。アプリから手続き。</p>
+</div>
+<div class="feature">
+<div class="feature-emoji">🔋</div>
+<h3>バッテリー・危険物</h3>
+<p>充電池、スプレー缶、灯油など。回収場所・方法をアプリで確認。</p>
+</div>
+</div>
+</div>
 </section>
 
-<!-- FAQ -->
-<section class="section-surface">
-    <div class="container reveal">
-        <h2 style="margin-bottom:40px">よくある質問</h2>
-        <div class="faq-list">
-            <div class="faq-item">
-                <div class="faq-q">メルカリやラクマとの違いは何ですか？</div>
-                <div class="faq-a"><div class="faq-a-inner">ポイッはフリマ出品の「管理ツール」です。写真を撮ってAIで値付けし、出品ステータスを追跡します。実際の売買はメルカリ等のプラットフォームで行い、ポイッで一元管理できます。</div></div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">AIの値段推定はどれくらい正確ですか？</div>
-                <div class="faq-a"><div class="faq-a-inner">写真からカテゴリとコンディションを判定し、市場相場をベースに推定します。あくまで参考価格としてご利用ください。</div></div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">売上はどうやって記録されますか？</div>
-                <div class="faq-a"><div class="faq-a-inner">完了ステータスにした売上は、チャリン（収入管理アプリ）と連携して自動で記録されます。確定申告時に売却収入として一括管理できます。</div></div>
-            </div>
-        </div>
-    </div>
+<section>
+<div class="container reveal">
+<h2 style="margin-bottom:40px">よくある質問</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-q">対応エリア外でも使えますか？</div>
+<div class="faq-a"><div class="faq-a-inner">現在は港区と渋谷区のゴミ収集スケジュールに対応しています。対応エリアは順次拡大予定です。リリース通知に登録いただければ、対応開始時にお知らせします。</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q">粗大ゴミの申し込みはアプリで完結しますか？</div>
+<div class="faq-a"><div class="faq-a-inner">品目の選択、料金確認、処理券の案内まではアプリで完結します。最終的な予約は各区の粗大ごみ受付センターへ連携します。処理券はコンビニで購入できます。</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q">メルカリ連携はどういう仕組みですか？</div>
+<div class="faq-a"><div class="faq-a-inner">捨てようとしているモノを写真に撮ると、AIが「まだ売れそう」と判断したアイテムにはメルカリ出品を提案します。相場価格も自動で推定。捨てる前にお金に変わるかもしれません。</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q">料金はかかりますか？</div>
+<div class="faq-a"><div class="faq-a-inner">アプリは無料です。粗大ゴミの処理手数料は各区の規定に従います（品目ごとに400円〜2,800円程度）。通常のゴミ出しに追加費用はありません。</div></div>
+</div>
+</div>
+</div>
 </section>
 
-<!-- Final CTA -->
 <section style="text-align:center;padding:80px 24px">
-    <h2 class="reveal">不用品を、お金に変えよう。</h2>
-    <p style="color:var(--dim);margin-bottom:32px" class="reveal">捨てて、貯まる。メルカリ出品が3倍速くなる。</p>
-    <div class="cta-row reveal">
-        <a href="mailto:info@enablerdao.com?subject=ポイッリリース通知希望" class="btn btn-primary">リリース通知を受け取る</a>
-    </div>
-    <p class="cta-sub reveal">リリース記念: 年額プランが最初の100名限定で40%OFF</p>
-    <div class="sister-row reveal">
-        <a href="/" class="sister-link">&#x1F4F8; パシャ &mdash; 支出管理</a>
-        <a href="/charin" class="sister-link">&#x1F4B0; チャリン &mdash; 収入管理</a>
-        <a href="/pon" class="sister-link">&#x270B; ポン &mdash; 契約管理</a>
-        <a href="/sakutsu" class="sister-link">&#x1F4CB; サクッ &mdash; 確定申告</a>
-        <a href="/suite" class="sister-link">&#x2728; 5点セット</a>
-    </div>
+<div class="app-icon" style="margin-bottom:20px">🗑</div>
+<h2 class="reveal">ゴミ出し、もう迷わない。</h2>
+<p style="color:var(--dim);margin-bottom:32px" class="reveal">港区・渋谷区対応。順次エリア拡大中。</p>
+<div class="cta-row reveal">
+<a href="mailto:info@enablerdao.com?subject=ポイッリリース通知希望" class="btn btn-primary">リリース通知を受け取る</a>
+</div>
+<div class="sister-row reveal">
+<a href="/" class="sister-link">📸 パシャ &mdash; 経費管理</a>
+<a href="/charin" class="sister-link">💰 チャリン &mdash; 収入管理</a>
+<a href="/pon" class="sister-link">📝 ポン &mdash; 電子契約</a>
+<a href="/kacha" class="sister-link">🔑 KAGI &mdash; スマートホーム</a>
+<a href="/suite" class="sister-link">✨ 5点セット</a>
+</div>
 </section>
 
 <footer>
-    <p>&copy; 2026 Enabler DAO &mdash; <a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/kacha">カチャ</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a> &middot; <a href="/privacy">プライバシー</a></p>
-    <p style="margin-top:8px;font-size:12px;color:var(--dim)">TestFlight: <a href="https://testflight.apple.com/join/tntB2b27">カチャ</a> &middot; <a href="https://testflight.apple.com/join/CTmyqV6H">パシャ</a> &middot; <a href="https://testflight.apple.com/join/SAqxf1bm">チャリン</a> &middot; <a href="https://testflight.apple.com/join/XyZdmPVt">ポン</a> &middot; <a href="https://testflight.apple.com/join/mxnbXjjH">サクッ</a></p>
+<p>&copy; 2026 Enabler &mdash; <a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/kacha">KAGI</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a> &middot; <a href="/privacy">プライバシー</a></p>
 </footer>
-
-<!-- Floating cross-promo banner -->
-<div class="float-banner" id="floatBanner">
-    <span class="float-banner-text">5つ揃うと最強 &mdash;</span>
-    <a href="/suite">5点セットを見る &rarr;</a>
-    <button class="float-banner-close" onclick="document.getElementById('floatBanner').classList.remove('show')">&times;</button>
-</div>
 
 <script>
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
 document.querySelectorAll('.faq-q').forEach(q=>{
-    q.addEventListener('click',()=>{
-        const item=q.parentElement;
-        const wasOpen=item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-        if(!wasOpen)item.classList.add('open');
-    });
+q.addEventListener('click',()=>{
+const item=q.parentElement;
+const wasOpen=item.classList.contains('open');
+document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+if(!wasOpen)item.classList.add('open');
 });
-
-let bannerShown=false;
-window.addEventListener('scroll',()=>{
-    if(!bannerShown&&window.scrollY>600){
-        document.getElementById('floatBanner').classList.add('show');
-        bannerShown=true;
-    }
 });
 </script>
 </body>

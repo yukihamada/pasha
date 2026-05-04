@@ -11,7 +11,7 @@
 <!-- OGP -->
 <meta property="og:title" content="ポン — 電子契約・署名">
 <meta property="og:description" content="決まった、ポン。PDFに電子署名してそのまま送信。契約管理もまとめて。">
-<meta property="og:image" content="https://enablerdao.com/static/properties/atami.jpg">
+<meta property="og:image" content="https://pasha.run/img/pon_hero.png">
 <meta property="og:url" content="https://pasha.run/pon">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Enabler">
@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ポン — 電子契約・署名">
 <meta name="twitter:description" content="決まった、ポン。PDFに電子署名してそのまま送信。契約管理もまとめて。">
-<meta name="twitter:image" content="https://enablerdao.com/static/properties/atami.jpg">
+<meta name="twitter:image" content="https://pasha.run/img/pon_hero.png">
 <meta name="twitter:site" content="@enablerdao">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -134,6 +134,7 @@ h2{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;text-align
 footer{text-align:center;padding:40px 24px 80px;border-top:1px solid var(--border);color:var(--dim);font-size:12px}
 footer a{color:var(--primary);text-decoration:none}
 </style>
+<script defer src="https://enabler-analytics.fly.dev/t.js"></script>
 </head>
 <body>
 
@@ -291,6 +292,11 @@ footer a{color:var(--primary);text-decoration:none}
                 <p>タイトル、相手方、契約番号で検索。ステータスでフィルター。</p>
             </div>
             <div class="feature reveal">
+                <div class="feature-emoji">&#x26D3;&#xFE0F;</div>
+                <h3>Solana ブロックチェーン証跡</h3>
+                <p>署名完了時に契約ハッシュをSolanaに記録。改ざん不可能な公開証明で法的証拠力を強化。</p>
+            </div>
+            <div class="feature reveal">
                 <div class="feature-emoji">&#x1F517;</div>
                 <h3>パシャ・チャリン連携</h3>
                 <p>ポンで契約、チャリンで請求、パシャで経費。フリーランス完全フロー。</p>
@@ -332,6 +338,12 @@ footer a{color:var(--primary);text-decoration:none}
                         <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
                         <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
                         <td style="padding:12px 16px;text-align:center;color:var(--success)">&#9675;</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border)">
+                        <td style="padding:12px 16px;font-weight:600">ブロックチェーン証跡</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--accent);font-weight:700">Solana</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&times;</td>
+                        <td style="padding:12px 16px;text-align:center;color:var(--dim)">&times;</td>
                     </tr>
                     <tr>
                         <td style="padding:12px 16px;font-weight:600">フリーランス向け</td>
@@ -384,6 +396,7 @@ footer a{color:var(--primary);text-decoration:none}
                     <li style="padding:6px 0;color:var(--text)">無制限の契約管理</li>
                     <li style="padding:6px 0;color:var(--text)">23種類のテンプレート</li>
                     <li style="padding:6px 0;color:var(--text)">Web署名・PDF出力</li>
+                    <li style="padding:6px 0;color:var(--text)">Solanaブロックチェーン証跡</li>
                     <li style="padding:6px 0;color:var(--text)">レポート・分析</li>
                 </ul>
                 <p style="font-size:11px;color:var(--accent);margin-top:8px;font-weight:600">早期登録で Pro 1ヶ月無料</p>
@@ -399,7 +412,7 @@ footer a{color:var(--primary);text-decoration:none}
         <div class="faq-list">
             <div class="faq-item">
                 <div class="faq-q">法的に有効な契約書として使えますか？</div>
-                <div class="faq-a"><div class="faq-a-inner">ポンは契約内容の管理ツールです。テンプレートを参考に契約書を作成できますが、法的な有効性は内容次第です。重要な契約は弁護士にご相談ください。</div></div>
+                <div class="faq-a"><div class="faq-a-inner">はい。ポンは電子署名法に基づく立会人型電子署名に対応しています。SHA-256文書ハッシュ、監査ログ（IP・タイムスタンプ）、同意文言の記録に加え、署名完了時にSolanaブロックチェーンに契約ハッシュを記録。改ざん不可能な公開台帳による証明で、裁判でも有力な証拠となります。</div></div>
             </div>
             <div class="faq-item">
                 <div class="faq-q">無料プランで何件まで契約を管理できますか？</div>
@@ -407,7 +420,11 @@ footer a{color:var(--primary);text-decoration:none}
             </div>
             <div class="faq-item">
                 <div class="faq-q">電子署名に対応していますか？</div>
-                <div class="faq-a"><div class="faq-a-inner">現在は契約内容の管理とステータス追跡に特化しています。電子署名機能は今後のアップデートで対応予定です。</div></div>
+                <div class="faq-a"><div class="faq-a-inner">はい。Web署名（手書き）とiOSアプリ（PencilKit）の両方で電子署名に対応しています。署名時の同意文言、IPアドレス、タイムスタンプが自動記録され、Solanaブロックチェーンにハッシュがアンカリングされます。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">ブロックチェーン証跡とは？</div>
+                <div class="faq-a"><div class="faq-a-inner">両者の署名完了時に、契約書のSHA-256ハッシュがSolanaブロックチェーンのMemoトランザクションとして記録されます。これにより、契約内容が署名時から改ざんされていないことを、第三者機関なしで永久に証明できます。Solana Explorerで誰でも確認可能です。</div></div>
             </div>
         </div>
     </div>
@@ -431,7 +448,7 @@ footer a{color:var(--primary);text-decoration:none}
 </section>
 
 <footer>
-    <p>&copy; 2026 Enabler DAO &mdash; <a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/kacha">カチャ</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a> &middot; <a href="/privacy">プライバシー</a></p>
+    <p>&copy; 2026 Enabler DAO &mdash; <a href="/">パシャ</a> &middot; <a href="/charin">チャリン</a> &middot; <a href="/pon">ポン</a> &middot; <a href="/kacha">カチャ</a> &middot; <a href="/sakutsu">サクッ</a> &middot; <a href="/suite">5点セット</a> &middot; <a href="/privacy">プライバシー</a> &middot; <a href="https://pon-sign.fly.dev/tokusho">特商法</a></p>
     <p style="margin-top:8px;font-size:12px;color:var(--dim)">TestFlight: <a href="https://testflight.apple.com/join/tntB2b27">カチャ</a> &middot; <a href="https://testflight.apple.com/join/CTmyqV6H">パシャ</a> &middot; <a href="https://testflight.apple.com/join/SAqxf1bm">チャリン</a> &middot; <a href="https://testflight.apple.com/join/XyZdmPVt">ポン</a> &middot; <a href="https://testflight.apple.com/join/mxnbXjjH">サクッ</a></p>
 </footer>
 

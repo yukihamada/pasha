@@ -42,6 +42,18 @@ section{padding:100px 24px}
 /* Lineup */
 .lineup{text-align:center;background:rgba(255,255,255,.02)}
 .lineup .tba{font-size:clamp(24px,4vw,40px);font-weight:200;color:rgba(255,255,255,.3);letter-spacing:.3em}
+.artist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:900px;margin:0 auto;text-align:left}
+.artist-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 24px;transition:transform .3s,border-color .3s;position:relative;overflow:hidden}
+.artist-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#FFD700,#E8A838)}
+.artist-card:hover{transform:translateY(-4px);border-color:rgba(232,168,56,.3)}
+.artist-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.artist-name{font-size:clamp(18px,2.5vw,22px);font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:-.02em}
+.artist-country{font-size:13px;color:#E8A838;margin-bottom:8px;font-weight:500}
+.artist-genre{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6}
+.artist-card.headliner{border-color:rgba(255,215,0,.25);background:rgba(255,215,0,.04)}
+.artist-card.headliner::before{background:linear-gradient(90deg,#FFD700,#FF6B6B)}
+.artist-card.headliner .artist-name{color:#FFD700}
+.headliner-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#0a0a0a;background:#FFD700;border-radius:4px;padding:2px 8px;margin-bottom:10px}
 
 /* Tickets */
 .tickets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:900px;margin:0 auto}
@@ -87,6 +99,7 @@ footer .links{margin-top:8px;display:flex;justify-content:center;gap:16px}
   .tech-list{grid-template-columns:1fr}
 }
 </style>
+<script defer src="https://enabler-analytics.fly.dev/t.js"></script>
 </head>
 <body>
 
@@ -131,7 +144,54 @@ footer .links{margin-top:8px;display:flex;justify-content:center;gap:16px}
   <div class="container">
     <h2 class="section-title fade">LINEUP</h2>
     <div class="divider fade"></div>
-    <p class="tba fade">TBA &mdash; Coming Soon</p>
+    <div class="artist-grid">
+
+      <div class="artist-card headliner fade">
+        <div class="headliner-badge">Headliner</div>
+        <div class="artist-tag">Saturday Night Closer</div>
+        <div class="artist-name">Tale Of Us</div>
+        <div class="artist-country">Italy &mdash; Zamna Tulum 常連</div>
+        <div class="artist-genre">Melodic Techno &middot; Cinematic &middot; Deep<br>Afterlife Records 共同創設者。ZAMNAと最も親和性の高いアーティスト。</div>
+      </div>
+
+      <div class="artist-card headliner fade">
+        <div class="headliner-badge">Headliner</div>
+        <div class="artist-tag">Sunday Mainstage</div>
+        <div class="artist-name">Artbat</div>
+        <div class="artist-country">Ukraine &mdash; Zamna circuit</div>
+        <div class="artist-genre">Melodic Techno &middot; Driving &middot; Euphoric<br>Zamna/Awakenings/Tomorrowland の常連。圧倒的なエネルギー。</div>
+      </div>
+
+      <div class="artist-card fade">
+        <div class="artist-tag">Koe Stage &mdash; Sunset Set</div>
+        <div class="artist-name">WhoMadeWho</div>
+        <div class="artist-country">Denmark &mdash; Zamna perfect fit</div>
+        <div class="artist-genre">Psychedelic Tech-House &middot; Indie Dance<br>生楽器×電子音楽。野外自然との親和性が抜群。</div>
+      </div>
+
+      <div class="artist-card fade">
+        <div class="artist-tag">Mainstage &mdash; Opening</div>
+        <div class="artist-name">Adriatique</div>
+        <div class="artist-country">Switzerland &mdash; Zamna circuit</div>
+        <div class="artist-genre">Organic House &middot; Melancholic &middot; Deep<br>Siamese / Innervisions 系。ハワイの自然に溶け込む音。</div>
+      </div>
+
+      <div class="artist-card fade">
+        <div class="artist-tag">Koe Stage &mdash; Late Night</div>
+        <div class="artist-name">Bedouin</div>
+        <div class="artist-country">USA &mdash; Tulum / Zamna circuit</div>
+        <div class="artist-genre">Deep House &middot; Tech-House &middot; World<br>Crosstown Rebels。ニューヨーク発の多文化ディープハウス。</div>
+      </div>
+
+      <div class="artist-card fade">
+        <div class="artist-tag">Mainstage &mdash; Late Night</div>
+        <div class="artist-name">Mind Against</div>
+        <div class="artist-country">Italy &mdash; Underground circuit</div>
+        <div class="artist-genre">Techno &middot; Ambient &middot; Dark<br>Life and Death / Afterlife。暗くて深い、夜明け前の時間帯に最高。</div>
+      </div>
+
+    </div>
+    <p style="text-align:center;font-size:13px;color:rgba(255,255,255,.35);margin-top:40px">+ More Artists TBA &mdash; Full Lineup Announcement May 2026</p>
   </div>
 </section>
 
@@ -143,20 +203,20 @@ footer .links{margin-top:8px;display:flex;justify-content:center;gap:16px}
     <div class="tickets-grid">
       <div class="ticket early fade">
         <p class="ticket-name">Early Bird</p>
-        <p class="ticket-price">$99</p>
-        <p class="ticket-note">限定200枚</p>
+        <p class="ticket-price">$89</p>
+        <p class="ticket-note">限定1,000枚 · 4月発売</p>
         <a href="mailto:info@enablerdao.com?subject=SOLUNA FEST Early Bird Ticket" class="ticket-btn">購入する</a>
       </div>
       <div class="ticket general fade">
         <p class="ticket-name">General</p>
-        <p class="ticket-price">$149</p>
-        <p class="ticket-note">&nbsp;</p>
+        <p class="ticket-price">$129〜</p>
+        <p class="ticket-note">Tier 1/2/Final</p>
         <a href="mailto:info@enablerdao.com?subject=SOLUNA FEST General Ticket" class="ticket-btn">購入する</a>
       </div>
       <div class="ticket vip fade">
         <p class="ticket-name">VIP</p>
         <p class="ticket-price">$299</p>
-        <p class="ticket-note">バックステージ + デバイスお持ち帰り</p>
+        <p class="ticket-note">バックステージ + Koe COINデバイスお持ち帰り</p>
         <a href="mailto:info@enablerdao.com?subject=SOLUNA FEST VIP Ticket" class="ticket-btn">購入する</a>
       </div>
     </div>
